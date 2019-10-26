@@ -20,6 +20,10 @@ module.exports.session = {
   ***************************************************************************/
   secret: '4770c4cfa89519c7b748cc18b8b54634',
 
+  adapter: 'connect-mongo',
+  url: 'mongodb://admin:admin@cluster0-shard-00-00-auw4a.mongodb.net:27017,cluster0-shard-00-01-auw4a.mongodb.net:27017,cluster0-shard-00-02-auw4a.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority'
+  // url: 'mongodb://user:pass@host:port/database',
+
 
   /***************************************************************************
   *                                                                          *
