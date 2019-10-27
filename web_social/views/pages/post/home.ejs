@@ -8,10 +8,18 @@
     Below are all of my posts:
 
     <% allPosts.forEach(post => { %>
-        <div style="background-color: wheat; padding: 16px; margin-bottom: 12px;">
+        <div style="background-color: white; padding: 16px; 
+            margin-bottom: 12px; border-radius: 4px;">
+            <div style="font-weight:bold">
+                <%=post.user.fullName %>
+            </div>
+            <div style="color: rgb(180, 180, 180);">
+                <!-- <%=post.createdAt %> -->
+                <%= new Date(post.createdAt).toLocaleTimeString() 
+                + " " + new Date(post.createdAt).toLocaleDateString() %>
+            </div>
             <%=post.text %>
         </div>
-
     <%}) %>
 
 </div>
