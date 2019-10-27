@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		767D2A44DDED2FDA179E2BEF /* Pods_iOS_Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05E225C127CEA348A9838989 /* Pods_iOS_Social.framework */; };
 		EDBF7C372366185B00E8C809 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C362366185B00E8C809 /* AppDelegate.swift */; };
 		EDBF7C392366185B00E8C809 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C382366185B00E8C809 /* SceneDelegate.swift */; };
 		EDBF7C3B2366185B00E8C809 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C3A2366185B00E8C809 /* ViewController.swift */; };
@@ -16,6 +17,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		05E225C127CEA348A9838989 /* Pods_iOS_Social.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOS_Social.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A370DB4A4941C95C1C55A20 /* Pods-iOS_Social.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_Social.debug.xcconfig"; path = "Target Support Files/Pods-iOS_Social/Pods-iOS_Social.debug.xcconfig"; sourceTree = "<group>"; };
+		964E087DDC800CE7AA50FA50 /* Pods-iOS_Social.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_Social.release.xcconfig"; path = "Target Support Files/Pods-iOS_Social/Pods-iOS_Social.release.xcconfig"; sourceTree = "<group>"; };
 		EDBF7C332366185B00E8C809 /* iOS_Social.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOS_Social.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDBF7C362366185B00E8C809 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EDBF7C382366185B00E8C809 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -31,17 +35,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				767D2A44DDED2FDA179E2BEF /* Pods_iOS_Social.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		232577B6DCC599986DA780C7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				05E225C127CEA348A9838989 /* Pods_iOS_Social.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BC1A83ABF930346D75BAFF6D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3A370DB4A4941C95C1C55A20 /* Pods-iOS_Social.debug.xcconfig */,
+				964E087DDC800CE7AA50FA50 /* Pods-iOS_Social.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		EDBF7C2A2366185B00E8C809 = {
 			isa = PBXGroup;
 			children = (
 				EDBF7C352366185B00E8C809 /* iOS_Social */,
 				EDBF7C342366185B00E8C809 /* Products */,
+				BC1A83ABF930346D75BAFF6D /* Pods */,
+				232577B6DCC599986DA780C7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,9 +99,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EDBF7C472366186000E8C809 /* Build configuration list for PBXNativeTarget "iOS_Social" */;
 			buildPhases = (
+				F123FD49F6159CDBCE880A1F /* [CP] Check Pods Manifest.lock */,
 				EDBF7C2F2366185B00E8C809 /* Sources */,
 				EDBF7C302366185B00E8C809 /* Frameworks */,
 				EDBF7C312366185B00E8C809 /* Resources */,
+				65DA3567D7BF9F9CC0364E8A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -132,6 +159,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		65DA3567D7BF9F9CC0364E8A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-iOS_Social/Pods-iOS_Social-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-iOS_Social/Pods-iOS_Social-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-iOS_Social/Pods-iOS_Social-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F123FD49F6159CDBCE880A1F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-iOS_Social-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		EDBF7C2F2366185B00E8C809 /* Sources */ = {
@@ -282,6 +351,7 @@
 		};
 		EDBF7C482366186000E8C809 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3A370DB4A4941C95C1C55A20 /* Pods-iOS_Social.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -300,6 +370,7 @@
 		};
 		EDBF7C492366186000E8C809 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 964E087DDC800CE7AA50FA50 /* Pods-iOS_Social.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
