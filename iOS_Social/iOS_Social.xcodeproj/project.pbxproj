@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,6 +14,18 @@
 		EDBF7C3E2366185B00E8C809 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDBF7C3C2366185B00E8C809 /* Main.storyboard */; };
 		EDBF7C402366186000E8C809 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDBF7C3F2366186000E8C809 /* Assets.xcassets */; };
 		EDBF7C432366186000E8C809 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDBF7C412366186000E8C809 /* LaunchScreen.storyboard */; };
+		EDBF7C4C23661B5900E8C809 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C4B23661B5900E8C809 /* HomeController.swift */; };
+		EDBF7C4E23661BF100E8C809 /* HomeConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C4D23661BF100E8C809 /* HomeConfigurator.swift */; };
+		EDBF7C5023661BFE00E8C809 /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C4F23661BFE00E8C809 /* HomePresenter.swift */; };
+		EDBF7C5223661C0A00E8C809 /* HomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C5123661C0A00E8C809 /* HomeInteractor.swift */; };
+		EDBF7C5423661C1600E8C809 /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C5323661C1600E8C809 /* HomeRouter.swift */; };
+		EDBF7C5B2366232000E8C809 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C5A2366232000E8C809 /* UIView+Extensions.swift */; };
+		EDBF7C5E2366290200E8C809 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C5D2366290200E8C809 /* LoginController.swift */; };
+		EDBF7C602366298100E8C809 /* LoginConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C5F2366298100E8C809 /* LoginConfigurator.swift */; };
+		EDBF7C62236629C500E8C809 /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C61236629C500E8C809 /* LoginPresenter.swift */; };
+		EDBF7C6423662A2900E8C809 /* LoginInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C6323662A2900E8C809 /* LoginInteractor.swift */; };
+		EDBF7C6623662A6C00E8C809 /* LoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C6523662A6C00E8C809 /* LoginRouter.swift */; };
+		EDBF7C6823662D8600E8C809 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C6723662D8600E8C809 /* CustomTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +40,18 @@
 		EDBF7C3F2366186000E8C809 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EDBF7C422366186000E8C809 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EDBF7C442366186000E8C809 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EDBF7C4B23661B5900E8C809 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
+		EDBF7C4D23661BF100E8C809 /* HomeConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeConfigurator.swift; sourceTree = "<group>"; };
+		EDBF7C4F23661BFE00E8C809 /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
+		EDBF7C5123661C0A00E8C809 /* HomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
+		EDBF7C5323661C1600E8C809 /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
+		EDBF7C5A2366232000E8C809 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		EDBF7C5D2366290200E8C809 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		EDBF7C5F2366298100E8C809 /* LoginConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginConfigurator.swift; sourceTree = "<group>"; };
+		EDBF7C61236629C500E8C809 /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
+		EDBF7C6323662A2900E8C809 /* LoginInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInteractor.swift; sourceTree = "<group>"; };
+		EDBF7C6523662A6C00E8C809 /* LoginRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRouter.swift; sourceTree = "<group>"; };
+		EDBF7C6723662D8600E8C809 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +80,6 @@
 				3A370DB4A4941C95C1C55A20 /* Pods-iOS_Social.debug.xcconfig */,
 				964E087DDC800CE7AA50FA50 /* Pods-iOS_Social.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -81,15 +104,83 @@
 		EDBF7C352366185B00E8C809 /* iOS_Social */ = {
 			isa = PBXGroup;
 			children = (
-				EDBF7C362366185B00E8C809 /* AppDelegate.swift */,
-				EDBF7C382366185B00E8C809 /* SceneDelegate.swift */,
-				EDBF7C3A2366185B00E8C809 /* ViewController.swift */,
-				EDBF7C3C2366185B00E8C809 /* Main.storyboard */,
+				EDBF7C592366231200E8C809 /* Helpers */,
+				EDBF7C5823661ED800E8C809 /* Service */,
+				EDBF7C5523661C3800E8C809 /* Modules */,
+				EDBF7C5723661C6E00E8C809 /* Delegates */,
 				EDBF7C3F2366186000E8C809 /* Assets.xcassets */,
-				EDBF7C412366186000E8C809 /* LaunchScreen.storyboard */,
 				EDBF7C442366186000E8C809 /* Info.plist */,
+				EDBF7C5623661C4E00E8C809 /* Storyboards */,
 			);
 			path = iOS_Social;
+			sourceTree = "<group>";
+		};
+		EDBF7C4A23661B4600E8C809 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				EDBF7C4B23661B5900E8C809 /* HomeController.swift */,
+				EDBF7C4F23661BFE00E8C809 /* HomePresenter.swift */,
+				EDBF7C5123661C0A00E8C809 /* HomeInteractor.swift */,
+				EDBF7C5323661C1600E8C809 /* HomeRouter.swift */,
+				EDBF7C4D23661BF100E8C809 /* HomeConfigurator.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		EDBF7C5523661C3800E8C809 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				EDBF7C5C236628F700E8C809 /* Login */,
+				EDBF7C4A23661B4600E8C809 /* Home */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		EDBF7C5623661C4E00E8C809 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				EDBF7C3C2366185B00E8C809 /* Main.storyboard */,
+				EDBF7C3A2366185B00E8C809 /* ViewController.swift */,
+				EDBF7C412366186000E8C809 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		EDBF7C5723661C6E00E8C809 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				EDBF7C362366185B00E8C809 /* AppDelegate.swift */,
+				EDBF7C382366185B00E8C809 /* SceneDelegate.swift */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
+		EDBF7C5823661ED800E8C809 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		EDBF7C592366231200E8C809 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				EDBF7C5A2366232000E8C809 /* UIView+Extensions.swift */,
+				EDBF7C6723662D8600E8C809 /* CustomTextField.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		EDBF7C5C236628F700E8C809 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				EDBF7C5D2366290200E8C809 /* LoginController.swift */,
+				EDBF7C61236629C500E8C809 /* LoginPresenter.swift */,
+				EDBF7C6323662A2900E8C809 /* LoginInteractor.swift */,
+				EDBF7C6523662A6C00E8C809 /* LoginRouter.swift */,
+				EDBF7C5F2366298100E8C809 /* LoginConfigurator.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,9 +298,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EDBF7C62236629C500E8C809 /* LoginPresenter.swift in Sources */,
+				EDBF7C4C23661B5900E8C809 /* HomeController.swift in Sources */,
 				EDBF7C3B2366185B00E8C809 /* ViewController.swift in Sources */,
+				EDBF7C602366298100E8C809 /* LoginConfigurator.swift in Sources */,
 				EDBF7C372366185B00E8C809 /* AppDelegate.swift in Sources */,
+				EDBF7C5023661BFE00E8C809 /* HomePresenter.swift in Sources */,
 				EDBF7C392366185B00E8C809 /* SceneDelegate.swift in Sources */,
+				EDBF7C5423661C1600E8C809 /* HomeRouter.swift in Sources */,
+				EDBF7C4E23661BF100E8C809 /* HomeConfigurator.swift in Sources */,
+				EDBF7C5B2366232000E8C809 /* UIView+Extensions.swift in Sources */,
+				EDBF7C6423662A2900E8C809 /* LoginInteractor.swift in Sources */,
+				EDBF7C5223661C0A00E8C809 /* HomeInteractor.swift in Sources */,
+				EDBF7C6623662A6C00E8C809 /* LoginRouter.swift in Sources */,
+				EDBF7C5E2366290200E8C809 /* LoginController.swift in Sources */,
+				EDBF7C6823662D8600E8C809 /* CustomTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
