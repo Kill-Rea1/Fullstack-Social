@@ -9,7 +9,10 @@ module.exports = {
   // custom JSON function
 
   customToJSON: function() {
-    return {id: this.id, fullName: this.fullName, email: this.emailAddress}
+    return {id: this.id, 
+      fullName: this.fullName, 
+      email: this.emailAddress
+    }
   },
 
   attributes: {

@@ -5,11 +5,11 @@ module.exports = async function(req, res) {
 
     const users = await User.find({})
 
-    // silly solution
-    const objs = []
-    users.forEach(user => {
-        objs.push({id: user.id, fullName: user.fullName, email: user.emailAddress})
-    });
+    // // silly solution
+    // const objs = []
+    // users.forEach(user => {
+    //     objs.push({id: user.id, fullName: user.fullName, email: user.emailAddress})
+    // });
 
-    res.send (objs)
+    res.send (users)
 }
