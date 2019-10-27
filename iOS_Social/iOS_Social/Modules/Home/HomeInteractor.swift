@@ -7,9 +7,10 @@
 //
 
 import Foundation
+import Alamofire
 
 protocol HomeInteractorProtocol: class {
-    func fetchPosts()
+    func fetchPosts(completionHandler: @escaping ([Post]?, Error?) -> ())
 }
 
 class HomeInteractor: HomeInteractorProtocol {
@@ -26,23 +27,25 @@ class HomeInteractor: HomeInteractorProtocol {
         }
     }
     
-    func fetchPosts() {
-        guard let url = URL(string: "http://localhost:1337/post") else { return }
-        URLSession.shared.dataTask(with: url) { (data, resp, err) in
-            DispatchQueue.main.async {
-                if let err = err {
-                    print("Failed to hit server: ", err)
+    func fetchPosts(completionHandler: @escaping ([Post]?, Error?) -> ()) {
+        let url = "http://localhost:1337/post"
+        Alamofire.request(url)
+            .validate(statusCode: 200..<300)
+            .responseData { (dataResponse) in
+                if let err = dataResponse.error {
+                    print("Failed to fetch posts: ", err)
+                    completionHandler(nil, err)
                     return
-                } else if let resp = resp as? HTTPURLResponse, resp.statusCode != 200 {
-                    print("Failed to fetch posts, statusCode: ", resp.statusCode)
-                    return
-                } else {
-                    print("Successfully fetched posts, response data:")
-                    let _html = String(data: data ?? Data(), encoding: .utf8) ?? ""
-                    print(_html)
-                    self.html = _html
                 }
-            }
-        }.resume()
+                guard let data = dataResponse.data else { return }
+                do {
+                    let posts = try JSONDecoder().decode([Post].self, from: data)
+                    print("Success")
+                    completionHandler(posts, nil)
+                } catch let jsonErr {
+                    print("Failed to decode JSON: ", jsonErr)
+                    completionHandler(nil, jsonErr)
+                }
+        }
     }
 }

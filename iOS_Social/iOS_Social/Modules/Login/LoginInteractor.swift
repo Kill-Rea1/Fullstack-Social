@@ -20,12 +20,24 @@ class LoginInteractor: LoginInteractorProtocol {
         self.presenter = presenter
     }
     
+    var loginResponse: Bool! {
+        didSet {
+            presenter?.isSuccessfullyLoggedIn(success: loginResponse)
+        }
+    }
+    
     func login(email: String, password: String) {
         let url = "http://localhost:1337/api/v1/entrance/login"
         let params = ["emailAddress": email, "password": password]
         Alamofire.request(url, method: .put, parameters: params, encoding: URLEncoding())
+            .validate(statusCode: 200..<300)
             .responseData { (dataResponse) in
                 print("Finally send request to server..")
+                if let _ = dataResponse.error {
+                    self.loginResponse = false
+                    return
+                }
+                self.loginResponse = true
             }
     }
 }

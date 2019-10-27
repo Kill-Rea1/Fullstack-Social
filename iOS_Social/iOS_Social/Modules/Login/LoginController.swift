@@ -12,6 +12,7 @@ import JGProgressHUD
 protocol LoginViewProtocol: class {
     func showLoginHUD(with text: String)
     func hideLoginHUD()
+    func showErrorLabel()
 }
 
 class LoginController: UIViewController, LoginViewProtocol {
@@ -164,5 +165,15 @@ class LoginController: UIViewController, LoginViewProtocol {
     
     func hideLoginHUD() {
         hud.dismiss()
+    }
+    
+    func showErrorLabel() {
+        UIView.animate(withDuration: 2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+            self.errorLabel.isHidden = false
+        }) { (_) in
+            UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+                self.errorLabel.isHidden = true
+            })
+        }
     }
 }

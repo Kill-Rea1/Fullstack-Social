@@ -12,8 +12,11 @@ protocol HomePresenterProtocol: class {
     var interactor: HomeInteractorProtocol! { get set }
     var router: HomeRouterProtocol! { get set }
     var html: String! { get set }
+    var numberOfRows: Int? { set get }
     func fetchPostsTapped()
     func logInTapped()
+    func cellAuthor(for indexPath: IndexPath) -> NSAttributedString
+    func cellText(for indexPath: IndexPath) -> NSAttributedString
 }
 
 class HomePresenter: HomePresenterProtocol {
@@ -34,11 +37,39 @@ class HomePresenter: HomePresenterProtocol {
         }
     }
     
+    var posts: [Post]? {
+        didSet {
+            numberOfRows = posts?.count
+        }
+    }
+    
+    var numberOfRows: Int? {
+        didSet {
+            view?.updateView()
+        }
+    }
+    
     func fetchPostsTapped() {
-        interactor.fetchPosts()
+        interactor.fetchPosts { (posts, err) in
+            if err != nil {
+                return
+            }
+            guard let posts = posts else { return }
+            self.posts = posts
+        }
     }
     
     func logInTapped() {
         router.showLoginScreen()
+    }
+    
+    func cellAuthor(for indexPath: IndexPath) -> NSAttributedString {
+        let attrText = NSAttributedString(string: posts?[indexPath.row].user.fullName ?? "")
+        return attrText
+    }
+    
+    func cellText(for indexPath: IndexPath) -> NSAttributedString {
+        let attrText = NSAttributedString(string: posts?[indexPath.row].text ?? "")
+        return attrText
     }
 }

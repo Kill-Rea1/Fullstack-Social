@@ -11,6 +11,7 @@ import WebKit
 
 protocol HomeViewProtocol: class {
     func presentWebView(with html: String)
+    func updateView()
 }
 
 class HomeController: UITableViewController, HomeViewProtocol {
@@ -26,6 +27,19 @@ class HomeController: UITableViewController, HomeViewProtocol {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Log in", style: .plain, target: self, action: #selector(handleLogIn))
         
         configurator.configure(with: self)
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return presenter.numberOfRows ?? 0
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
+        cell.textLabel?.attributedText = presenter.cellAuthor(for: indexPath)
+        cell.textLabel?.font = .boldSystemFont(ofSize: 14)
+        cell.detailTextLabel?.attributedText = presenter.cellText(for: indexPath)
+        cell.detailTextLabel?.numberOfLines = 0
+        return cell
     }
     
     @objc
@@ -45,5 +59,9 @@ class HomeController: UITableViewController, HomeViewProtocol {
         vc.view.addSubview(webView)
         webView.fillSuperview()
         self.present(vc, animated: true)
+    }
+    
+    func updateView() {
+        tableView.reloadData()
     }
 }

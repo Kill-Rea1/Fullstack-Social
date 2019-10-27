@@ -26,6 +26,8 @@
 		EDBF7C6423662A2900E8C809 /* LoginInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C6323662A2900E8C809 /* LoginInteractor.swift */; };
 		EDBF7C6623662A6C00E8C809 /* LoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C6523662A6C00E8C809 /* LoginRouter.swift */; };
 		EDBF7C6823662D8600E8C809 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C6723662D8600E8C809 /* CustomTextField.swift */; };
+		EDBF7C6B2366500600E8C809 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C6A2366500600E8C809 /* Post.swift */; };
+		EDBF7C6D2366503D00E8C809 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C6C2366503D00E8C809 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +54,8 @@
 		EDBF7C6323662A2900E8C809 /* LoginInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInteractor.swift; sourceTree = "<group>"; };
 		EDBF7C6523662A6C00E8C809 /* LoginRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRouter.swift; sourceTree = "<group>"; };
 		EDBF7C6723662D8600E8C809 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		EDBF7C6A2366500600E8C809 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		EDBF7C6C2366503D00E8C809 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +108,7 @@
 		EDBF7C352366185B00E8C809 /* iOS_Social */ = {
 			isa = PBXGroup;
 			children = (
+				EDBF7C6923664FED00E8C809 /* Entities */,
 				EDBF7C592366231200E8C809 /* Helpers */,
 				EDBF7C5823661ED800E8C809 /* Service */,
 				EDBF7C5523661C3800E8C809 /* Modules */,
@@ -181,6 +186,15 @@
 				EDBF7C5F2366298100E8C809 /* LoginConfigurator.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		EDBF7C6923664FED00E8C809 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				EDBF7C6A2366500600E8C809 /* Post.swift */,
+				EDBF7C6C2366503D00E8C809 /* User.swift */,
+			);
+			path = Entities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -305,10 +319,12 @@
 				EDBF7C372366185B00E8C809 /* AppDelegate.swift in Sources */,
 				EDBF7C5023661BFE00E8C809 /* HomePresenter.swift in Sources */,
 				EDBF7C392366185B00E8C809 /* SceneDelegate.swift in Sources */,
+				EDBF7C6D2366503D00E8C809 /* User.swift in Sources */,
 				EDBF7C5423661C1600E8C809 /* HomeRouter.swift in Sources */,
 				EDBF7C4E23661BF100E8C809 /* HomeConfigurator.swift in Sources */,
 				EDBF7C5B2366232000E8C809 /* UIView+Extensions.swift in Sources */,
 				EDBF7C6423662A2900E8C809 /* LoginInteractor.swift in Sources */,
+				EDBF7C6B2366500600E8C809 /* Post.swift in Sources */,
 				EDBF7C5223661C0A00E8C809 /* HomeInteractor.swift in Sources */,
 				EDBF7C6623662A6C00E8C809 /* LoginRouter.swift in Sources */,
 				EDBF7C5E2366290200E8C809 /* LoginController.swift in Sources */,
