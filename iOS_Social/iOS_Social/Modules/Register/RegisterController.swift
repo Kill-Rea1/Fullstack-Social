@@ -1,21 +1,21 @@
 //
-//  LoginController.swift
+//  RegisterController.swift
 //  iOS_Social
 //
-//  Created by Кирилл Иванов on 27.10.2019.
+//  Created by Кирилл Иванов on 28.10.2019.
 //  Copyright © 2019 Kirill Ivanoff. All rights reserved.
 //
 
 import UIKit
 import JGProgressHUD
 
-protocol LoginViewProtocol: class {
+protocol RegisterViewProtocol: class {
     func showHUD(with text: String)
     func hideHUD()
     func showErrorLabel()
 }
 
-class LoginController: UIViewController, LoginViewProtocol {
+class RegisterController: UIViewController, RegisterViewProtocol {
     
     // MARK:- UI Elements
     
@@ -34,6 +34,16 @@ class LoginController: UIViewController, LoginViewProtocol {
         label.textColor = .black
         label.numberOfLines = 0
         return label
+    }()
+    
+    lazy var fullNameTextField: UITextField = {
+        let tf = CustomTextField(padding: 24)
+        tf.placeholder = "Full Name"
+        tf.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        tf.layer.cornerRadius = 25
+        tf.backgroundColor = .white
+        tf.addTarget(self, action: #selector(handleTextChanged), for: .editingChanged)
+        return tf
     }()
     
     lazy var emailTextField: UITextField = {
@@ -59,46 +69,44 @@ class LoginController: UIViewController, LoginViewProtocol {
         return tf
     }()
     
-    let loginButton: UIButton = {
+    let registerButton: UIButton = {
         let button = UIButton(type: .system)
         button.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        button.setTitle("Login", for: .normal)
+        button.setTitle("Sign Up", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = .boldSystemFont(ofSize: 18)
         button.backgroundColor = .black
-        button.addTarget(self, action: #selector(handleLogIn), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
         button.layer.cornerRadius = 25
         return button
     }()
     
-    let goToRegisterButton: UIButton = {
+    let goToLoginButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Need an account? Go to register.", for: .normal)
+        button.setTitle("Go back to login.", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 16)
-        button.addTarget(self, action: #selector(handleToRegister), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleToLogin), for: .touchUpInside)
         return button
     }()
     
     let errorLabel: UILabel = {
         let label = UILabel()
-        label.text = "Your login credentials were incorrect, please try again."
+        label.text = "Something went wrong during sign up, please try again later."
+        label.font = .systemFont(ofSize: 14)
         label.textColor = .red
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 14)
         label.numberOfLines = 0
         label.isHidden = true
         return label
     }()
     
-    var presenter: LoginPresenterProtocol!
-    let configurator: LoginConfiguratorProtocol = LoginConfigurator()
+    let configurator: RegisterConfiguratorProtocol = RegisterConfigurator()
+    var presenter: RegisterPresenterProtocol!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .init(white: 0.95, alpha: 1)
-        navigationController?.navigationBar.isHidden = true
         configurator.configure(with: self)
         setupViews()
     }
@@ -119,14 +127,14 @@ class LoginController: UIViewController, LoginViewProtocol {
         let overrallStackView = UIStackView(arrangedSubviews: [
             stackView,
             SpacerView(size: 12),
+            fullNameTextField,
             emailTextField,
             passwordTextField,
-            loginButton,
+            registerButton,
             errorLabel,
-            goToRegisterButton,
+            goToLoginButton,
             SpacerView(size: 80)
         ])
-        
         overrallStackView.spacing = 16
         overrallStackView.axis = .vertical
         overrallStackView.isLayoutMarginsRelativeArrangement = true
@@ -138,27 +146,27 @@ class LoginController: UIViewController, LoginViewProtocol {
         overrallStackView.addConstraints(leading: view.leadingAnchor, top: nil, trailing: view.trailingAnchor, bottom: nil)
     }
     
-    
-    @objc
-    fileprivate func handleLogIn() {
-        presenter.loginButtonTapped()
-    }
-    
-    @objc
-    fileprivate func handleToRegister() {
-        presenter.toRegisterButtonTapped()
-    }
-    
     @objc
     fileprivate func handleTextChanged(sender: UITextField) {
         switch sender {
+        case fullNameTextField:
+            presenter.fullNameChanged(to: sender.text)
         case emailTextField:
-            presenter.emailChanged(to: sender.text ?? "")
+            presenter.emailChanged(to: sender.text)
         default:
-            presenter.passwordChanged(to: sender.text ?? "")
+            presenter.passwordChanged(to: sender.text)
         }
     }
     
+    @objc
+    fileprivate func handleRegister() {
+        presenter.registerButtonTapped()
+    }
+    
+    @objc
+    fileprivate func handleToLogin() {
+        presenter.toLoginButtonTapped()
+    }
     
     func showHUD(with text: String) {
         hud = JGProgressHUD(style: .dark)

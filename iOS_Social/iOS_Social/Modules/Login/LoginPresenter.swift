@@ -15,6 +15,7 @@ protocol LoginPresenterProtocol: class {
     func emailChanged(to email: String)
     func passwordChanged(to password: String)
     func isSuccessfullyLoggedIn(success: Bool)
+    func toRegisterButtonTapped()
 }
 
 class LoginPresenter: LoginPresenterProtocol {
@@ -31,10 +32,17 @@ class LoginPresenter: LoginPresenterProtocol {
     }
     
     func loginButtonTapped() {
-        view?.showLoginHUD(with: "Loggin in")
-        guard let _email = email, _email != "" else { return }
-        guard let _password = password, _password != "" else { return }
+        view?.showHUD(with: "Loggin in")
+        guard let _email = email, _email != "",
+            let _password = password, _password != "" else {
+            view?.hideHUD()
+            return
+        }
         interactor.login(email: _email, password: _password)
+    }
+    
+    func toRegisterButtonTapped() {
+        router.showRegisterScreen()
     }
     
     func emailChanged(to email: String) {
@@ -46,7 +54,7 @@ class LoginPresenter: LoginPresenterProtocol {
     }
     
     func isSuccessfullyLoggedIn(success: Bool) {
-        view?.hideLoginHUD()
+        view?.hideHUD()
         if success {
             router.showHomeScreen()
         } else {

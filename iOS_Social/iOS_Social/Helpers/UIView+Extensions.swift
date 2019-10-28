@@ -55,6 +55,18 @@ extension UIView {
             heightAnchor.constraint(equalToConstant: size.height).isActive = true
         }
     }
+    
+    func centerInSuperview() {
+        translatesAutoresizingMaskIntoConstraints = false
+        
+        if let centerX = superview?.centerXAnchor {
+            centerXAnchor.constraint(equalTo: centerX).isActive = true
+        }
+        
+        if let centerY = superview?.centerYAnchor {
+            centerYAnchor.constraint(equalTo: centerY).isActive = true
+        }
+    }
 }
 
 class SpacerView: UIView {

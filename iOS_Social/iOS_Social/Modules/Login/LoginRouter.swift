@@ -10,6 +10,7 @@ import UIKit
 
 protocol LoginRouterProtocol: class {
     func showHomeScreen()
+    func showRegisterScreen()
 }
 
 class LoginRouter: LoginRouterProtocol {
@@ -21,5 +22,9 @@ class LoginRouter: LoginRouterProtocol {
     
     func showHomeScreen() {
         viewController?.dismiss(animated: true)
+    }
+    
+    func showRegisterScreen() {
+        viewController?.navigationController?.pushViewController(RegisterController(), animated: true)
     }
 }

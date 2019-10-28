@@ -28,6 +28,11 @@
 		EDBF7C6823662D8600E8C809 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C6723662D8600E8C809 /* CustomTextField.swift */; };
 		EDBF7C6B2366500600E8C809 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C6A2366500600E8C809 /* Post.swift */; };
 		EDBF7C6D2366503D00E8C809 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C6C2366503D00E8C809 /* User.swift */; };
+		EDBF7C702366596900E8C809 /* RegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C6F2366596900E8C809 /* RegisterController.swift */; };
+		EDBF7C722366597400E8C809 /* RegisterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C712366597400E8C809 /* RegisterPresenter.swift */; };
+		EDBF7C742366597E00E8C809 /* RegisterInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C732366597E00E8C809 /* RegisterInteractor.swift */; };
+		EDBF7C762366598900E8C809 /* RegisterRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C752366598900E8C809 /* RegisterRouter.swift */; };
+		EDBF7C782366599900E8C809 /* RegisterConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C772366599900E8C809 /* RegisterConfigurator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +61,11 @@
 		EDBF7C6723662D8600E8C809 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		EDBF7C6A2366500600E8C809 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		EDBF7C6C2366503D00E8C809 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		EDBF7C6F2366596900E8C809 /* RegisterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterController.swift; sourceTree = "<group>"; };
+		EDBF7C712366597400E8C809 /* RegisterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPresenter.swift; sourceTree = "<group>"; };
+		EDBF7C732366597E00E8C809 /* RegisterInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterInteractor.swift; sourceTree = "<group>"; };
+		EDBF7C752366598900E8C809 /* RegisterRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRouter.swift; sourceTree = "<group>"; };
+		EDBF7C772366599900E8C809 /* RegisterConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterConfigurator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +145,7 @@
 		EDBF7C5523661C3800E8C809 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				EDBF7C6E2366594B00E8C809 /* Register */,
 				EDBF7C5C236628F700E8C809 /* Login */,
 				EDBF7C4A23661B4600E8C809 /* Home */,
 			);
@@ -195,6 +206,18 @@
 				EDBF7C6C2366503D00E8C809 /* User.swift */,
 			);
 			path = Entities;
+			sourceTree = "<group>";
+		};
+		EDBF7C6E2366594B00E8C809 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				EDBF7C6F2366596900E8C809 /* RegisterController.swift */,
+				EDBF7C712366597400E8C809 /* RegisterPresenter.swift */,
+				EDBF7C732366597E00E8C809 /* RegisterInteractor.swift */,
+				EDBF7C752366598900E8C809 /* RegisterRouter.swift */,
+				EDBF7C772366599900E8C809 /* RegisterConfigurator.swift */,
+			);
+			path = Register;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -317,11 +340,16 @@
 				EDBF7C3B2366185B00E8C809 /* ViewController.swift in Sources */,
 				EDBF7C602366298100E8C809 /* LoginConfigurator.swift in Sources */,
 				EDBF7C372366185B00E8C809 /* AppDelegate.swift in Sources */,
+				EDBF7C762366598900E8C809 /* RegisterRouter.swift in Sources */,
 				EDBF7C5023661BFE00E8C809 /* HomePresenter.swift in Sources */,
 				EDBF7C392366185B00E8C809 /* SceneDelegate.swift in Sources */,
 				EDBF7C6D2366503D00E8C809 /* User.swift in Sources */,
+				EDBF7C782366599900E8C809 /* RegisterConfigurator.swift in Sources */,
+				EDBF7C702366596900E8C809 /* RegisterController.swift in Sources */,
 				EDBF7C5423661C1600E8C809 /* HomeRouter.swift in Sources */,
 				EDBF7C4E23661BF100E8C809 /* HomeConfigurator.swift in Sources */,
+				EDBF7C742366597E00E8C809 /* RegisterInteractor.swift in Sources */,
+				EDBF7C722366597400E8C809 /* RegisterPresenter.swift in Sources */,
 				EDBF7C5B2366232000E8C809 /* UIView+Extensions.swift in Sources */,
 				EDBF7C6423662A2900E8C809 /* LoginInteractor.swift in Sources */,
 				EDBF7C6B2366500600E8C809 /* Post.swift in Sources */,
