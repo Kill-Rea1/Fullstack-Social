@@ -29,7 +29,11 @@ class HomeInteractor: HomeInteractorProtocol {
     
     var serverService: ServerServiceProtocol = ServerService()
     
-    var posts: [Post]! = []
+    var posts: [Post]! = [] {
+        didSet {
+            presenter?.updateDataSource()
+        }
+    }
     
     func fetchPosts() {
         serverService.fetchPosts { (res) in

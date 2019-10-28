@@ -159,6 +159,7 @@ class LoginController: UIViewController, LoginViewProtocol {
         }
     }
     
+    // MARK:- LoginViewProtocol
     
     func showHUD(with text: String) {
         hud = JGProgressHUD(style: .dark)

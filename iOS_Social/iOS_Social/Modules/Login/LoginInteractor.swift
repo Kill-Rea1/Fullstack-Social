@@ -27,6 +27,8 @@ class LoginInteractor: LoginInteractorProtocol {
         }
     }
     
+    // MARK:- LoginInteractorProtocol
+    
     var serverService: ServerServiceProtocol = ServerService()
     
     func login(email: String, password: String) {

@@ -10,11 +10,15 @@ import Foundation
 import Alamofire
 import UIKit
 
+enum Err: Error {
+    case BadCode
+}
+
 protocol ServerServiceProtocol: class {
     func login(email: String, password: String, completion: @escaping (Result<Data>) -> ())
     func register(fullName: String, email: String, password: String, completion: @escaping (Result<Data>) -> ())
     func fetchPosts(completion: @escaping (Result<[Post]>) -> ())
-    func uploadImage(info: Any)
+    func uploadPost(postText: String, imageData: Data, completion: @escaping (Result<Data>) -> ())
 }
 
 class ServerService: ServerServiceProtocol {
@@ -71,42 +75,39 @@ class ServerService: ServerServiceProtocol {
         }
     }
     
-    func uploadImage(info: Any) {
-        guard let infoDict = info as? [UIImagePickerController.InfoKey : Any] else { return }
-        guard let image = infoDict[.originalImage] as? UIImage else { return }
+    func uploadPost(postText: String, imageData: Data, completion: @escaping (Result<Data>) -> ()) {
         let url = "\(baseUrl)/post"
+        
         Alamofire.upload(multipartFormData: { (formData) in
-            // post text
-            formData.append(Data("Coming from iPhone sim".utf8), withName: "postBody")
-            
-            // post image
-            guard let imageData = image.jpegData(compressionQuality: 0.5) else { return }
+            formData.append(Data(postText.utf8), withName: "postBody")
             formData.append(imageData, withName: "imagefile", fileName: "DontCare", mimeType: "image/jpg")
         }, to: url) { (res) in
             switch res {
             case .failure(let err):
                 print("Failed to hit server: ", err)
+                completion(.failure(err))
             case .success(let uploadRequest, _, _):
                 uploadRequest.uploadProgress { (progress) in
-                    print("Upload progress: \(progress.fractionCompleted)")
+//                    print("Upload progress: \(progress.fractionCompleted)")
+                    NotificationCenter.default.post(name: .uploadProgress, object: nil, userInfo: ["uploadProgress": progress.fractionCompleted])
                 }
                 
                 uploadRequest.responseJSON { (dataResp) in
                     if let err = dataResp.error {
                         print("Failed to hit server: ", err)
+                        completion(.failure(err))
                         return
                     }
                     
                     if let code = dataResp.response?.statusCode, code >= 300 {
                         print("Failed upload with status: ", code)
+                        completion(.failure(Err.BadCode))
                         return
                     }
                     
                     let respString = String(data: dataResp.data ?? Data(), encoding: .utf8)
                     print("Successfully created post, here is response: ")
-                    print(respString ?? "")
-                    
-                    
+                    completion(.success(Data(respString?.utf8 ?? "".utf8)))
                 }
             }
         }

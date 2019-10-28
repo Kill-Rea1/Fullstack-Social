@@ -168,6 +168,8 @@ class RegisterController: UIViewController, RegisterViewProtocol {
         presenter.toLoginButtonTapped()
     }
     
+    // MARK:- RegisterViewProtocol
+    
     func showHUD(with text: String) {
         hud = JGProgressHUD(style: .dark)
         hud.textLabel.text = text

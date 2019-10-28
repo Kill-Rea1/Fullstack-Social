@@ -12,7 +12,7 @@ protocol HomeRouterProtocol: class {
     var imagePicker: UIImagePickerController? { get set }
     func showLoginScreen()
     func showImagePicker()
-    func showNewPostScreen(with info: Any)
+    func showNewPostScreen(with info: Any, delegate: NewPostModuleDelegate)
     func dismissImagePicker()
 }
 
@@ -39,10 +39,10 @@ class HomeRouter: HomeRouterProtocol {
         viewController?.present(imagePicker!, animated: true)
     }
     
-    func showNewPostScreen(with info: Any) {
+    func showNewPostScreen(with info: Any, delegate: NewPostModuleDelegate) {
         guard let info = info as? [UIImagePickerController.InfoKey: Any], let image = info[.originalImage] as? UIImage else { return }
         imagePicker?.dismiss(animated: true)
-        let newPostController = NewPostController(selectedImage: image)
+        let newPostController = NewPostController(selectedImage: image, delegate: delegate)
         viewController?.present(newPostController, animated: true)
     }
     

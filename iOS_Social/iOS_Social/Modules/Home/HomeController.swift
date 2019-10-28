@@ -39,7 +39,7 @@ class HomeController: UITableViewController, HomeViewProtocol {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! PostCell
+        let cell = PostCell(style: .subtitle, reuseIdentifier: cellId)
         cell.postCellType = presenter.cellType(for: indexPath)
         return cell
     }

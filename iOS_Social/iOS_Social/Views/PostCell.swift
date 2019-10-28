@@ -27,9 +27,10 @@ class PostCell: UITableViewCell, PostCellProtocol {
     let usernameLabel = UILabel()
     
     let postImageView: UIImageView = {
-        let iv = UIImageView(image: nil)
-        iv.contentMode = .scaleAspectFill
-        iv.heightAnchor.constraint(equalTo: iv.widthAnchor).isActive = true
+        let iv = UIImageView()
+        iv.contentMode = .scaleAspectFit
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        iv.heightAnchor.constraint(equalToConstant: 300).isActive = true
         return iv
     }()
     
@@ -45,28 +46,10 @@ class PostCell: UITableViewCell, PostCellProtocol {
     }
     
     fileprivate func setupViews() {
-        let username = UIStackView(arrangedSubviews: [usernameLabel])
-        username.axis = .vertical
-        username.isLayoutMarginsRelativeArrangement = true
-        username.layoutMargins.left = 16
-        
-        let postText = UIStackView(arrangedSubviews: [postTextLabel])
-        postText.axis = .vertical
-        postText.isLayoutMarginsRelativeArrangement = true
-        postText.layoutMargins.left = 16
-        postText.layoutMargins.right = 16
-        
-        let overallStackView = UIStackView(arrangedSubviews: [
-            username,
-            postImageView,
-            postText
-        ])
-        overallStackView.axis = .vertical
-        overallStackView.spacing = 16
-        overallStackView.isLayoutMarginsRelativeArrangement = true
-        overallStackView.layoutMargins = .init(top: 16, left: 0, bottom: 16, right: 0)
-        addSubview(overallStackView)
-        overallStackView.fillSuperview()
+        stack(stack(usernameLabel).padLeft(16),
+              postImageView,
+              stack(postTextLabel).padLeft(16).padRight(16),
+              spacing: 16).withMargins(.init(top: 16, left: 0, bottom: 16, right: 0))
     }
     
     required init?(coder: NSCoder) {

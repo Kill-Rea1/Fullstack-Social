@@ -31,6 +31,8 @@ class LoginPresenter: LoginPresenterProtocol {
         self.view = view
     }
     
+    // MARK:- LoginPresenterProtocol
+    
     func loginButtonTapped() {
         view?.showHUD(with: "Loggin in")
         guard let _email = email, _email != "",

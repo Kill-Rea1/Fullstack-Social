@@ -26,6 +26,8 @@ class RegisterInteractor: RegisterInteractorProtocol {
         self.presenter = presenter
     }
     
+    // MARK:- RegisterInteractorProtocol
+    
     var serverService: ServerServiceProtocol = ServerService()
     
     func register(fullName: String, email: String, password: String) {

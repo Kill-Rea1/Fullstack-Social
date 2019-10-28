@@ -67,6 +67,69 @@ extension UIView {
             centerYAnchor.constraint(equalTo: centerY).isActive = true
         }
     }
+    
+    fileprivate func _stack(_ axis: NSLayoutConstraint.Axis = .vertical, views: [UIView], spacing: CGFloat = 0, alignment: UIStackView.Alignment = .fill, distribution: UIStackView.Distribution = .fill) -> UIStackView {
+        let stackView = UIStackView(arrangedSubviews: views)
+        stackView.axis = axis
+        stackView.spacing = spacing
+        stackView.alignment = alignment
+        stackView.distribution = distribution
+        addSubview(stackView)
+        stackView.fillSuperview()
+        return stackView
+    }
+    
+    @discardableResult
+    open func stack(_ views: UIView..., spacing: CGFloat = 0, alignment: UIStackView.Alignment = .fill, distribution: UIStackView.Distribution = .fill) -> UIStackView {
+        return _stack(.vertical, views: views, spacing: spacing, alignment: alignment, distribution: distribution)
+    }
+    
+    @discardableResult
+    open func hstack(_ views: UIView..., spacing: CGFloat = 0, alignment: UIStackView.Alignment = .fill, distribution: UIStackView.Distribution = .fill) -> UIStackView {
+        return _stack(.horizontal, views: views, spacing: spacing, alignment: alignment, distribution: distribution)
+    }
+}
+
+extension UIStackView {
+    
+    @discardableResult
+    open func withMargins(_ margins: UIEdgeInsets) -> UIStackView {
+        layoutMargins = margins
+        isLayoutMarginsRelativeArrangement = true
+        return self
+    }
+    
+    @discardableResult
+    open func padLeft(_ left: CGFloat) -> UIStackView {
+        isLayoutMarginsRelativeArrangement = true
+        layoutMargins.left = left
+        return self
+    }
+    
+    @discardableResult
+    open func padTop(_ top: CGFloat) -> UIStackView {
+        isLayoutMarginsRelativeArrangement = true
+        layoutMargins.top = top
+        return self
+    }
+    
+    @discardableResult
+    open func padBottom(_ bottom: CGFloat) -> UIStackView {
+        isLayoutMarginsRelativeArrangement = true
+        layoutMargins.bottom = bottom
+        return self
+    }
+    
+    @discardableResult
+    open func padRight(_ right: CGFloat) -> UIStackView {
+        isLayoutMarginsRelativeArrangement = true
+        layoutMargins.right = right
+        return self
+    }
+}
+
+extension Notification.Name {
+    static let uploadProgress = NSNotification.Name("uploadProgress")
 }
 
 class SpacerView: UIView {

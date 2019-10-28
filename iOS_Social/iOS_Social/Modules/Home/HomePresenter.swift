@@ -18,6 +18,7 @@ protocol HomePresenterProtocol: class {
     func didCancelImagePicker()
     func didSelectImage(with info: Any)
     func cellType(for indexPath: IndexPath) -> PostCellType?
+    func updateDataSource()
 }
 
 class HomePresenter: HomePresenterProtocol {
@@ -36,7 +37,6 @@ class HomePresenter: HomePresenterProtocol {
     
     func fetchPostsTapped() {
         interactor.fetchPosts()
-        view?.updateView()
     }
     
     func createPostsTapped() {
@@ -48,7 +48,7 @@ class HomePresenter: HomePresenterProtocol {
     }
     
     func didSelectImage(with info: Any) {
-        router.showNewPostScreen(with: info)
+        router.showNewPostScreen(with: info, delegate: self)
     }
     
     func logInTapped() {
@@ -61,5 +61,15 @@ class HomePresenter: HomePresenterProtocol {
     
     func cellType(for indexPath: IndexPath) -> PostCellType? {
         return interactor.posts[indexPath.row].toPostCellType()
+    }
+    
+    func updateDataSource() {
+        view?.updateView()
+    }
+}
+
+extension HomePresenter: NewPostModuleDelegate {
+    func didCreatePost() {
+        interactor.fetchPosts()
     }
 }
