@@ -1,8 +1,27 @@
+<script>
+    function onFileChange(event) {
+        console.log(event)
+        const file = event.target.files[0]
+        console.log(file)
+        const imgSrc = window.URL.createObjectURL(file)
+        document.getElementById("selectedImage").src = imgSrc
+        document.getElementById("selectedImage").style.display = 'block'
+    }
+</script>
+
 <div style="background-color: rgb(230, 230, 230); padding: 24px;"> 
 
-    <form style="margin-bottom: 12px" action="/post" method="POST">
+    <form style="margin-bottom: 12px" action="/post" method="POST" enctype="multipart/form-data">
         <input name="postBody" type="text" placeholder="Enter post text">
         <button type="submit"> Create post </button> 
+        <br><br>
+
+        <div>
+            <input name="imageFile" onchange="onFileChange(event)" type="file" />
+            <img id="selectedImage" 
+                style="max-width: 400px; display: none;"
+                src="image url" />
+        </div>
     </form>
 
     Below are all of my posts:
