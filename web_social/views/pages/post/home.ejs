@@ -14,7 +14,7 @@
 <div style="background-color: rgb(238, 238, 238); 
     padding: 24px">
 
-    <form style='margin-bottom: 12px' action="/post" method="POST" 
+    <!-- <form style='margin-bottom: 12px' action="/post" method="POST" 
         enctype="multipart/form-data">
         <input name='postBody' type="text" placeholder="Enter post text">
         <button type="submit">Create Post</button>
@@ -26,13 +26,15 @@
         </div>
     </form>
 
-    <br><br>
+    <br><br> -->
 
 
-    Below are all of my posts:
+    <!-- Below are all of my posts:
     <% allPosts.forEach(p => { %>
-        <div style='background-color: white; padding: 16px;
-            margin-bottom: 12px'>
+        <div id="post-<%= p.id %>" 
+            style='background-color: white; padding: 16px;
+            margin-bottom: 12px;
+            display: flex; flex-direction: column;'>
             <div style='font-weight: bold'>
                 <%= p.user.fullName %>
             </div>
@@ -41,8 +43,74 @@
                 + " "  + new Date(p.createdAt).toLocaleDateString() %>
             </div>
             <%= p.text %>
-            <img style='max-width: 400px;' src='<%= p.imageUrl %>'/>
+            <img style='max-width: 100%;' src='<%= p.imageUrl %>'/>
+
+            <button id="<%= p.id %>" onclick="handleDeletePost(event)" style="max-width: 100%;">Delete post</button>
         </div>
     <% }) %>
+
+    <script>
+        function handleDeletePost(event) {
+            const postId = event.target.id
+            console.log(postId)
+            const postDiv = document.getElementById('post-'+postId)
+            console.log(postDiv)
+            postDiv.parentNode.removeChild(postDiv)
+        }
+    </script> -->
+
+    <!-- Vue.js -->
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <div id="app">
+        <div v-for="p in posts">
+            <div style="background-color: white; padding: 16px;
+                margin-bottom: 12px; border-radius: 6px;
+                display: flex; flex-direction: column;">
+
+                <div style="font-weight: bold;">
+                    {{p.user.fullName}}
+                </div>
+
+                <div style="color: rgb(186, 186, 186)">
+                    {{toLocale(p.createdAt)}}
+                </div>
+
+                <div style="margin-bottom: 12px">
+                    {{p.text}}
+                </div>
+
+                <div>
+                    <img style="max-width: 100%; margin-bottom: 12px;" :src="p.imageUrl">
+                </div>
+
+                <button v-on:click="handleDeletePost(p)" 
+                style="background-color: red; color: white; border-radius: 6px;"> Delete post</button>
+            </div>
+        </div>
+    </div>
+
+    <%- /* Expose locals as 'window.SAILS_LOCALS' :: */ exposeLocalsToBrowser() %>
+
+    <script>
+        const App = new Vue({
+            el: "#app",
+            data: {
+                posts: window.SAILS_LOCALS.allPosts
+            },
+            methods: {
+                handleDeletePost: function(post) {
+                    this.posts = this.posts.filter(p=> {
+                        return p.id != post.id
+                    })
+                },
+                toLocale: function(createdAt) {
+                    return new Date(createdAt).toLocaleTimeString() + " " + new Date(createdAt).toLocaleDateString()
+                }
+            }
+        })
+    </script>
+
 
 </div>
