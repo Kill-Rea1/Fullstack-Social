@@ -34,6 +34,13 @@
 		EDBF7C762366598900E8C809 /* RegisterRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C752366598900E8C809 /* RegisterRouter.swift */; };
 		EDBF7C782366599900E8C809 /* RegisterConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C772366599900E8C809 /* RegisterConfigurator.swift */; };
 		EDBF7C7A2366861600E8C809 /* ServerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C792366861600E8C809 /* ServerService.swift */; };
+		EDBF7C7D23671FCF00E8C809 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C7C23671FCE00E8C809 /* PostCell.swift */; };
+		EDBF7C7F2367236600E8C809 /* PostCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C7E2367236600E8C809 /* PostCellType.swift */; };
+		EDBF7C8223672BC200E8C809 /* NewPostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C8123672BC200E8C809 /* NewPostController.swift */; };
+		EDBF7C8423672BD100E8C809 /* NewPostPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C8323672BD000E8C809 /* NewPostPresenter.swift */; };
+		EDBF7C8623672BDB00E8C809 /* NewPostInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C8523672BDB00E8C809 /* NewPostInteractor.swift */; };
+		EDBF7C8823672BEB00E8C809 /* NewPostRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C8723672BEB00E8C809 /* NewPostRouter.swift */; };
+		EDBF7C8A23672BF600E8C809 /* NewPostConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C8923672BF600E8C809 /* NewPostConfigurator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +75,13 @@
 		EDBF7C752366598900E8C809 /* RegisterRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRouter.swift; sourceTree = "<group>"; };
 		EDBF7C772366599900E8C809 /* RegisterConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterConfigurator.swift; sourceTree = "<group>"; };
 		EDBF7C792366861600E8C809 /* ServerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerService.swift; sourceTree = "<group>"; };
+		EDBF7C7C23671FCE00E8C809 /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
+		EDBF7C7E2367236600E8C809 /* PostCellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellType.swift; sourceTree = "<group>"; };
+		EDBF7C8123672BC200E8C809 /* NewPostController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostController.swift; sourceTree = "<group>"; };
+		EDBF7C8323672BD000E8C809 /* NewPostPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostPresenter.swift; sourceTree = "<group>"; };
+		EDBF7C8523672BDB00E8C809 /* NewPostInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostInteractor.swift; sourceTree = "<group>"; };
+		EDBF7C8723672BEB00E8C809 /* NewPostRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostRouter.swift; sourceTree = "<group>"; };
+		EDBF7C8923672BF600E8C809 /* NewPostConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostConfigurator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +134,7 @@
 		EDBF7C352366185B00E8C809 /* iOS_Social */ = {
 			isa = PBXGroup;
 			children = (
+				EDBF7C7B23671F9B00E8C809 /* Views */,
 				EDBF7C6923664FED00E8C809 /* Entities */,
 				EDBF7C592366231200E8C809 /* Helpers */,
 				EDBF7C5823661ED800E8C809 /* Service */,
@@ -147,6 +162,7 @@
 		EDBF7C5523661C3800E8C809 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				EDBF7C8023672BAF00E8C809 /* NewPost */,
 				EDBF7C6E2366594B00E8C809 /* Register */,
 				EDBF7C5C236628F700E8C809 /* Login */,
 				EDBF7C4A23661B4600E8C809 /* Home */,
@@ -207,6 +223,7 @@
 			children = (
 				EDBF7C6A2366500600E8C809 /* Post.swift */,
 				EDBF7C6C2366503D00E8C809 /* User.swift */,
+				EDBF7C7E2367236600E8C809 /* PostCellType.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -221,6 +238,26 @@
 				EDBF7C772366599900E8C809 /* RegisterConfigurator.swift */,
 			);
 			path = Register;
+			sourceTree = "<group>";
+		};
+		EDBF7C7B23671F9B00E8C809 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				EDBF7C7C23671FCE00E8C809 /* PostCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		EDBF7C8023672BAF00E8C809 /* NewPost */ = {
+			isa = PBXGroup;
+			children = (
+				EDBF7C8123672BC200E8C809 /* NewPostController.swift */,
+				EDBF7C8323672BD000E8C809 /* NewPostPresenter.swift */,
+				EDBF7C8523672BDB00E8C809 /* NewPostInteractor.swift */,
+				EDBF7C8723672BEB00E8C809 /* NewPostRouter.swift */,
+				EDBF7C8923672BF600E8C809 /* NewPostConfigurator.swift */,
+			);
+			path = NewPost;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -347,12 +384,17 @@
 				EDBF7C5023661BFE00E8C809 /* HomePresenter.swift in Sources */,
 				EDBF7C392366185B00E8C809 /* SceneDelegate.swift in Sources */,
 				EDBF7C6D2366503D00E8C809 /* User.swift in Sources */,
+				EDBF7C8A23672BF600E8C809 /* NewPostConfigurator.swift in Sources */,
+				EDBF7C8823672BEB00E8C809 /* NewPostRouter.swift in Sources */,
 				EDBF7C782366599900E8C809 /* RegisterConfigurator.swift in Sources */,
 				EDBF7C7A2366861600E8C809 /* ServerService.swift in Sources */,
 				EDBF7C702366596900E8C809 /* RegisterController.swift in Sources */,
 				EDBF7C5423661C1600E8C809 /* HomeRouter.swift in Sources */,
 				EDBF7C4E23661BF100E8C809 /* HomeConfigurator.swift in Sources */,
+				EDBF7C8423672BD100E8C809 /* NewPostPresenter.swift in Sources */,
+				EDBF7C7F2367236600E8C809 /* PostCellType.swift in Sources */,
 				EDBF7C742366597E00E8C809 /* RegisterInteractor.swift in Sources */,
+				EDBF7C8223672BC200E8C809 /* NewPostController.swift in Sources */,
 				EDBF7C722366597400E8C809 /* RegisterPresenter.swift in Sources */,
 				EDBF7C5B2366232000E8C809 /* UIView+Extensions.swift in Sources */,
 				EDBF7C6423662A2900E8C809 /* LoginInteractor.swift in Sources */,
@@ -360,7 +402,9 @@
 				EDBF7C5223661C0A00E8C809 /* HomeInteractor.swift in Sources */,
 				EDBF7C6623662A6C00E8C809 /* LoginRouter.swift in Sources */,
 				EDBF7C5E2366290200E8C809 /* LoginController.swift in Sources */,
+				EDBF7C8623672BDB00E8C809 /* NewPostInteractor.swift in Sources */,
 				EDBF7C6823662D8600E8C809 /* CustomTextField.swift in Sources */,
+				EDBF7C7D23671FCF00E8C809 /* PostCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

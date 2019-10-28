@@ -11,8 +11,10 @@ import Alamofire
 
 protocol HomeInteractorProtocol: class {
     var serverService: ServerServiceProtocol { get set }
-    func didSelectImage(with info: Any)
-    func fetchPosts(completionHandler: @escaping ([Post]?, Error?) -> ())
+    var posts: [Post]! { get }
+//    func didSelectImage(with info: Any)
+//    func fetchPosts(completionHandler: @escaping ([Post]?, Error?) -> ())
+    func fetchPosts()
 }
 
 class HomeInteractor: HomeInteractorProtocol {
@@ -23,26 +25,19 @@ class HomeInteractor: HomeInteractorProtocol {
         self.presenter = presenter
     }
     
-    var html: String! {
-        didSet {
-            presenter?.html = html
-        }
-    }
+    // MARK:- HomeInteractorProtocol
     
     var serverService: ServerServiceProtocol = ServerService()
     
-    func didSelectImage(with info: Any) {
-        serverService.uploadImage(info: info)
-    }
+    var posts: [Post]! = []
     
-    func fetchPosts(completionHandler: @escaping ([Post]?, Error?) -> ()) {
+    func fetchPosts() {
         serverService.fetchPosts { (res) in
             switch res {
             case .failure(let err):
                 print("Failed to fetch posts: ", err)
-                completionHandler(nil, err)
             case .success(let posts):
-                completionHandler(posts, nil)
+                self.posts = posts
             }
         }
     }

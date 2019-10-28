@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct Post: Decodable {
     let id: String
@@ -14,4 +15,11 @@ struct Post: Decodable {
     let imageUrl: String
     let createdAt: Int
     let user: User
+    
+    func toPostCellType() -> PostCellType? {
+        let username = NSAttributedString(string: user.fullName, attributes: [.font: UIFont.boldSystemFont(ofSize: 15)])
+        guard let _imageUrl = URL(string: imageUrl) else { return nil}
+        let postText = NSAttributedString(string: text, attributes: [.font: UIFont.systemFont(ofSize: 15)])
+        return PostCellEntity(username: username, imageUrl: _imageUrl, postText: postText)
+    }
 }

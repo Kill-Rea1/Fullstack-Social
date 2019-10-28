@@ -11,16 +11,13 @@ import Foundation
 protocol HomePresenterProtocol: class {
     var interactor: HomeInteractorProtocol! { get set }
     var router: HomeRouterProtocol! { get set }
-    var html: String! { get set }
-    var numberOfRows: Int? { set get }
+    func numberOfRows() -> Int
     func fetchPostsTapped()
     func createPostsTapped()
     func logInTapped()
-    func cellAuthor(for indexPath: IndexPath) -> NSAttributedString
-    func cellText(for indexPath: IndexPath) -> NSAttributedString
-    func cellImage(for indexPath: IndexPath) -> String
     func didCancelImagePicker()
     func didSelectImage(with info: Any)
+    func cellType(for indexPath: IndexPath) -> PostCellType?
 }
 
 class HomePresenter: HomePresenterProtocol {
@@ -31,36 +28,15 @@ class HomePresenter: HomePresenterProtocol {
         self.view = view
     }
     
+    // MARK:- HomePresenterProtocol
+    
     var interactor: HomeInteractorProtocol!
     
     var router: HomeRouterProtocol!
     
-    var html: String! {
-        didSet {
-            view?.presentWebView(with: html)
-        }
-    }
-    
-    var posts: [Post]? {
-        didSet {
-            numberOfRows = posts?.count
-        }
-    }
-    
-    var numberOfRows: Int? {
-        didSet {
-            view?.updateView()
-        }
-    }
-    
     func fetchPostsTapped() {
-        interactor.fetchPosts { (posts, err) in
-            if err != nil {
-                return
-            }
-            guard let posts = posts else { return }
-            self.posts = posts
-        }
+        interactor.fetchPosts()
+        view?.updateView()
     }
     
     func createPostsTapped() {
@@ -72,25 +48,18 @@ class HomePresenter: HomePresenterProtocol {
     }
     
     func didSelectImage(with info: Any) {
-        interactor.didSelectImage(with: info)
-        router.dismissImagePicker()
+        router.showNewPostScreen(with: info)
     }
     
     func logInTapped() {
         router.showLoginScreen()
     }
     
-    func cellAuthor(for indexPath: IndexPath) -> NSAttributedString {
-        let attrText = NSAttributedString(string: posts?[indexPath.row].user.fullName ?? "")
-        return attrText
+    func numberOfRows() -> Int {
+        return interactor.posts.count
     }
     
-    func cellText(for indexPath: IndexPath) -> NSAttributedString {
-        let attrText = NSAttributedString(string: posts?[indexPath.row].text ?? "")
-        return attrText
-    }
-    
-    func cellImage(for indexPath: IndexPath) -> String {
-        return posts?[indexPath.row].imageUrl ?? ""
+    func cellType(for indexPath: IndexPath) -> PostCellType? {
+        return interactor.posts[indexPath.row].toPostCellType()
     }
 }

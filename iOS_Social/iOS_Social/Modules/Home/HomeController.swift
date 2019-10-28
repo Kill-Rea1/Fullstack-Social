@@ -11,12 +11,13 @@ import WebKit
 import SDWebImage
 
 protocol HomeViewProtocol: class {
-    func presentWebView(with html: String)
     func updateView()
+    func registerCell(with cellReuseIdentifier: String)
 }
 
 class HomeController: UITableViewController, HomeViewProtocol {
     
+    fileprivate let cellId = "postCellId"
     var presenter: HomePresenterProtocol!
     let configurator: HomeConfiguratorProtocol = HomeConfigurator()
     
@@ -29,21 +30,17 @@ class HomeController: UITableViewController, HomeViewProtocol {
             UIBarButtonItem(title: "Create post", style: .plain, target: self, action: #selector(handleCreatePost))
         ]
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Log in", style: .plain, target: self, action: #selector(handleLogIn))
-        
+        tableView.register(PostCell.self, forCellReuseIdentifier: cellId)
         configurator.configure(with: self)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.numberOfRows ?? 0
+        return presenter.numberOfRows()
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
-        cell.textLabel?.attributedText = presenter.cellAuthor(for: indexPath)
-        cell.textLabel?.font = .boldSystemFont(ofSize: 14)
-        cell.detailTextLabel?.attributedText = presenter.cellText(for: indexPath)
-        cell.detailTextLabel?.numberOfLines = 0
-        cell.imageView?.sd_setImage(with: URL(string: presenter.cellImage(for: indexPath)))
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! PostCell
+        cell.postCellType = presenter.cellType(for: indexPath)
         return cell
     }
     
@@ -62,21 +59,20 @@ class HomeController: UITableViewController, HomeViewProtocol {
         presenter.logInTapped()
     }
     
-    func presentWebView(with html: String) {
-        let vc = UIViewController()
-        let webView = WKWebView()
-        webView.loadHTMLString(html, baseURL: nil)
-        vc.view.addSubview(webView)
-        webView.fillSuperview()
-        self.present(vc, animated: true)
-    }
+    // MARK:- HomeViewProtocol
     
     func updateView() {
         tableView.reloadData()
     }
+    
+    func registerCell(with cellReuseIdentifier: String) {
+    }
 }
 
 extension HomeController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    
+    // MARK:- ImagePickerDelegate
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         presenter.didCancelImagePicker()
     }
