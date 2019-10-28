@@ -11,6 +11,7 @@ import Foundation
 struct Post: Decodable {
     let id: String
     let text: String
+    let imageUrl: String
     let createdAt: Int
     let user: User
 }

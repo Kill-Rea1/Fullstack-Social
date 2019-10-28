@@ -10,6 +10,7 @@ import Foundation
 import Alamofire
 
 protocol LoginInteractorProtocol: class {
+    var serverService: ServerServiceProtocol { get set }
     func login(email: String, password: String)
 }
 
@@ -26,18 +27,17 @@ class LoginInteractor: LoginInteractorProtocol {
         }
     }
     
+    var serverService: ServerServiceProtocol = ServerService()
+    
     func login(email: String, password: String) {
-        let url = "http://localhost:1337/api/v1/entrance/login"
-        let params = ["emailAddress": email, "password": password]
-        Alamofire.request(url, method: .put, parameters: params, encoding: URLEncoding())
-            .validate(statusCode: 200..<300)
-            .responseData { (dataResponse) in
-                print("Finally send request to server..")
-                if let _ = dataResponse.error {
-                    self.loginResponse = false
-                    return
-                }
+        serverService.login(email: email, password: password) { (res) in
+            switch res {
+            case .failure(let err):
+                print("Failed to login", err)
+                self.loginResponse = false
+            case .success:
                 self.loginResponse = true
             }
+        }
     }
 }

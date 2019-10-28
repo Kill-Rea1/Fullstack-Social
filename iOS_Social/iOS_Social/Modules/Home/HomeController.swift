@@ -8,6 +8,7 @@
 
 import UIKit
 import WebKit
+import SDWebImage
 
 protocol HomeViewProtocol: class {
     func presentWebView(with html: String)
@@ -23,7 +24,10 @@ class HomeController: UITableViewController, HomeViewProtocol {
         super.viewDidLoad()
         view.backgroundColor = .init(white: 0.95, alpha: 1)
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Fetch posts", style: .plain, target: self, action: #selector(handleFetchPosts))
+        navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(title: "Fetch posts", style: .plain, target: self, action: #selector(handleFetchPosts)),
+            UIBarButtonItem(title: "Create post", style: .plain, target: self, action: #selector(handleCreatePost))
+        ]
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Log in", style: .plain, target: self, action: #selector(handleLogIn))
         
         configurator.configure(with: self)
@@ -39,12 +43,18 @@ class HomeController: UITableViewController, HomeViewProtocol {
         cell.textLabel?.font = .boldSystemFont(ofSize: 14)
         cell.detailTextLabel?.attributedText = presenter.cellText(for: indexPath)
         cell.detailTextLabel?.numberOfLines = 0
+        cell.imageView?.sd_setImage(with: URL(string: presenter.cellImage(for: indexPath)))
         return cell
     }
     
     @objc
     fileprivate func handleFetchPosts() {
         presenter.fetchPostsTapped()
+    }
+    
+    @objc
+    fileprivate func handleCreatePost() {
+        presenter.createPostsTapped()
     }
     
     @objc
@@ -63,5 +73,15 @@ class HomeController: UITableViewController, HomeViewProtocol {
     
     func updateView() {
         tableView.reloadData()
+    }
+}
+
+extension HomeController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        presenter.didCancelImagePicker()
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        presenter.didSelectImage(with: info)
     }
 }

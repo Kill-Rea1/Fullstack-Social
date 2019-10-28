@@ -10,6 +10,7 @@ import Foundation
 import Alamofire
 
 protocol RegisterInteractorProtocol: class {
+    var serverService: ServerServiceProtocol { get set }
     func register(fullName: String, email: String, password: String)
 }
 
@@ -25,19 +26,17 @@ class RegisterInteractor: RegisterInteractorProtocol {
         self.presenter = presenter
     }
     
+    var serverService: ServerServiceProtocol = ServerService()
+    
     func register(fullName: String, email: String, password: String) {
-        let url = "http://localhost:1337/api/v1/entrance/signup"
-        let params = ["fullName": fullName, "emailAddress": email, "password": password]
-        Alamofire.request(url, method: .post, parameters: params)
-            .validate(statusCode: 200..<300)
-            .responseData { (dataResponse) in
-                if let err = dataResponse.error {
-                    print("Failed to sign up: ", err)
-                    self.registerResponse = false
-                    return
-                }
-                print("Successfully signed up...")
+        serverService.register(fullName: fullName, email: email, password: password) { (res) in
+            switch res {
+            case .failure(let err):
+                print("Failed to sign up: ", err)
+                self.registerResponse = false
+            case .success:
                 self.registerResponse = true
+            }
         }
     }
 }

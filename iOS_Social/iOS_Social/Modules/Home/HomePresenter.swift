@@ -14,9 +14,13 @@ protocol HomePresenterProtocol: class {
     var html: String! { get set }
     var numberOfRows: Int? { set get }
     func fetchPostsTapped()
+    func createPostsTapped()
     func logInTapped()
     func cellAuthor(for indexPath: IndexPath) -> NSAttributedString
     func cellText(for indexPath: IndexPath) -> NSAttributedString
+    func cellImage(for indexPath: IndexPath) -> String
+    func didCancelImagePicker()
+    func didSelectImage(with info: Any)
 }
 
 class HomePresenter: HomePresenterProtocol {
@@ -59,6 +63,19 @@ class HomePresenter: HomePresenterProtocol {
         }
     }
     
+    func createPostsTapped() {
+        router.showImagePicker()
+    }
+    
+    func didCancelImagePicker() {
+        router.dismissImagePicker()
+    }
+    
+    func didSelectImage(with info: Any) {
+        interactor.didSelectImage(with: info)
+        router.dismissImagePicker()
+    }
+    
     func logInTapped() {
         router.showLoginScreen()
     }
@@ -71,5 +88,9 @@ class HomePresenter: HomePresenterProtocol {
     func cellText(for indexPath: IndexPath) -> NSAttributedString {
         let attrText = NSAttributedString(string: posts?[indexPath.row].text ?? "")
         return attrText
+    }
+    
+    func cellImage(for indexPath: IndexPath) -> String {
+        return posts?[indexPath.row].imageUrl ?? ""
     }
 }

@@ -33,6 +33,7 @@
 		EDBF7C742366597E00E8C809 /* RegisterInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C732366597E00E8C809 /* RegisterInteractor.swift */; };
 		EDBF7C762366598900E8C809 /* RegisterRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C752366598900E8C809 /* RegisterRouter.swift */; };
 		EDBF7C782366599900E8C809 /* RegisterConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C772366599900E8C809 /* RegisterConfigurator.swift */; };
+		EDBF7C7A2366861600E8C809 /* ServerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C792366861600E8C809 /* ServerService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +67,7 @@
 		EDBF7C732366597E00E8C809 /* RegisterInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterInteractor.swift; sourceTree = "<group>"; };
 		EDBF7C752366598900E8C809 /* RegisterRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRouter.swift; sourceTree = "<group>"; };
 		EDBF7C772366599900E8C809 /* RegisterConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterConfigurator.swift; sourceTree = "<group>"; };
+		EDBF7C792366861600E8C809 /* ServerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +176,7 @@
 		EDBF7C5823661ED800E8C809 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				EDBF7C792366861600E8C809 /* ServerService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -345,6 +348,7 @@
 				EDBF7C392366185B00E8C809 /* SceneDelegate.swift in Sources */,
 				EDBF7C6D2366503D00E8C809 /* User.swift in Sources */,
 				EDBF7C782366599900E8C809 /* RegisterConfigurator.swift in Sources */,
+				EDBF7C7A2366861600E8C809 /* ServerService.swift in Sources */,
 				EDBF7C702366596900E8C809 /* RegisterController.swift in Sources */,
 				EDBF7C5423661C1600E8C809 /* HomeRouter.swift in Sources */,
 				EDBF7C4E23661BF100E8C809 /* HomeConfigurator.swift in Sources */,
