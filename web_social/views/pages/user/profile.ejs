@@ -80,7 +80,7 @@
                         Avatar:
                     </div>
                     <div>
-                        <img :src="user.profileImageUrl ? user.profileImageUrl : '/images/startup.png'" 
+                        <img :src="user.imageUrl ? user.imageUrl : '/images/startup.png'" 
                         class="center-cropped">
                         <div style="margin-top: 12px;">
                             <input type="file" v-on:change="handleAvatarChange">
@@ -105,7 +105,6 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
         const user = window.SAILS_LOCALS.user
-        user.profileImageUrl = '/images/startup.png'
         const app = new Vue({
             el: '#app',
             data: {
@@ -118,16 +117,17 @@
                     const formData = new FormData()
                     formData.append('fullName', this.user.fullName)
                     formData.append('bio', this.user.bio)
-                    formData.append('imageUrl', this.avatarFile)
+                    formData.append('imagefile', this.avatarFile)
                     try {
                         await axios.post('/profile', formData)
+                        location.reload()
                     } catch (err) {
                         console.error(err.toString())
                     }
                 },
                 handleAvatarChange: function(event) {
                     this.avatarFile = event.target.files[0]
-                    this.user.profileImageUrl = window.URL.createObjectURL(this.avatarFile)
+                    this.user.imageUrl = window.URL.createObjectURL(this.avatarFile)
                 }
             }
         })

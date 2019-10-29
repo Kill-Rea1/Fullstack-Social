@@ -72,6 +72,7 @@ module.exports.routes = {
   'GET /search': { action: 'user/search' },
   'POST /follow/:id': { action: 'user/follow'},
   'POST /unfollow/:id': { action: 'user/unfollow'},
+  'POST /profile': { action: 'user/update'},
   'GET /profile': { action: 'user/profile'},
   'GET /user/:id': { action: 'user/publicprofile'},
   'GET /customauth/login': {

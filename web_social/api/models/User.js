@@ -11,6 +11,8 @@ module.exports = {
   customToJSON: function() {
     return {id: this.id, fullName: this.fullName,
       emailAddress: this.emailAddress,
+      bio: this.bio,
+      imageUrl: this.imageUrl,
       following: this.following,
       followers: this.followers,
       posts: this.posts
@@ -25,6 +27,14 @@ module.exports = {
 
     followers: {
       collection: 'user'
+    },
+
+    bio: {
+      type: 'string'
+    },
+
+    imageUrl: {
+      type: 'string'
     },
 
     //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗
