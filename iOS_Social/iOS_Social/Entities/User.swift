@@ -11,5 +11,5 @@ import Foundation
 struct User: Decodable {
     let id: String
     let fullName: String
-    let email: String
+    let emailAddress: String
 }

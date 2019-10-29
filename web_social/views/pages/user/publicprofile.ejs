@@ -1,37 +1,29 @@
 <style>
+    [v-cloak] {display: none;}
     .title {
         font-size: 18px; font-weight: bold;
         margin-bottom: 12px;
     }
-
     .block {
         background-color: white; padding: 16px;
         margin-bottom: 8px; border-radius: 6px;
     }
-
 </style>
-
 <div>
-
     <%- partial('../../partials/navbar.ejs') %>
-
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-
-    <div id="app" style="padding: 24px; max-width: 100%;">
+    <div id="app" style="padding: 24px; max-width: 100%;" v-cloak>
         <div style="font-weight: bold; margin-bottom: 16px; font-size: 20px;">
             User Information
         </div>
-
         <div style="background-color: white; padding: 24px; border-radius: 6px;">
             <div style="margin-bottom: 8px;">
                 {{user.fullName}}
-            </div>
-                
+            </div>  
             <div style="font-size: 12px;">
                 {{user.emailAddress}}
             </div>
         </div>
-
         <div style="margin-top: 16px; display: flex; flex: 1;">
             <div style="flex: 1; margin-right: 24px;">
                 <div class="title">
@@ -77,10 +69,8 @@
             <%- partial('../../partials/post.ejs') %>
         </div>
     </div>
-
     <%- /* Expose locals as 'window.SAILS_LOCALS' :: */ exposeLocalsToBrowser({keys: ['user']}) %>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
     <script>
         const app = new Vue({
             el: '#app',

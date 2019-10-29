@@ -3,20 +3,14 @@
         background-color: black;
         color: white;
     }
-
     .not-following {
         background-color: white;
         color: black;
     }
-
 </style>
-
 <div>
-
     <%- partial('../../partials/navbar.ejs') %>
-
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-
     <div id="app" style="padding: 16px">
         <div v-for="u in users" style="background-color: white; margin-bottom: 16px; padding: 16px;"
             v-bind:key="u.id">
@@ -33,34 +27,27 @@
             </div>
         </div>
     </div>
-
     <%- /* Expose locals as 'window.SAILS_LOCALS' :: */ exposeLocalsToBrowser({keys: ['users']}) %>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
     <script> 
         const allUsers = window.SAILS_LOCALS.users
-
         // allUsers.forEach(u=> {
         //     u.isFollowing = false
         // })
-
         const App = new Vue({
             el: '#app',
             data: {
                 mymessage: "hello from Vue",
                 users: allUsers,
-
             },
             methods: {
                 follow: async function(user) {
                     console.log(user.fullName)
-
                     if (user.isFollowing) {
                         await axios.post('/unfollow/' + user.id)
                     } else {
                         await axios.post('/follow/' + user.id)
                     }
-
                     // this.users.forEach( u=> {
                     //     if (u.id == user.id) {
                     // for manual update UI
