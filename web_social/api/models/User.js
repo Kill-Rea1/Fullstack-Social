@@ -11,11 +11,16 @@ module.exports = {
   customToJSON: function() {
     return {id: this.id, 
       fullName: this.fullName, 
-      email: this.emailAddress
+      email: this.emailAddress,
+      following: this.following
     }
   },
 
   attributes: {
+
+    following: {
+      collection: 'user'
+    },
 
     //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗
     //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
