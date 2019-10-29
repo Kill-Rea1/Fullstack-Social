@@ -3,12 +3,10 @@
         display: flex; justify-content: center;
         height: 100%;
     }
-
     .inner-div {
         display: flex; justify-content: center; 
         flex-direction: column; width: 400px;
     }
-
     input {
         border-radius: 6px;
         border: solid 1px rgb(215, 215, 215);
@@ -16,7 +14,6 @@
         font-size: 14px;
         margin-bottom: 12px;
     }
-
     button {
         background-color: dodgerblue;
         border-radius: 6px;
@@ -25,7 +22,6 @@
         padding: 12px;
     }
 </style>
-
 <script>
     async function handleLogin() {
         console.log("Trying to login...")
@@ -43,43 +39,32 @@
         }
     }
 </script>
-
-
 <div class="outer-div" style="font-family: Arial, Helvetica, sans-serif">
-
     <div class="inner-div">
-
         <div style="display: flex; justify-content: center;">
             <div>
                 <div style="display: flex; justify-content: center">
                     <img src="/images/startup.png" style="width: 100px; margin-bottom: 16px;">
                 </div>
-        
                 <div style="margin-bottom: 28px; font-size: 30px; font-weight: bold"> 
                     Fullstack Social
                 </div>
             </div>
         </div>
-
         <div style="background-color: white; padding: 24px; border-radius: 6px;">
-
             <div style="font-weight: bold; font-size: 18px; 
                 margin-bottom: 16px; text-align: center;">
                 Log into your account
             </div>
-
             <form style="display: flex; flex-direction: column;">
                 <input id="email" name="emailAddress" type="text" placeholder="Email">
                 <input id="password" name="password" type="password" placeholder="Password">
                 <button onclick="handleLogin()" type="button">Login</button>
             </form>
-
             <div style="text-align: center;">
                 Don't have an account? 
                 <a href="/signup">Sign up</a>
             </div>
         </div>
-
     </div>
-
 </div>

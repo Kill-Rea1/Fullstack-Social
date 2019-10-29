@@ -5,6 +5,13 @@ module.exports = async function(req, res) {
     const user = await User.findOne({id: id})
         .populate('following').populate('followers')
 
+    const posts = await Post.find({user: id})
+        .populate('user')
+        .sort('createdAt DESC')
+
+    user.posts = posts
+    console.log(user.posts)
+
     const objects = JSON.parse(JSON.stringify(user))
 
     res.view('pages/user/publicprofile', {

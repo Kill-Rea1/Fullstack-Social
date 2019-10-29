@@ -9,11 +9,11 @@ module.exports = {
   // custom JSON function
 
   customToJSON: function() {
-    return {id: this.id, 
-      fullName: this.fullName, 
-      email: this.emailAddress,
+    return {id: this.id, fullName: this.fullName,
+      emailAddress: this.emailAddress,
       following: this.following,
-      followers: this.followers
+      followers: this.followers,
+      posts: this.posts
     }
   },
 
