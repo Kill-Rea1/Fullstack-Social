@@ -32,6 +32,9 @@ module.exports = async function(req, res) {
     //         }
     //     })
     // })
+    if (req.wantsJSON) {
+        return res.send(sanitizedUsers)
+    }
 
     res.view('pages/user/search', {
         layout: 'layouts/nav-layout',

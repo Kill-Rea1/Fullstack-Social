@@ -10,8 +10,8 @@ module.exports = async function(req, res) {
     const options =
     { // This is the usual stuff
         adapter: require('skipper-better-s3')
-        , key: 'AKIAIFB7T6ICLRWZDP4A'
-        , secret: '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'
+        , key: ''
+        , secret: ''
         , bucket: 'full-stack-social'
         // Let's use the custom s3params to upload this file as publicly
         // readable by anyone

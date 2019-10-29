@@ -6,10 +6,16 @@
 //  Copyright © 2019 Kirill Ivanoff. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct User: Decodable {
     let id: String
     let fullName: String
     let emailAddress: String
+    var isFollowing: Bool?
+    
+    func toSearchType() -> SearchCellType {
+        let username = NSAttributedString(string: fullName, attributes: [.font: UIFont.boldSystemFont(ofSize: 17)])
+        return SearchCellEntity(username: username, userId: id, isFollowing: isFollowing ?? false)
+    }
 }

@@ -27,7 +27,7 @@ class HomeController: UITableViewController, HomeViewProtocol {
         view.backgroundColor = .init(white: 0.95, alpha: 1)
         
         navigationItem.rightBarButtonItems = [
-            UIBarButtonItem(title: "Fetch posts", style: .plain, target: self, action: #selector(handleFetchPosts)),
+            UIBarButtonItem(title: "Search", style: .plain, target: self, action: #selector(handleSearch)),
             UIBarButtonItem(title: "Create post", style: .plain, target: self, action: #selector(handleCreatePost))
         ]
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Log in", style: .plain, target: self, action: #selector(handleLogIn))
@@ -48,8 +48,8 @@ class HomeController: UITableViewController, HomeViewProtocol {
     }
     
     @objc
-    fileprivate func handleFetchPosts() {
-        presenter.fetchPostsTapped()
+    fileprivate func handleSearch() {
+        presenter.searchTapped()
     }
     
     @objc

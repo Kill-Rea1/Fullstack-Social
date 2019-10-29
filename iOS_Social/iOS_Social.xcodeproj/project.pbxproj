@@ -41,6 +41,13 @@
 		EDBF7C8623672BDB00E8C809 /* NewPostInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C8523672BDB00E8C809 /* NewPostInteractor.swift */; };
 		EDBF7C8823672BEB00E8C809 /* NewPostRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C8723672BEB00E8C809 /* NewPostRouter.swift */; };
 		EDBF7C8A23672BF600E8C809 /* NewPostConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C8923672BF600E8C809 /* NewPostConfigurator.swift */; };
+		EDBF7C8D236897DA00E8C809 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C8C236897DA00E8C809 /* SearchController.swift */; };
+		EDBF7C8F236897E900E8C809 /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C8E236897E900E8C809 /* SearchPresenter.swift */; };
+		EDBF7C91236897F300E8C809 /* SearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C90236897F300E8C809 /* SearchInteractor.swift */; };
+		EDBF7C93236897FC00E8C809 /* SearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C92236897FC00E8C809 /* SearchRouter.swift */; };
+		EDBF7C952368980A00E8C809 /* SearchConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C942368980A00E8C809 /* SearchConfigurator.swift */; };
+		EDBF7C9723689AFE00E8C809 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C9623689AFE00E8C809 /* SearchCell.swift */; };
+		EDBF7C992368A37C00E8C809 /* SearchCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C982368A37C00E8C809 /* SearchCellType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +89,13 @@
 		EDBF7C8523672BDB00E8C809 /* NewPostInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostInteractor.swift; sourceTree = "<group>"; };
 		EDBF7C8723672BEB00E8C809 /* NewPostRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostRouter.swift; sourceTree = "<group>"; };
 		EDBF7C8923672BF600E8C809 /* NewPostConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostConfigurator.swift; sourceTree = "<group>"; };
+		EDBF7C8C236897DA00E8C809 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
+		EDBF7C8E236897E900E8C809 /* SearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
+		EDBF7C90236897F300E8C809 /* SearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInteractor.swift; sourceTree = "<group>"; };
+		EDBF7C92236897FC00E8C809 /* SearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRouter.swift; sourceTree = "<group>"; };
+		EDBF7C942368980A00E8C809 /* SearchConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchConfigurator.swift; sourceTree = "<group>"; };
+		EDBF7C9623689AFE00E8C809 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
+		EDBF7C982368A37C00E8C809 /* SearchCellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCellType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +176,7 @@
 		EDBF7C5523661C3800E8C809 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				EDBF7C8B236897C500E8C809 /* Search */,
 				EDBF7C8023672BAF00E8C809 /* NewPost */,
 				EDBF7C6E2366594B00E8C809 /* Register */,
 				EDBF7C5C236628F700E8C809 /* Login */,
@@ -224,6 +239,7 @@
 				EDBF7C6A2366500600E8C809 /* Post.swift */,
 				EDBF7C6C2366503D00E8C809 /* User.swift */,
 				EDBF7C7E2367236600E8C809 /* PostCellType.swift */,
+				EDBF7C982368A37C00E8C809 /* SearchCellType.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -244,6 +260,7 @@
 			isa = PBXGroup;
 			children = (
 				EDBF7C7C23671FCE00E8C809 /* PostCell.swift */,
+				EDBF7C9623689AFE00E8C809 /* SearchCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -258,6 +275,18 @@
 				EDBF7C8923672BF600E8C809 /* NewPostConfigurator.swift */,
 			);
 			path = NewPost;
+			sourceTree = "<group>";
+		};
+		EDBF7C8B236897C500E8C809 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				EDBF7C8C236897DA00E8C809 /* SearchController.swift */,
+				EDBF7C8E236897E900E8C809 /* SearchPresenter.swift */,
+				EDBF7C90236897F300E8C809 /* SearchInteractor.swift */,
+				EDBF7C92236897FC00E8C809 /* SearchRouter.swift */,
+				EDBF7C942368980A00E8C809 /* SearchConfigurator.swift */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -379,6 +408,7 @@
 				EDBF7C4C23661B5900E8C809 /* HomeController.swift in Sources */,
 				EDBF7C3B2366185B00E8C809 /* ViewController.swift in Sources */,
 				EDBF7C602366298100E8C809 /* LoginConfigurator.swift in Sources */,
+				EDBF7C992368A37C00E8C809 /* SearchCellType.swift in Sources */,
 				EDBF7C372366185B00E8C809 /* AppDelegate.swift in Sources */,
 				EDBF7C762366598900E8C809 /* RegisterRouter.swift in Sources */,
 				EDBF7C5023661BFE00E8C809 /* HomePresenter.swift in Sources */,
@@ -388,15 +418,20 @@
 				EDBF7C8823672BEB00E8C809 /* NewPostRouter.swift in Sources */,
 				EDBF7C782366599900E8C809 /* RegisterConfigurator.swift in Sources */,
 				EDBF7C7A2366861600E8C809 /* ServerService.swift in Sources */,
+				EDBF7C9723689AFE00E8C809 /* SearchCell.swift in Sources */,
 				EDBF7C702366596900E8C809 /* RegisterController.swift in Sources */,
 				EDBF7C5423661C1600E8C809 /* HomeRouter.swift in Sources */,
+				EDBF7C952368980A00E8C809 /* SearchConfigurator.swift in Sources */,
 				EDBF7C4E23661BF100E8C809 /* HomeConfigurator.swift in Sources */,
 				EDBF7C8423672BD100E8C809 /* NewPostPresenter.swift in Sources */,
 				EDBF7C7F2367236600E8C809 /* PostCellType.swift in Sources */,
+				EDBF7C91236897F300E8C809 /* SearchInteractor.swift in Sources */,
+				EDBF7C8D236897DA00E8C809 /* SearchController.swift in Sources */,
 				EDBF7C742366597E00E8C809 /* RegisterInteractor.swift in Sources */,
 				EDBF7C8223672BC200E8C809 /* NewPostController.swift in Sources */,
 				EDBF7C722366597400E8C809 /* RegisterPresenter.swift in Sources */,
 				EDBF7C5B2366232000E8C809 /* UIView+Extensions.swift in Sources */,
+				EDBF7C93236897FC00E8C809 /* SearchRouter.swift in Sources */,
 				EDBF7C6423662A2900E8C809 /* LoginInteractor.swift in Sources */,
 				EDBF7C6B2366500600E8C809 /* Post.swift in Sources */,
 				EDBF7C5223661C0A00E8C809 /* HomeInteractor.swift in Sources */,
@@ -404,6 +439,7 @@
 				EDBF7C5E2366290200E8C809 /* LoginController.swift in Sources */,
 				EDBF7C8623672BDB00E8C809 /* NewPostInteractor.swift in Sources */,
 				EDBF7C6823662D8600E8C809 /* CustomTextField.swift in Sources */,
+				EDBF7C8F236897E900E8C809 /* SearchPresenter.swift in Sources */,
 				EDBF7C7D23671FCF00E8C809 /* PostCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

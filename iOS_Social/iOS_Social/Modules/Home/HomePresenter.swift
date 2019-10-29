@@ -12,7 +12,7 @@ protocol HomePresenterProtocol: class {
     var interactor: HomeInteractorProtocol! { get set }
     var router: HomeRouterProtocol! { get set }
     func numberOfRows() -> Int
-    func fetchPostsTapped()
+    func searchTapped()
     func createPostsTapped()
     func logInTapped()
     func didCancelImagePicker()
@@ -42,8 +42,8 @@ class HomePresenter: HomePresenterProtocol {
         interactor.fetchPosts()
     }
     
-    func fetchPostsTapped() {
-        interactor.fetchPosts()
+    func searchTapped() {
+        router.showSearch()
     }
     
     func createPostsTapped() {

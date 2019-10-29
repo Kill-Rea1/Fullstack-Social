@@ -14,6 +14,7 @@ protocol HomeRouterProtocol: class {
     func showImagePicker()
     func showNewPostScreen(with info: Any, delegate: NewPostModuleDelegate)
     func dismissImagePicker()
+    func showSearch()
 }
 
 class HomeRouter: HomeRouterProtocol {
@@ -48,5 +49,11 @@ class HomeRouter: HomeRouterProtocol {
     
     func dismissImagePicker() {
         imagePicker?.dismiss(animated: true)
+    }
+    
+    func showSearch() {
+        let layout = UICollectionViewFlowLayout()
+        let navController = UINavigationController(rootViewController: SearchController(collectionViewLayout: layout))
+        viewController?.present(navController, animated: true)
     }
 }

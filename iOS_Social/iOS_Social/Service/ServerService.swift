@@ -20,6 +20,8 @@ protocol UploadProgressProtocol: class {
 
 protocol ServerServiceProtocol: class {
     var delegate: UploadProgressProtocol? { get set }
+    func searchForUsers(completion: @escaping (Result<[User]>) -> ())
+    func changeFollowState(of userId: String, state isFollow: Bool, completion: @escaping (Result<Data>) -> ())
     func login(email: String, password: String, completion: @escaping (Result<Data>) -> ())
     func register(fullName: String, email: String, password: String, completion: @escaping (Result<Data>) -> ())
     func fetchPosts(completion: @escaping (Result<[Post]>) -> ())
@@ -32,6 +34,45 @@ class ServerService: ServerServiceProtocol {
     let baseUrl = "http://localhost:1337"
 //    let baseUrl = "http://192.168.0.103:1337"
     weak var delegate: UploadProgressProtocol?
+    
+    func searchForUsers(completion: @escaping (Result<[User]>) -> ()) {
+        let url = "\(baseUrl)/search"
+        Alamofire.request(url)
+            .validate(statusCode: 200..<300)
+            .responseData { (dataResp) in
+                if let err = dataResp.error {
+                    print("Failed to fetch users: ", err)
+                    completion(.failure(err))
+                    return
+                }
+                
+                do {
+                    guard let data = dataResp.data else { return }
+                    let users = try JSONDecoder().decode([User].self, from: data)
+                    print("Successfully fetched users")
+                    completion(.success(users))
+                } catch let jsonErr {
+                    print("Failed to decode JSON: ", jsonErr)
+                    completion(.failure(jsonErr))
+                }
+        }
+    }
+    
+    func changeFollowState(of userId: String, state isFollow: Bool, completion: @escaping (Result<Data>) -> ()) {
+        let url = "\(baseUrl)/\(isFollow ? "unfollow" : "follow")/\(userId)"
+        Alamofire.request(url, method: .post)
+            .validate(statusCode: 200..<300)
+            .responseData { (dataResp) in
+                if let err = dataResp.error {
+                    print("Failed to change follow state: ", err)
+                    completion(.failure(err))
+                    return
+                }
+                completion(.success(dataResp.data ?? Data()))
+                print("Successfully changed")
+        }
+    }
+
     
     func login(email: String, password: String, completion: @escaping (Result<Data>) -> ()) {
         print("Performing login")
