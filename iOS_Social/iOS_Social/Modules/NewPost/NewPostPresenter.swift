@@ -13,8 +13,6 @@ protocol NewPostModuleDelegate: class {
 }
 
 protocol NewPostPresenterProtocol: class {
-    var interactor: NewPostInteractorProtocol! { get set }
-    var router: NewPostRouterProtocol! { get set }
     var delegate: NewPostModuleDelegate? { get set }
     func textViewDidChange(with text: String)
     func createPost()

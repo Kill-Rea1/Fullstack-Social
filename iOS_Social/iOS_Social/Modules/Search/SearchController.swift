@@ -49,6 +49,10 @@ class SearchController: UICollectionViewController, SearchViewProtocol, UICollec
         return 0
     }
     
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        presenter.didSelect(at: indexPath)
+    }
+    
     // MARK:- SearchViewProtocol
     
     func update() {

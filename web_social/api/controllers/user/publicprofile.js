@@ -10,12 +10,21 @@ module.exports = async function(req, res) {
         .sort('createdAt DESC')
 
     user.posts = posts
-    console.log(user.posts)
+    user.followers.forEach(f => {
+        if (f.id === req.session.userId) {
+            user.isFollowing = true
+        }
+    })
 
-    const objects = JSON.parse(JSON.stringify(user))
+    const sanitizedUser = JSON.parse(JSON.stringify(user))
+    sanitizedUser.isFollowing = user.isFollowing
+
+    if (req.wantsJSON) {
+        return res.send(sanitizedUser)
+    }
 
     res.view('pages/user/publicprofile', {
         layout: 'layouts/nav-layout',
-        user: objects
+        user: sanitizedUser
     })
 }

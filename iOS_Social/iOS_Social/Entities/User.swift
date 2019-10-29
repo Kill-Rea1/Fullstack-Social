@@ -12,6 +12,9 @@ struct User: Decodable {
     let id: String
     let fullName: String
     let emailAddress: String
+    var posts: [Post]?
+    var following: [User]?
+    var followers: [User]?
     var isFollowing: Bool?
     
     func toSearchType() -> SearchCellType {

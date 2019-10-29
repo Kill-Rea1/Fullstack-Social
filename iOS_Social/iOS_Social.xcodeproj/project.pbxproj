@@ -48,6 +48,12 @@
 		EDBF7C952368980A00E8C809 /* SearchConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C942368980A00E8C809 /* SearchConfigurator.swift */; };
 		EDBF7C9723689AFE00E8C809 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C9623689AFE00E8C809 /* SearchCell.swift */; };
 		EDBF7C992368A37C00E8C809 /* SearchCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C982368A37C00E8C809 /* SearchCellType.swift */; };
+		EDBF7C9C2368B4E400E8C809 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C9B2368B4E400E8C809 /* ProfileController.swift */; };
+		EDBF7C9E2368B4EF00E8C809 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C9D2368B4EF00E8C809 /* ProfilePresenter.swift */; };
+		EDBF7CA02368B4FD00E8C809 /* ProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C9F2368B4FD00E8C809 /* ProfileInteractor.swift */; };
+		EDBF7CA22368B50600E8C809 /* ProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7CA12368B50600E8C809 /* ProfileRouter.swift */; };
+		EDBF7CA42368B51200E8C809 /* ProfileConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7CA32368B51200E8C809 /* ProfileConfigurator.swift */; };
+		EDBF7CA62368BDBE00E8C809 /* UserPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7CA52368BDBE00E8C809 /* UserPostCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,6 +102,12 @@
 		EDBF7C942368980A00E8C809 /* SearchConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchConfigurator.swift; sourceTree = "<group>"; };
 		EDBF7C9623689AFE00E8C809 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		EDBF7C982368A37C00E8C809 /* SearchCellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCellType.swift; sourceTree = "<group>"; };
+		EDBF7C9B2368B4E400E8C809 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
+		EDBF7C9D2368B4EF00E8C809 /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
+		EDBF7C9F2368B4FD00E8C809 /* ProfileInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInteractor.swift; sourceTree = "<group>"; };
+		EDBF7CA12368B50600E8C809 /* ProfileRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRouter.swift; sourceTree = "<group>"; };
+		EDBF7CA32368B51200E8C809 /* ProfileConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileConfigurator.swift; sourceTree = "<group>"; };
+		EDBF7CA52368BDBE00E8C809 /* UserPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPostCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +188,7 @@
 		EDBF7C5523661C3800E8C809 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				EDBF7C9A2368B4D000E8C809 /* Profile */,
 				EDBF7C8B236897C500E8C809 /* Search */,
 				EDBF7C8023672BAF00E8C809 /* NewPost */,
 				EDBF7C6E2366594B00E8C809 /* Register */,
@@ -261,6 +274,7 @@
 			children = (
 				EDBF7C7C23671FCE00E8C809 /* PostCell.swift */,
 				EDBF7C9623689AFE00E8C809 /* SearchCell.swift */,
+				EDBF7CA52368BDBE00E8C809 /* UserPostCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -287,6 +301,18 @@
 				EDBF7C942368980A00E8C809 /* SearchConfigurator.swift */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		EDBF7C9A2368B4D000E8C809 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				EDBF7C9B2368B4E400E8C809 /* ProfileController.swift */,
+				EDBF7C9D2368B4EF00E8C809 /* ProfilePresenter.swift */,
+				EDBF7C9F2368B4FD00E8C809 /* ProfileInteractor.swift */,
+				EDBF7CA12368B50600E8C809 /* ProfileRouter.swift */,
+				EDBF7CA32368B51200E8C809 /* ProfileConfigurator.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -425,9 +451,12 @@
 				EDBF7C4E23661BF100E8C809 /* HomeConfigurator.swift in Sources */,
 				EDBF7C8423672BD100E8C809 /* NewPostPresenter.swift in Sources */,
 				EDBF7C7F2367236600E8C809 /* PostCellType.swift in Sources */,
+				EDBF7C9C2368B4E400E8C809 /* ProfileController.swift in Sources */,
+				EDBF7CA02368B4FD00E8C809 /* ProfileInteractor.swift in Sources */,
 				EDBF7C91236897F300E8C809 /* SearchInteractor.swift in Sources */,
 				EDBF7C8D236897DA00E8C809 /* SearchController.swift in Sources */,
 				EDBF7C742366597E00E8C809 /* RegisterInteractor.swift in Sources */,
+				EDBF7CA22368B50600E8C809 /* ProfileRouter.swift in Sources */,
 				EDBF7C8223672BC200E8C809 /* NewPostController.swift in Sources */,
 				EDBF7C722366597400E8C809 /* RegisterPresenter.swift in Sources */,
 				EDBF7C5B2366232000E8C809 /* UIView+Extensions.swift in Sources */,
@@ -440,7 +469,10 @@
 				EDBF7C8623672BDB00E8C809 /* NewPostInteractor.swift in Sources */,
 				EDBF7C6823662D8600E8C809 /* CustomTextField.swift in Sources */,
 				EDBF7C8F236897E900E8C809 /* SearchPresenter.swift in Sources */,
+				EDBF7CA62368BDBE00E8C809 /* UserPostCell.swift in Sources */,
 				EDBF7C7D23671FCF00E8C809 /* PostCell.swift in Sources */,
+				EDBF7CA42368B51200E8C809 /* ProfileConfigurator.swift in Sources */,
+				EDBF7C9E2368B4EF00E8C809 /* ProfilePresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

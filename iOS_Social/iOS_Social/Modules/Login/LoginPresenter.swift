@@ -9,8 +9,6 @@
 import Foundation
 
 protocol LoginPresenterProtocol: class {
-    var interactor: LoginInteractorProtocol! { get set }
-    var router: LoginRouterProtocol! { get set }
     func loginButtonTapped()
     func emailChanged(to email: String)
     func passwordChanged(to password: String)

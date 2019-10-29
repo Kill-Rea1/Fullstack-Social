@@ -9,8 +9,6 @@
 import Foundation
 
 protocol RegisterPresenterProtocol: class {
-    var router: RegisterRouterProtocol! { get set }
-    var interactor: RegisterInteractorProtocol! { get set }
     func fullNameChanged(to text: String?)
     func emailChanged(to text: String?)
     func passwordChanged(to text: String?)

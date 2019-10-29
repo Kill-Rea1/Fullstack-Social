@@ -9,8 +9,6 @@
 import Foundation
 
 protocol HomePresenterProtocol: class {
-    var interactor: HomeInteractorProtocol! { get set }
-    var router: HomeRouterProtocol! { get set }
     func numberOfRows() -> Int
     func searchTapped()
     func createPostsTapped()

@@ -9,13 +9,12 @@
 import Foundation
 
 protocol SearchPresenterProtocol: class {
-    var router: SearchRouterProtocol! { get set }
-    var interactor: SearchInteractorProtocol! { get set }
     func numberOfItems() -> Int
     func userSearchType(for indexPath: IndexPath) -> SearchCellType
     func configureView()
     func updateView()
     func updateItem(at index: Int)
+    func didSelect(at indexPath: IndexPath)
 }
 
 class SearchPresenter: SearchPresenterProtocol {
@@ -50,6 +49,10 @@ class SearchPresenter: SearchPresenterProtocol {
     func updateItem(at index: Int) {
         let indexPath = IndexPath(item: index, section: 0)
         view?.updateItem(at: indexPath)
+    }
+    
+    func didSelect(at indexPath: IndexPath) {
+        router.showProfile(with: interactor.getId(for: indexPath.item))
     }
 }
 

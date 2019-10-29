@@ -12,6 +12,7 @@ protocol SearchInteractorProtocol: class {
     var users: [User]! { get set }
     func fetchUsers()
     func changeFollowState(of userId: String)
+    func getId(for index: Int) -> String
 }
 
 class SearchInteractor: SearchInteractorProtocol {
@@ -53,5 +54,9 @@ class SearchInteractor: SearchInteractorProtocol {
                 self.presenter?.updateItem(at: index)
             }
         }
+    }
+    
+    func getId(for index: Int) -> String {
+        return users[index].id
     }
 }

@@ -27,13 +27,38 @@ protocol ServerServiceProtocol: class {
     func fetchPosts(completion: @escaping (Result<[Post]>) -> ())
     func uploadPost(postText: String, imageData: Data, completion: @escaping (Result<Data>) -> ())
     func deletePost(with id: String)
+    func fetchUser(with id: String, completion: @escaping (Result<User>) -> ())
 }
 
 class ServerService: ServerServiceProtocol {
     
-    let baseUrl = "http://localhost:1337"
-//    let baseUrl = "http://192.168.0.103:1337"
+//    let baseUrl = "http://localhost:1337"
+    let baseUrl = "http://192.168.0.103:1337"
     weak var delegate: UploadProgressProtocol?
+    
+    func fetchUser(with id: String, completion: @escaping (Result<User>) -> ()) {
+        let url = "\(baseUrl)/user/\(id)"
+        Alamofire.request(url)
+            .validate(statusCode: 200..<300)
+            .responseData { (dataResp) in
+                if let err = dataResp.error {
+                    print("Failed to fetch user profile: ", err)
+                    completion(.failure(err))
+                    return
+                }
+                
+                guard let data = dataResp.data else { return }
+                do {
+                    let user = try JSONDecoder().decode(User.self, from: data)
+                    print("Successful")
+                    completion(.success(user))
+                } catch let jsonErr {
+                    print("Failed to decode JSON: ", jsonErr)
+                    completion(.failure(jsonErr))
+                }
+                
+        }
+    }
     
     func searchForUsers(completion: @escaping (Result<[User]>) -> ()) {
         let url = "\(baseUrl)/search"

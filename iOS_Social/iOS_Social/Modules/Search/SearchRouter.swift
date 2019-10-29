@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SearchRouterProtocol {
-    
+    func showProfile(with id: String)
 }
 
 class SearchRouter: SearchRouterProtocol {
@@ -17,5 +17,12 @@ class SearchRouter: SearchRouterProtocol {
     
     required init(viewController: SearchController) {
         self.viewController = viewController
+    }
+    
+    func showProfile(with id: String) {
+        let layout = UICollectionViewFlowLayout()
+        let vc = ProfileController(collectionViewLayout: layout)
+        vc.userId = id
+        viewController?.navigationController?.pushViewController(vc, animated: true)
     }
 }

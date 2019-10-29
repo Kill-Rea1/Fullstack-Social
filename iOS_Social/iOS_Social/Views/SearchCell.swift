@@ -33,6 +33,8 @@ class SearchCell: UICollectionViewCell, SearchCellProtocol {
     
     weak var delegate: SearchCellDelegate?
     
+    // MARK:- UI Elements
+    
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.text = "UserName"
