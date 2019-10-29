@@ -11,21 +11,10 @@ module.exports = async function(req, res) {
         res.end()
     }
     // save new avatar
-    const options = {
-        adapter: require('skipper-better-s3'),
-        key: '',
-        secret: '',
-        bucket: 'full-stack-social',
-        s3params: { ACL: 'public-read' }
-    }
-
-    file.upload(options, async (err, files) => {
-        if (err) { return res.serverError(err.toString())}
-        const fileUrl = files[0].extra.Location
-        const userId = req.session.userId
-        const record = await User.update({id: userId})
-            .set({fullName: fullName, bio: bio, imageUrl: fileUrl}).fetch()
-        console.log(JSON.parse(JSON.stringify(record)))
-        res.end()
-    })
+    const fileUrl = await sails.helpers.uploadfile(file)
+    const userId = req.session.userId
+    const record = await User.update({id: userId})
+        .set({fullName: fullName, bio: bio, imageUrl: fileUrl}).fetch()
+    console.log(JSON.parse(JSON.stringify(record)))
+    res.end()
 }
