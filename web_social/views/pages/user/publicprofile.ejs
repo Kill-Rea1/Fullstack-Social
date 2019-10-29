@@ -17,7 +17,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
-    <div id="app" style="padding: 24px">
+    <div id="app" style="padding: 24px; max-width: 100%;">
         <div style="font-weight: bold; margin-bottom: 16px; font-size: 20px;">
             User Information
         </div>
@@ -28,14 +28,18 @@
             </div>
                 
             <div style="font-size: 12px;">
-                {{user.email}}
+                {{user.emailAddress}}
             </div>
         </div>
 
-        <div style="margin-top: 16px; display: flex; flex-direction: row;">
-            <div style="width: 45%; margin-right: 10%;">
+        <div style="margin-top: 16px; display: flex; flex: 1;">
+            <div style="flex: 1; margin-right: 24px;">
                 <div class="title">
                     Currently following
+                </div>
+                <div v-if="!user.following || user.following.length == 0"
+                    class="block">
+                    Not following anyone.
                 </div>
                 <div v-for="f in user.following" 
                     class="block">
@@ -43,13 +47,17 @@
                         {{f.fullName}}
                     </div>
                     <div style="font-size: 12px;">
-                        {{f.email}}
+                        {{f.emailAddress}}
                     </div>
                 </div>
             </div>
-            <div style="width: 45%;">
+            <div style="flex: 1;">
                 <div class="title"> 
                     Followers
+                </div>
+                <div v-if="!user.following || user.followers.length == 0"
+                    class="block">
+                    No followers.
                 </div>
                 <div v-for="f in user.followers"
                     class="block">
@@ -57,10 +65,16 @@
                         {{f.fullName}}
                     </div>
                     <div style="font-size: 12px;">
-                        {{f.email}}
+                        {{f.emailAddress}}
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="title"> 
+            Posts
+        </div>
+        <div v-for="p in user.posts">
+            <%- partial('../../partials/post.ejs') %>
         </div>
     </div>
 
