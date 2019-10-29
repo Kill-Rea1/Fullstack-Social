@@ -9,6 +9,7 @@ module.exports = async function(req, res) {
         .populate('user')
         .sort('createdAt DESC')
 
+    // res.send(allPosts)
     if (req.wantsJSON) {
         return res.send(allPosts)
     }

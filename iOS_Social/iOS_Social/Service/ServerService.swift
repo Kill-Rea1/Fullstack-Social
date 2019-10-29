@@ -14,16 +14,24 @@ enum Err: Error {
     case BadCode
 }
 
+protocol UploadProgressProtocol: class {
+    func progressDidChange(progress: Double)
+}
+
 protocol ServerServiceProtocol: class {
+    var delegate: UploadProgressProtocol? { get set }
     func login(email: String, password: String, completion: @escaping (Result<Data>) -> ())
     func register(fullName: String, email: String, password: String, completion: @escaping (Result<Data>) -> ())
     func fetchPosts(completion: @escaping (Result<[Post]>) -> ())
     func uploadPost(postText: String, imageData: Data, completion: @escaping (Result<Data>) -> ())
+    func deletePost(with id: String)
 }
 
 class ServerService: ServerServiceProtocol {
     
     let baseUrl = "http://localhost:1337"
+//    let baseUrl = "http://192.168.0.103:1337"
+    weak var delegate: UploadProgressProtocol?
     
     func login(email: String, password: String, completion: @escaping (Result<Data>) -> ()) {
         print("Performing login")
@@ -88,8 +96,7 @@ class ServerService: ServerServiceProtocol {
                 completion(.failure(err))
             case .success(let uploadRequest, _, _):
                 uploadRequest.uploadProgress { (progress) in
-//                    print("Upload progress: \(progress.fractionCompleted)")
-                    NotificationCenter.default.post(name: .uploadProgress, object: nil, userInfo: ["uploadProgress": progress.fractionCompleted])
+                    self.delegate?.progressDidChange(progress: progress.fractionCompleted)
                 }
                 
                 uploadRequest.responseJSON { (dataResp) in
@@ -110,6 +117,18 @@ class ServerService: ServerServiceProtocol {
                     completion(.success(Data(respString?.utf8 ?? "".utf8)))
                 }
             }
+        }
+    }
+    
+    func deletePost(with id: String) {
+        let url = "\(baseUrl)/post/\(id)"
+        Alamofire.request(url, method: .delete)
+            .validate(statusCode: 200..<300)
+            .responseData { (dataResp) in
+                if let err = dataResp.error {
+                    print("Failed to delete: ", err)
+                    return
+                }
         }
     }
 }

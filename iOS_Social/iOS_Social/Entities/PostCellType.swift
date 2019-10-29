@@ -12,6 +12,7 @@ protocol PostCellType: class {
     var username: NSAttributedString! { get set }
     var imageUrl: URL! { get set }
     var postText: NSAttributedString! { get set }
+    var postId: String! { get set }
 }
 
 class PostCellEntity: PostCellType {
@@ -21,9 +22,12 @@ class PostCellEntity: PostCellType {
     
     var postText: NSAttributedString!
     
-    init(username: NSAttributedString, imageUrl: URL, postText: NSAttributedString) {
+    var postId: String!
+    
+    init(username: NSAttributedString, imageUrl: URL, postText: NSAttributedString, postId: String) {
         self.username = username
         self.imageUrl = imageUrl
         self.postText = postText
+        self.postId = postId
     }
 }

@@ -7,12 +7,11 @@
 //
 
 import Foundation
+import Alamofire
 
 protocol NewPostInteractorProtocol: class {
     var serverService: ServerServiceProtocol { get set }
     func savePost(postText: String, imageData: Data)
-    func removeObserver()
-    func addObserver()
 }
 
 class NewPostInteractor: NewPostInteractorProtocol {
@@ -33,6 +32,7 @@ class NewPostInteractor: NewPostInteractorProtocol {
     var serverService: ServerServiceProtocol = ServerService()
     
     func savePost(postText: String, imageData: Data) {
+        serverService.delegate = self
         serverService.uploadPost(postText: postText, imageData: imageData) { (res) in
             switch res {
             case .failure:
@@ -42,20 +42,10 @@ class NewPostInteractor: NewPostInteractorProtocol {
             }
         }
     }
-    
-    func addObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleUploadProgress), name: .uploadProgress, object: nil)
-    }
-    
-    func removeObserver() {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
-    @objc
-    fileprivate func handleUploadProgress(notifitacion: Notification) {
-        guard let userInfo = notifitacion.userInfo as? [String: Any] else { return }
-        guard let fraction = userInfo["uploadProgress"] as? Double else { return }
-        print(fraction)
-        presenter?.progress(is: fraction)
+}
+
+extension NewPostInteractor: UploadProgressProtocol {
+    func progressDidChange(progress: Double) {
+        presenter?.progress(is: progress)
     }
 }

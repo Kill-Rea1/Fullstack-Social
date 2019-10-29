@@ -19,11 +19,14 @@ protocol HomePresenterProtocol: class {
     func didSelectImage(with info: Any)
     func cellType(for indexPath: IndexPath) -> PostCellType?
     func updateDataSource()
+    func configureView()
+    func deletePost()
 }
 
 class HomePresenter: HomePresenterProtocol {
     
     weak var view: HomeViewProtocol?
+    var selectedId: String!
     
     required init(view: HomeViewProtocol) {
         self.view = view
@@ -34,6 +37,10 @@ class HomePresenter: HomePresenterProtocol {
     var interactor: HomeInteractorProtocol!
     
     var router: HomeRouterProtocol!
+    
+    func configureView() {
+        interactor.fetchPosts()
+    }
     
     func fetchPostsTapped() {
         interactor.fetchPosts()
@@ -66,10 +73,21 @@ class HomePresenter: HomePresenterProtocol {
     func updateDataSource() {
         view?.updateView()
     }
+    
+    func deletePost() {
+        let row = interactor.deletePost()
+        view?.deleteRow(from: IndexPath(row: row, section: 0))
+    }
 }
 
-extension HomePresenter: NewPostModuleDelegate {
+extension HomePresenter: NewPostModuleDelegate, PostCellDelegate {
     func didCreatePost() {
         interactor.fetchPosts()
+    }
+    
+    func handleOptions(with id: String) {
+        selectedId = id
+        view?.showAlertSheet()
+        interactor.findPost(with: id)
     }
 }

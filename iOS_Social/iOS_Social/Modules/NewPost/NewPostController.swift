@@ -39,9 +39,10 @@ class NewPostController: UIViewController, NewPostViewProtocol {
     
     let imageView: UIImageView = {
         let iv = UIImageView()
-        iv.contentMode = .scaleAspectFit
+        iv.contentMode = .scaleAspectFill
+        iv.clipsToBounds = true
         iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.heightAnchor.constraint(equalToConstant: 300).isActive = true
+        iv.heightAnchor.constraint(equalTo: iv.widthAnchor).isActive = true
         return iv
     }()
     

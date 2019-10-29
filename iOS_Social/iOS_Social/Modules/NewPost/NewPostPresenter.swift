@@ -47,7 +47,6 @@ class NewPostPresenter: NewPostPresenterProtocol {
     
     func createPost() {
         guard let imageData = view?.getImageData(), postText != "" else { return }
-        interactor.addObserver()
         interactor.savePost(postText: postText, imageData: imageData)
         view?.showHUD(with: "Uploading")
     }
@@ -59,7 +58,6 @@ class NewPostPresenter: NewPostPresenterProtocol {
     func isSuccessfulyCreated(_ success: Bool) {
         view?.hideHUD()
         if success {
-            interactor.removeObserver()
             delegate?.didCreatePost()
             router.dismiss()
         }
