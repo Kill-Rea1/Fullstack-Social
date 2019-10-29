@@ -8,6 +8,10 @@
 
 import Foundation
 
+protocol ProfileModuleDelegate: class {
+    func didChangeFollowState(for userId: String)
+}
+
 protocol SearchPresenterProtocol: class {
     func numberOfItems() -> Int
     func userSearchType(for indexPath: IndexPath) -> SearchCellType
@@ -61,5 +65,11 @@ class SearchPresenter: SearchPresenterProtocol {
 extension SearchPresenter: SearchCellDelegate {
     func didFollow(withID id: String) {
         interactor.changeFollowState(of: id)
+    }
+}
+
+extension SearchPresenter: ProfileModuleDelegate {
+    func didChangeFollowState(for userId: String) {
+        interactor.changeFollowState(of: userId)
     }
 }

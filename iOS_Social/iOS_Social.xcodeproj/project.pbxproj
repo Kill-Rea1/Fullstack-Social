@@ -54,6 +54,8 @@
 		EDBF7CA22368B50600E8C809 /* ProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7CA12368B50600E8C809 /* ProfileRouter.swift */; };
 		EDBF7CA42368B51200E8C809 /* ProfileConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7CA32368B51200E8C809 /* ProfileConfigurator.swift */; };
 		EDBF7CA62368BDBE00E8C809 /* UserPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7CA52368BDBE00E8C809 /* UserPostCell.swift */; };
+		EDBF7CA82368D5AE00E8C809 /* ProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7CA72368D5AE00E8C809 /* ProfileHeader.swift */; };
+		EDBF7CAA2368D86C00E8C809 /* ProfileHeaderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7CA92368D86C00E8C809 /* ProfileHeaderType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -108,6 +110,8 @@
 		EDBF7CA12368B50600E8C809 /* ProfileRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRouter.swift; sourceTree = "<group>"; };
 		EDBF7CA32368B51200E8C809 /* ProfileConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileConfigurator.swift; sourceTree = "<group>"; };
 		EDBF7CA52368BDBE00E8C809 /* UserPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPostCell.swift; sourceTree = "<group>"; };
+		EDBF7CA72368D5AE00E8C809 /* ProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeader.swift; sourceTree = "<group>"; };
+		EDBF7CA92368D86C00E8C809 /* ProfileHeaderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -253,6 +257,7 @@
 				EDBF7C6C2366503D00E8C809 /* User.swift */,
 				EDBF7C7E2367236600E8C809 /* PostCellType.swift */,
 				EDBF7C982368A37C00E8C809 /* SearchCellType.swift */,
+				EDBF7CA92368D86C00E8C809 /* ProfileHeaderType.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -275,6 +280,7 @@
 				EDBF7C7C23671FCE00E8C809 /* PostCell.swift */,
 				EDBF7C9623689AFE00E8C809 /* SearchCell.swift */,
 				EDBF7CA52368BDBE00E8C809 /* UserPostCell.swift */,
+				EDBF7CA72368D5AE00E8C809 /* ProfileHeader.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -438,6 +444,7 @@
 				EDBF7C372366185B00E8C809 /* AppDelegate.swift in Sources */,
 				EDBF7C762366598900E8C809 /* RegisterRouter.swift in Sources */,
 				EDBF7C5023661BFE00E8C809 /* HomePresenter.swift in Sources */,
+				EDBF7CAA2368D86C00E8C809 /* ProfileHeaderType.swift in Sources */,
 				EDBF7C392366185B00E8C809 /* SceneDelegate.swift in Sources */,
 				EDBF7C6D2366503D00E8C809 /* User.swift in Sources */,
 				EDBF7C8A23672BF600E8C809 /* NewPostConfigurator.swift in Sources */,
@@ -462,6 +469,7 @@
 				EDBF7C5B2366232000E8C809 /* UIView+Extensions.swift in Sources */,
 				EDBF7C93236897FC00E8C809 /* SearchRouter.swift in Sources */,
 				EDBF7C6423662A2900E8C809 /* LoginInteractor.swift in Sources */,
+				EDBF7CA82368D5AE00E8C809 /* ProfileHeader.swift in Sources */,
 				EDBF7C6B2366500600E8C809 /* Post.swift in Sources */,
 				EDBF7C5223661C0A00E8C809 /* HomeInteractor.swift in Sources */,
 				EDBF7C6623662A6C00E8C809 /* LoginRouter.swift in Sources */,

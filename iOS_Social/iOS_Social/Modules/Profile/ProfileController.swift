@@ -7,26 +7,46 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 protocol ProfileViewProtocol: class {
     func updateView()
+    func showHUD(with text: String)
+    func hideHUD()
 }
 
 class ProfileController: UICollectionViewController, UICollectionViewDelegateFlowLayout, ProfileViewProtocol {
     
     private let cellId = "profilePostId"
-    let configurator: ProfileConfiguratorProtocol = ProfileConfigurator()
+    private let headerId = "profileHeaderId"
+    private let configurator: ProfileConfiguratorProtocol = ProfileConfigurator()
     var presenter: ProfilePresenterProtocol!
     var userId: String!
+    weak var delegate: ProfileModuleDelegate?
+    private var hud: JGProgressHUD!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configurator.configure(with: self)
         presenter.profileId = userId
+        presenter.delegate = delegate
         
         collectionView.backgroundColor = .white
         collectionView.register(UserPostCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.register(ProfileHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
         collectionView.delaysContentTouches = false
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath) as! ProfileHeaderProtocol
+        headerView.profileHeaderType = presenter.profileHeaderType() ?? nil
+        headerView.delegate = presenter as? ProfileHeaderDelegate
+        return (headerView as! UICollectionReusableView)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        
+        return .init(width: view.frame.width, height: presenter.isUserLoaded() ? 300 : 0)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -53,5 +73,15 @@ class ProfileController: UICollectionViewController, UICollectionViewDelegateFlo
     
     func updateView() {
         collectionView.reloadData()
+    }
+    
+    func showHUD(with text: String) {
+        hud = JGProgressHUD(style: .dark)
+        hud.textLabel.text = text
+        hud.show(in: view)
+    }
+    
+    func hideHUD() {
+        hud.dismiss()
     }
 }

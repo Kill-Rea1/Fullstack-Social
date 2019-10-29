@@ -23,6 +23,7 @@ class SearchRouter: SearchRouterProtocol {
         let layout = UICollectionViewFlowLayout()
         let vc = ProfileController(collectionViewLayout: layout)
         vc.userId = id
+        vc.delegate = viewController?.presenter as? ProfileModuleDelegate
         viewController?.navigationController?.pushViewController(vc, animated: true)
     }
 }

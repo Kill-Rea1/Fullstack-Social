@@ -21,4 +21,11 @@ struct User: Decodable {
         let username = NSAttributedString(string: fullName, attributes: [.font: UIFont.boldSystemFont(ofSize: 17)])
         return SearchCellEntity(username: username, userId: id, isFollowing: isFollowing ?? false)
     }
+    
+    func toProfileHeader() -> ProfileHeaderType? {
+        let style = NSMutableParagraphStyle()
+        style.alignment = .center
+        let username = NSAttributedString(string: fullName, attributes: [.font: UIFont.boldSystemFont(ofSize: 17), .paragraphStyle: style])
+        return ProfileHeaderEntity(username: username, numberOfPosts: posts?.count ?? 0, numberOfFollowing: following?.count ?? 0, numberOfFollowers: followers?.count ?? 0, isFollowing: isFollowing ?? false)
+    }
 }
