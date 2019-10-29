@@ -12,13 +12,18 @@ module.exports = {
     return {id: this.id, 
       fullName: this.fullName, 
       email: this.emailAddress,
-      following: this.following
+      following: this.following,
+      followers: this.followers
     }
   },
 
   attributes: {
 
     following: {
+      collection: 'user'
+    },
+
+    followers: {
       collection: 'user'
     },
 

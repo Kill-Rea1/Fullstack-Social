@@ -1,0 +1,79 @@
+<style>
+    .title {
+        font-size: 18px; font-weight: bold;
+        margin-bottom: 12px;
+    }
+
+    .block {
+        background-color: white; padding: 16px;
+        margin-bottom: 8px; border-radius: 6px;
+    }
+
+</style>
+
+<div>
+
+    <%- partial('../../partials/navbar.ejs') %>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <div id="app" style="padding: 24px">
+        <div style="font-weight: bold; margin-bottom: 16px; font-size: 20px;">
+            User Information
+        </div>
+
+        <div style="background-color: white; padding: 24px; border-radius: 6px;">
+            <div style="margin-bottom: 8px;">
+                {{user.fullName}}
+            </div>
+                
+            <div style="font-size: 12px;">
+                {{user.email}}
+            </div>
+        </div>
+
+        <div style="margin-top: 16px; display: flex; flex-direction: row;">
+            <div style="width: 45%; margin-right: 10%;">
+                <div class="title">
+                    Currently following
+                </div>
+                <div v-for="f in user.following" 
+                    class="block">
+                    <div style="margin-bottom: 8px;">
+                        {{f.fullName}}
+                    </div>
+                    <div style="font-size: 12px;">
+                        {{f.email}}
+                    </div>
+                </div>
+            </div>
+            <div style="width: 45%;">
+                <div class="title"> 
+                    Followers
+                </div>
+                <div v-for="f in user.followers"
+                    class="block">
+                    <div style="margin-bottom: 8px;">
+                        {{f.fullName}}
+                    </div>
+                    <div style="font-size: 12px;">
+                        {{f.email}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- /* Expose locals as 'window.SAILS_LOCALS' :: */ exposeLocalsToBrowser({keys: ['user']}) %>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: 'hello',
+                user: window.SAILS_LOCALS.user
+            }
+        })
+    </script>
+</div>

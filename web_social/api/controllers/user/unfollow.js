@@ -6,5 +6,8 @@ module.exports = async function(req, res) {
     await User.removeFromCollection(currentUserId, 'following', 
         userIdToUnfollow)
 
+    await User.removeFromCollection(userIdToUnfollow, 'followers', 
+        currentUserId)
+        
     res.end()
 }

@@ -73,6 +73,7 @@ module.exports.routes = {
   'POST /follow/:id': { action: 'user/follow'},
   'POST /unfollow/:id': { action: 'user/unfollow'},
   'GET /profile': { action: 'user/profile'},
+  'GET /user/:id': { action: 'user/publicprofile'},
   'GET /customauth/login': {
     view: 'pages/customauth/custom-login',
     locals: {
