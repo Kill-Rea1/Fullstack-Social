@@ -13,7 +13,8 @@ module.exports.routes = {
   //  ╦ ╦╔═╗╔╗ ╔═╗╔═╗╔═╗╔═╗╔═╗
   //  ║║║║╣ ╠╩╗╠═╝╠═╣║ ╦║╣ ╚═╗
   //  ╚╩╝╚═╝╚═╝╩  ╩ ╩╚═╝╚═╝╚═╝
-  'GET /':                   { action: 'view-homepage-or-redirect' },
+  // 'GET /':                   { action: 'view-homepage-or-redirect' },
+  'GET /': { action: 'post/home'},
   'GET /welcome/:unused?':   { action: 'dashboard/view-welcome' },
 
   'GET /faq':                { action:   'view-faq' },
@@ -66,8 +67,9 @@ module.exports.routes = {
 
   'GET /listusers': { action: 'user/listusers' },
   'GET /post': { action: 'post/home' },
-  'POST /post': {action: 'post/create' },
-  'DELETE /post/:postId' : {action: 'post/delete'},
+  'POST /post': { action: 'post/create' },
+  'DELETE /post/:postId' : { action: 'post/delete'},
+  'GET /search': { action: 'user/search' },
   'GET /customauth/login': {
     view: 'pages/customauth/custom-login',
     locals: {

@@ -1,0 +1,32 @@
+<div>
+    
+    <%- partial('../../partials/navbar.ejs') %>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <div id="app" style="padding: 16px">
+        <div>
+            <div v-for="u in users" style="background-color: white; margin-bottom: 16px; padding: 16px;">
+                {{u.fullName}}
+                <div style="margin-top: 8px">
+                    {{u.emailAddress}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- /* Expose locals as 'window.SAILS_LOCALS' :: */ exposeLocalsToBrowser() %>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script> 
+        const allUsers = window.SAILS_LOCALS.users
+        const App = new Vue({
+            el: '#app',
+            data: {
+                mymessage: "hello from Vue",
+                users: allUsers,
+
+            }
+        })
+    </script>
+</div>
