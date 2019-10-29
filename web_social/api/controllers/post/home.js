@@ -14,8 +14,18 @@ module.exports = async function(req, res) {
         return res.send(allPosts)
     }
 
+    // for loop solution
+    // allPosts.forEach(p => {
+    //     p.user = {id: p.user.id, fullName: p.user.fullName}
+    // })
+
+    // JSON stringify and parse
+    const string = JSON.stringify(allPosts)
+    const objects = JSON.parse(string)
+    // console.log(string)
+
     res.view('pages/post/home', {
-        allPosts,
+        allPosts: objects,
         layout: 'layouts/nav-layout'
     })
 }

@@ -17,6 +17,12 @@ module.exports = async function(req, res) {
         u.isFollowing = followingDictionary[u.id] != null
     })
 
+    const sanitizedUsers = users.map(u=> {
+        return {id: u.id, fullName: u.fullName, 
+            emailAddress: u.emailAddress,
+            isFollowing: u.isFollowing}
+    })
+
     // O(n x m)
     // currentUser.following.forEach(f => {
     //     console.log(f.fullName)
@@ -29,6 +35,6 @@ module.exports = async function(req, res) {
 
     res.view('pages/user/search', {
         layout: 'layouts/nav-layout',
-        users
+        users: sanitizedUsers
     })
 }
