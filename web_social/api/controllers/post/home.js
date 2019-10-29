@@ -9,10 +9,6 @@ module.exports = async function(req, res) {
         .populate('user')
         .sort('createdAt DESC')
 
-    allPosts.forEach(p => {
-        p.canDelete = true
-    });
-    
     // res.send(allPosts)
     if (req.wantsJSON) {
         return res.send(allPosts)
