@@ -1,0 +1,135 @@
+<style>
+    [v-cloak] {display: none;}
+    .center-cropped {
+        object-position: center;
+        object-fit: cover;
+        width: 64px;
+        height: 64px;
+        border-radius: 100px;
+        border: solid 1px rgb(94, 94, 94);
+    }
+    .blue-button {
+        background-color: dodgerblue;
+    }
+    .disabled-button {
+        background-color: rgb(201, 201, 201);
+    }
+    .form-item {
+        display: flex; align-items: center; margin-bottom: 16px;
+    }
+    .form-item-label {
+        font-size: 15px; font-weight: bold; margin-right: 16px;
+        width: 140px; text-align: right;
+    }
+    .fullname-input {
+        font-size: 14px; padding: 8px; border-radius: 6px;
+        border: solid 1px rgb(206, 206, 206)
+    }
+    .save-button {
+        flex: 1; width: 100%;
+        color: white; font-weight: bold;
+        padding: 8px; border: solid; border-radius: 6px; font-size: 16px;
+    }
+    .title {
+        font-size: 18px; font-weight: bold;
+        margin: 16px 12px;
+    }
+    .block {
+        background-color: white; padding: 16px;
+        margin-bottom: 8px; border-radius: 6px;
+    }
+</style>
+<div>
+    <%- partial('../../partials/navbar.ejs') %>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <div id="app">
+        <div style="margin-bottom: 8px; padding: 16px; 
+            background-color: white;">
+            <div style="font-weight: bold;">
+                Account Settings
+            </div>
+            <div style="background-color: white; padding: 16px;">
+                <div class="form-item">
+                    <div class="form-item-label">
+                        Email address:
+                    </div>
+                    <div style="font-size: 14px;">
+                        {{user.emailAddress}}
+                    </div>
+                </div>
+                <div class="form-item">
+                    <div class="form-item-label">
+                        Full name:
+                    </div>
+                    <input type="text" v-model="user.fullName" class="fullname-input">
+                </div>
+                <div class="form-item"> 
+                    <div class="form-item-label">
+                        Bio:
+                    </div>
+                    <div style="font-size: 14px;">
+                        <textarea v-model="user.bio"
+                            style="font-size: 14px; padding: 8px; border-radius: 6px;
+                                width: 300px; border: solid 1px rgb(206, 206, 206)">
+                        </textarea>
+                    </div>
+                </div>
+                <div class="form-item">
+                    <div class="form-item-label">
+                        Avatar:
+                    </div>
+                    <div>
+                        <img :src="user.profileImageUrl ? user.profileImageUrl : '/images/startup.png'" 
+                        class="center-cropped">
+                        <div style="margin-top: 12px;">
+                            <input type="file" v-on:change="handleAvatarChange">
+                        </div>
+                    </div>
+                </div>
+                <button v-on:click="handleSave" :disabled="isSaving" 
+                    v-bind:class="isSaving ? 'disabled-button save-button' : 'blue-button save-button'">
+                    Save
+                </button>
+            </div>
+        </div>
+        <!-- POSTS -->
+        <div class="title"> 
+            Posts
+        </div>
+        <div v-for="p in user.posts">
+            <%- partial('../../partials/post.ejs') %>
+        </div>
+    </div>
+    <%- /* Expose locals as 'window.SAILS_LOCALS' :: */ exposeLocalsToBrowser({keys: ['user']}) %>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        const user = window.SAILS_LOCALS.user
+        user.profileImageUrl = '/images/startup.png'
+        const app = new Vue({
+            el: '#app',
+            data: {
+                user: user,
+                isSaving: false,
+                avatarFile: null,
+            },
+            methods: {
+                handleSave: async function() {
+                    const formData = new FormData()
+                    formData.append('fullName', this.user.fullName)
+                    formData.append('bio', this.user.bio)
+                    formData.append('imageUrl', this.avatarFile)
+                    try {
+                        await axios.post('/profile', formData)
+                    } catch (err) {
+                        console.error(err.toString())
+                    }
+                },
+                handleAvatarChange: function(event) {
+                    this.avatarFile = event.target.files[0]
+                    this.user.profileImageUrl = window.URL.createObjectURL(this.avatarFile)
+                }
+            }
+        })
+    </script>
+</div>
