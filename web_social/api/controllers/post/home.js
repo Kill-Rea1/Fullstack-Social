@@ -5,9 +5,20 @@ module.exports = async function(req, res) {
     // await Post.destroy({})
 
     const userId = req.session.userId
-    const allPosts = await Post.find({user: userId})
-        .populate('user')
-        .sort('createdAt DESC')
+    // const allPosts = await Post.find({user: userId})
+    //     .populate('user')
+    //     .sort('createdAt DESC')
+
+    const allPosts = []
+
+    const feedItems = await FeedItem.find({user: userId})
+        .populate('post')
+        .populate('postOwner')
+    feedItems.forEach(fi=> {
+        fi.post.user = fi.postOwner
+        allPosts.push(fi.post)
+    })
+
 
     // allPosts.forEach(p => {
     //     p.canDelete = true
