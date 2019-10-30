@@ -25,11 +25,8 @@ class HomeController: UITableViewController, HomeViewProtocol {
         super.viewDidLoad()
         configurator.configure(with: self)
         view.backgroundColor = .init(white: 0.95, alpha: 1)
-        
-        navigationItem.rightBarButtonItems = [
-            UIBarButtonItem(title: "Search", style: .plain, target: self, action: #selector(handleSearch)),
-            UIBarButtonItem(title: "Create post", style: .plain, target: self, action: #selector(handleCreatePost))
-        ]
+        navigationController?.navigationBar.tintColor = .black
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "search"), style: .plain, target: self, action: #selector(handleSearch))
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Log in", style: .plain, target: self, action: #selector(handleLogIn))
         tableView.delaysContentTouches = false
         presenter.configureView()
@@ -92,7 +89,7 @@ extension HomeController: UINavigationControllerDelegate, UIImagePickerControlle
     // MARK:- ImagePickerDelegate
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        presenter.didCancelImagePicker()
+        presenter.imagePickerDidCancel()
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {

@@ -36,8 +36,8 @@ class HomeInteractor: HomeInteractorProtocol {
     func fetchPosts() {
         serverService.fetchPosts { (res) in
             switch res {
-            case .failure(let err):
-                print("Failed to fetch posts: ", err)
+            case .failure(_):
+                return
             case .success(let posts):
                 self.posts = posts
                 self.presenter?.updateDataSource()

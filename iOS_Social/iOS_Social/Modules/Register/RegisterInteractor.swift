@@ -33,8 +33,7 @@ class RegisterInteractor: RegisterInteractorProtocol {
     func register(fullName: String, email: String, password: String) {
         serverService.register(fullName: fullName, email: email, password: password) { (res) in
             switch res {
-            case .failure(let err):
-                print("Failed to sign up: ", err)
+            case .failure(_):
                 self.registerResponse = false
             case .success:
                 self.registerResponse = true

@@ -16,6 +16,9 @@ protocol ProfilePresenterProtocol: class {
     func postCellType(for indexPath: IndexPath) -> PostCellType?
     func profileHeaderType() -> ProfileHeaderType?
     func isUserLoaded() -> Bool
+    func imagePickerDidCancel()
+    func didSelectImage(with info: Any)
+    func progress(is progress: Double)
 }
 
 class ProfilePresenter: ProfilePresenterProtocol {
@@ -32,7 +35,7 @@ class ProfilePresenter: ProfilePresenterProtocol {
     var profileId: String! {
         didSet {
             interactor.loadProfile(with: profileId)
-            view?.showHUD(with: "Loading")
+            view?.showHUD(with: "Loading", isProgress: false)
         }
     }
     
@@ -59,11 +62,29 @@ class ProfilePresenter: ProfilePresenterProtocol {
     func isUserLoaded() -> Bool {
         return interactor.user != nil
     }
+    
+    func imagePickerDidCancel() {
+        router.dismissImagePicker()
+    }
+    
+    func didSelectImage(with info: Any) {
+        view?.showHUD(with: "Updating profile", isProgress: true)
+        interactor.didSelectImage(with: info)
+        router.dismissImagePicker()
+    }
+    
+    func progress(is progress: Double) {
+        view?.HUDProgress(progress: Float(progress), text: "Uploading\n\(Int(progress * 100))% Complete")
+    }
 }
 
 extension ProfilePresenter: ProfileHeaderDelegate {
     func didFollow() {
         interactor.changeFollowState()
         delegate?.didChangeFollowState(for: interactor.user.id)
+    }
+    
+    func changeAvatar() {
+        router.showImagePicker()
     }
 }

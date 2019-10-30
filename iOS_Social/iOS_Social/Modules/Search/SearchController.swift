@@ -13,7 +13,7 @@ protocol SearchViewProtocol: class {
     func updateItem(at indexPath: IndexPath)
 }
 
-class SearchController: UICollectionViewController, SearchViewProtocol, UICollectionViewDelegateFlowLayout {
+class SearchController: BaseCollectionController, SearchViewProtocol, UICollectionViewDelegateFlowLayout {
     private let cellId = "cellId"
     let configurator: SearchConfiguratorProtocol = SearchConfigurator()
     var presenter: SearchPresenterProtocol!

@@ -11,17 +11,23 @@ import JGProgressHUD
 
 protocol ProfileViewProtocol: class {
     func updateView()
-    func showHUD(with text: String)
+    func showHUD(with text: String, isProgress: Bool)
     func hideHUD()
+    func HUDProgress(progress: Float, text: String)
 }
 
-class ProfileController: UICollectionViewController, UICollectionViewDelegateFlowLayout, ProfileViewProtocol {
+class ProfileController: BaseCollectionController, UICollectionViewDelegateFlowLayout, ProfileViewProtocol {
+    
+    init(userId: String) {
+        self.userId = userId
+        super.init()
+    }
     
     private let cellId = "profilePostId"
     private let headerId = "profileHeaderId"
     private let configurator: ProfileConfiguratorProtocol = ProfileConfigurator()
     var presenter: ProfilePresenterProtocol!
-    var userId: String!
+    private let userId: String!
     weak var delegate: ProfileModuleDelegate?
     private var hud: JGProgressHUD!
     
@@ -75,13 +81,35 @@ class ProfileController: UICollectionViewController, UICollectionViewDelegateFlo
         collectionView.reloadData()
     }
     
-    func showHUD(with text: String) {
+    func showHUD(with text: String, isProgress: Bool) {
         hud = JGProgressHUD(style: .dark)
         hud.textLabel.text = text
+        if isProgress {
+            hud.indicatorView = JGProgressHUDRingIndicatorView()
+        }
         hud.show(in: view)
     }
     
     func hideHUD() {
         hud.dismiss()
+    }
+    
+    func HUDProgress(progress: Float, text: String) {
+        hud.progress = progress
+        hud.textLabel.text = text
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError()
+    }
+}
+
+extension ProfileController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        presenter.imagePickerDidCancel()
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        presenter.didSelectImage(with: info)
     }
 }

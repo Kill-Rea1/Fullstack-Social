@@ -8,9 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		767D2A44DDED2FDA179E2BEF /* Pods_iOS_Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05E225C127CEA348A9838989 /* Pods_iOS_Social.framework */; };
+		ED69116B2369104A0054BFD3 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED69116A2369104A0054BFD3 /* MainTabBarController.swift */; };
+		ED69116D236911DD0054BFD3 /* BaseCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED69116C236911DD0054BFD3 /* BaseCollectionController.swift */; };
 		EDBF7C372366185B00E8C809 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C362366185B00E8C809 /* AppDelegate.swift */; };
 		EDBF7C392366185B00E8C809 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C382366185B00E8C809 /* SceneDelegate.swift */; };
-		EDBF7C3B2366185B00E8C809 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C3A2366185B00E8C809 /* ViewController.swift */; };
 		EDBF7C3E2366185B00E8C809 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDBF7C3C2366185B00E8C809 /* Main.storyboard */; };
 		EDBF7C402366186000E8C809 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDBF7C3F2366186000E8C809 /* Assets.xcassets */; };
 		EDBF7C432366186000E8C809 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDBF7C412366186000E8C809 /* LaunchScreen.storyboard */; };
@@ -62,10 +63,11 @@
 		05E225C127CEA348A9838989 /* Pods_iOS_Social.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOS_Social.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A370DB4A4941C95C1C55A20 /* Pods-iOS_Social.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_Social.debug.xcconfig"; path = "Target Support Files/Pods-iOS_Social/Pods-iOS_Social.debug.xcconfig"; sourceTree = "<group>"; };
 		964E087DDC800CE7AA50FA50 /* Pods-iOS_Social.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_Social.release.xcconfig"; path = "Target Support Files/Pods-iOS_Social/Pods-iOS_Social.release.xcconfig"; sourceTree = "<group>"; };
+		ED69116A2369104A0054BFD3 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		ED69116C236911DD0054BFD3 /* BaseCollectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionController.swift; sourceTree = "<group>"; };
 		EDBF7C332366185B00E8C809 /* iOS_Social.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOS_Social.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDBF7C362366185B00E8C809 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EDBF7C382366185B00E8C809 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		EDBF7C3A2366185B00E8C809 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		EDBF7C3D2366185B00E8C809 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EDBF7C3F2366186000E8C809 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EDBF7C422366186000E8C809 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 				EDBF7C6E2366594B00E8C809 /* Register */,
 				EDBF7C5C236628F700E8C809 /* Login */,
 				EDBF7C4A23661B4600E8C809 /* Home */,
+				ED69116A2369104A0054BFD3 /* MainTabBarController.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -206,7 +209,6 @@
 			isa = PBXGroup;
 			children = (
 				EDBF7C3C2366185B00E8C809 /* Main.storyboard */,
-				EDBF7C3A2366185B00E8C809 /* ViewController.swift */,
 				EDBF7C412366186000E8C809 /* LaunchScreen.storyboard */,
 			);
 			path = Storyboards;
@@ -234,6 +236,7 @@
 			children = (
 				EDBF7C5A2366232000E8C809 /* UIView+Extensions.swift */,
 				EDBF7C6723662D8600E8C809 /* CustomTextField.swift */,
+				ED69116C236911DD0054BFD3 /* BaseCollectionController.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -438,7 +441,7 @@
 			files = (
 				EDBF7C62236629C500E8C809 /* LoginPresenter.swift in Sources */,
 				EDBF7C4C23661B5900E8C809 /* HomeController.swift in Sources */,
-				EDBF7C3B2366185B00E8C809 /* ViewController.swift in Sources */,
+				ED69116B2369104A0054BFD3 /* MainTabBarController.swift in Sources */,
 				EDBF7C602366298100E8C809 /* LoginConfigurator.swift in Sources */,
 				EDBF7C992368A37C00E8C809 /* SearchCellType.swift in Sources */,
 				EDBF7C372366185B00E8C809 /* AppDelegate.swift in Sources */,
@@ -468,6 +471,7 @@
 				EDBF7C722366597400E8C809 /* RegisterPresenter.swift in Sources */,
 				EDBF7C5B2366232000E8C809 /* UIView+Extensions.swift in Sources */,
 				EDBF7C93236897FC00E8C809 /* SearchRouter.swift in Sources */,
+				ED69116D236911DD0054BFD3 /* BaseCollectionController.swift in Sources */,
 				EDBF7C6423662A2900E8C809 /* LoginInteractor.swift in Sources */,
 				EDBF7CA82368D5AE00E8C809 /* ProfileHeader.swift in Sources */,
 				EDBF7C6B2366500600E8C809 /* Post.swift in Sources */,

@@ -10,6 +10,7 @@ import UIKit
 
 protocol ProfileHeaderDelegate: class {
     func didFollow()
+    func changeAvatar()
 }
 
 protocol ProfileHeaderProtocol: class {
@@ -23,10 +24,20 @@ class ProfileHeader: UICollectionReusableView, ProfileHeaderProtocol {
     
     weak var profileHeaderType: ProfileHeaderType? {
         didSet {
-            followButton.setTitle((profileHeaderType?.isFollowing ?? false ? "Unfollow" : "Follow") , for: .normal)
-            followButton.setTitleColor((profileHeaderType?.isFollowing ?? false ? .white : .black), for: .normal)
-            followButton.backgroundColor = profileHeaderType?.isFollowing ?? false ? .black : .white
             usernameLabel.attributedText = profileHeaderType?.username
+            bioLabel.text = profileHeaderType?.bio
+            if profileHeaderType?.isEditable ?? false {
+                followButton.removeFromSuperview()
+                profileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleEditProfile)))
+            } else {
+                followButton.setTitle((profileHeaderType?.isFollowing ?? false ? "Unfollow" : "Follow") , for: .normal)
+                followButton.setTitleColor((profileHeaderType?.isFollowing ?? false ? .white : .black), for: .normal)
+                followButton.backgroundColor = profileHeaderType?.isFollowing ?? false ? .black : .white
+                editProfileButton.removeFromSuperview()
+            }
+            if profileHeaderType?.profileImageUrl != nil {
+                profileImageView.sd_setImage(with: profileHeaderType?.profileImageUrl)
+            }
             postsCountLabel.text = "\(profileHeaderType?.numberOfPosts ?? 0)"
             followersCountLabel.text = "\(profileHeaderType?.numberOfFollowers ?? 0)"
             followingCountLabel.text = "\(profileHeaderType?.numberOfFollowing ?? 0)"
@@ -35,7 +46,7 @@ class ProfileHeader: UICollectionReusableView, ProfileHeaderProtocol {
     
     // MARK:- UI Elements
     
-    private let profileImageView: UIImageView = {
+    private lazy var profileImageView: UIImageView = {
         let iv = UIImageView(image: #imageLiteral(resourceName: "user"))
         iv.clipsToBounds = true
         iv.contentMode = .scaleAspectFill
@@ -58,6 +69,19 @@ class ProfileHeader: UICollectionReusableView, ProfileHeaderProtocol {
         button.heightAnchor.constraint(equalToConstant: 30).isActive = true
         button.layer.cornerRadius = 15
         button.layer.borderWidth = 1
+        return button
+    }()
+    
+    private lazy var editProfileButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Edit Profile", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1.0)
+        button.titleLabel?.font = .boldSystemFont(ofSize: 13)
+        button.addTarget(self, action: #selector(handleEditProfile), for: .touchUpInside)
+        button.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        button.layer.cornerRadius = 15
         return button
     }()
     
@@ -125,6 +149,7 @@ class ProfileHeader: UICollectionReusableView, ProfileHeaderProtocol {
         stack(
             profileImageView,
             followButton,
+            editProfileButton,
             hstack(stack(postsCountLabel, postsLabel),
                    stack(followersCountLabel, followersLabel),
                    stack(followingCountLabel, followingLabel),
@@ -148,6 +173,11 @@ class ProfileHeader: UICollectionReusableView, ProfileHeaderProtocol {
     @objc
     private func handleFollow() {
         delegate?.didFollow()
+    }
+    
+    @objc
+    private func handleEditProfile() {
+        delegate?.changeAvatar()
     }
     
     required init?(coder: NSCoder) {

@@ -20,9 +20,7 @@ class SearchRouter: SearchRouterProtocol {
     }
     
     func showProfile(with id: String) {
-        let layout = UICollectionViewFlowLayout()
-        let vc = ProfileController(collectionViewLayout: layout)
-        vc.userId = id
+        let vc = ProfileController(userId: id)
         vc.delegate = viewController?.presenter as? ProfileModuleDelegate
         viewController?.navigationController?.pushViewController(vc, animated: true)
     }

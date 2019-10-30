@@ -9,7 +9,6 @@
 import UIKit
 
 protocol HomeRouterProtocol: class {
-    var imagePicker: UIImagePickerController? { get set }
     func showLoginScreen()
     func showImagePicker()
     func showNewPostScreen(with info: Any, delegate: NewPostModuleDelegate)
@@ -21,13 +20,13 @@ class HomeRouter: HomeRouterProtocol {
     
     weak var viewController: HomeController?
     
+    var imagePicker: UIImagePickerController?
+    
     required init(viewController: HomeController) {
         self.viewController = viewController
     }
     
     // MARK:- HomeRouterProtocol
-    
-    var imagePicker: UIImagePickerController?
     
     func showLoginScreen() {
         let navController = UINavigationController(rootViewController: LoginController())
@@ -52,8 +51,7 @@ class HomeRouter: HomeRouterProtocol {
     }
     
     func showSearch() {
-        let layout = UICollectionViewFlowLayout()
-        let navController = UINavigationController(rootViewController: SearchController(collectionViewLayout: layout))
+        let navController = UINavigationController(rootViewController: SearchController())
         viewController?.present(navController, animated: true)
     }
 }

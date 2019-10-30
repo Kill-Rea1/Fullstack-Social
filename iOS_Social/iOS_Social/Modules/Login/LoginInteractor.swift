@@ -34,8 +34,7 @@ class LoginInteractor: LoginInteractorProtocol {
     func login(email: String, password: String) {
         serverService.login(email: email, password: password) { (res) in
             switch res {
-            case .failure(let err):
-                print("Failed to login", err)
+            case .failure(_):
                 self.loginResponse = false
             case .success:
                 self.loginResponse = true

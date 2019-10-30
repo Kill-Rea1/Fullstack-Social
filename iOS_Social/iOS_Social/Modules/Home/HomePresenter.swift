@@ -13,7 +13,7 @@ protocol HomePresenterProtocol: class {
     func searchTapped()
     func createPostsTapped()
     func logInTapped()
-    func didCancelImagePicker()
+    func imagePickerDidCancel()
     func didSelectImage(with info: Any)
     func cellType(for indexPath: IndexPath) -> PostCellType?
     func updateDataSource()
@@ -48,7 +48,7 @@ class HomePresenter: HomePresenterProtocol {
         router.showImagePicker()
     }
     
-    func didCancelImagePicker() {
+    func imagePickerDidCancel() {
         router.dismissImagePicker()
     }
     

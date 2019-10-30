@@ -13,6 +13,7 @@ protocol ProfileInteractorProtocol: class {
     var posts: [Post]! { get set }
     func loadProfile(with id: String)
     func changeFollowState()
+    func didSelectImage(with info: Any)
 }
 
 class ProfileInteractor: ProfileInteractorProtocol {
@@ -49,9 +50,26 @@ class ProfileInteractor: ProfileInteractorProtocol {
             case .failure(_):
                 return
             case .success(_):
-                print("Successfully changed")
                 self.presenter?.updateView()
             }
         }
+    }
+    
+    func didSelectImage(with info: Any) {
+        serverService.delegate = self
+        serverService.uploadNewAvatar(with: info, fullName: user.fullName, bio: user.bio ?? "") { (res) in
+            switch res {
+            case .failure(_):
+                return
+            case .success(_):
+                self.loadProfile(with: "")
+            }
+        }
+    }
+}
+
+extension ProfileInteractor: UploadProgressProtocol {
+    func progressDidChange(progress: Double) {
+        presenter?.progress(is: progress)
     }
 }
