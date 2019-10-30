@@ -14,6 +14,7 @@ protocol ProfileViewProtocol: class {
     func showHUD(with text: String, isProgress: Bool)
     func hideHUD()
     func HUDProgress(progress: Float, text: String)
+    func fetchUserProfile()
 }
 
 class ProfileController: BaseCollectionController, UICollectionViewDelegateFlowLayout, ProfileViewProtocol {
@@ -97,6 +98,11 @@ class ProfileController: BaseCollectionController, UICollectionViewDelegateFlowL
     func HUDProgress(progress: Float, text: String) {
         hud.progress = progress
         hud.textLabel.text = text
+    }
+    
+    func fetchUserProfile() {
+        guard let presenter = presenter else { return }
+        presenter.refetchUserProfile()
     }
     
     required init?(coder: NSCoder) {

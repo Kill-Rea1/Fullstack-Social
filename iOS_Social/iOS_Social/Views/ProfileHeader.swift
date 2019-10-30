@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ProfileHeaderDelegate: class {
-    func didFollow()
+    func didFollowButtonTapped()
     func changeAvatar()
 }
 
@@ -172,7 +172,7 @@ class ProfileHeader: UICollectionReusableView, ProfileHeaderProtocol {
     
     @objc
     private func handleFollow() {
-        delegate?.didFollow()
+        delegate?.didFollowButtonTapped()
     }
     
     @objc

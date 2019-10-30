@@ -11,7 +11,7 @@ import Foundation
 protocol ProfileInteractorProtocol: class {
     var user: User! { get set }
     var posts: [Post]! { get set }
-    func loadProfile(with id: String)
+    func fetchProfile(with id: String)
     func changeFollowState()
     func didSelectImage(with info: Any)
 }
@@ -31,7 +31,7 @@ class ProfileInteractor: ProfileInteractorProtocol {
     }
     var posts: [Post]! = []
     
-    func loadProfile(with id: String) {
+    func fetchProfile(with id: String) {
         serverService.fetchUser(with: id) { (res) in
             switch res {
             case .failure(_):
@@ -62,7 +62,7 @@ class ProfileInteractor: ProfileInteractorProtocol {
             case .failure(_):
                 return
             case .success(_):
-                self.loadProfile(with: "")
+                self.fetchProfile(with: "")
             }
         }
     }

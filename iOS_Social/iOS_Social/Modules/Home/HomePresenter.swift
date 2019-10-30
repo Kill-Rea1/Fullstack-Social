@@ -19,6 +19,7 @@ protocol HomePresenterProtocol: class {
     func updateDataSource()
     func configureView()
     func deletePost()
+    func refresh()
 }
 
 class HomePresenter: HomePresenterProtocol {
@@ -37,6 +38,7 @@ class HomePresenter: HomePresenterProtocol {
     var router: HomeRouterProtocol!
     
     func configureView() {
+        view?.addResfreshControl()
         interactor.fetchPosts()
     }
     
@@ -70,11 +72,16 @@ class HomePresenter: HomePresenterProtocol {
     
     func updateDataSource() {
         view?.updateView()
+        view?.endRefreshing()
     }
     
     func deletePost() {
         let row = interactor.deletePost()
         view?.deleteRow(from: IndexPath(row: row, section: 0))
+    }
+    
+    func refresh() {
+        interactor.fetchPosts()
     }
 }
 

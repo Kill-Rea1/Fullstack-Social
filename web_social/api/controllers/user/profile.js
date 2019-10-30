@@ -3,7 +3,7 @@ module.exports = async function(req, res) {
         .populate('following').populate('followers')
 
     const posts = await Post.find({user: req.session.userId})
-        .populate('user')
+        .populate('user').sort('createdAt DESC')
     currentUser.posts = posts
     if (req.wantsJSON) {
         return res.send(currentUser)

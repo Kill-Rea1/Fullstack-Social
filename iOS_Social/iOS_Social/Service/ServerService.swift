@@ -33,8 +33,8 @@ protocol ServerServiceProtocol: class {
 
 class ServerService: ServerServiceProtocol {
     
-//    let baseUrl = "http://localhost:1337"
-    let baseUrl = "http://192.168.0.103:1337"
+    let baseUrl = "http://localhost:1337"
+//    let baseUrl = "http://192.168.0.103:1337"
     weak var delegate: UploadProgressProtocol?
     
     func fetchUser(with id: String, completion: @escaping (Result<User>) -> ()) {
@@ -166,7 +166,7 @@ class ServerService: ServerServiceProtocol {
                     self.delegate?.progressDidChange(progress: progress.fractionCompleted)
                 }
                 
-                uploadRequest.responseJSON { (dataResp) in
+                uploadRequest.responseData { (dataResp) in
                     if let err = dataResp.error {
                         print("Failed to hit server: ", err)
                         completion(.failure(err))

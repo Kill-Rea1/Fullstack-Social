@@ -19,6 +19,7 @@ protocol ProfilePresenterProtocol: class {
     func imagePickerDidCancel()
     func didSelectImage(with info: Any)
     func progress(is progress: Double)
+    func refetchUserProfile()
 }
 
 class ProfilePresenter: ProfilePresenterProtocol {
@@ -34,7 +35,7 @@ class ProfilePresenter: ProfilePresenterProtocol {
     
     var profileId: String! {
         didSet {
-            interactor.loadProfile(with: profileId)
+            interactor.fetchProfile(with: profileId)
             view?.showHUD(with: "Loading", isProgress: false)
         }
     }
@@ -76,10 +77,14 @@ class ProfilePresenter: ProfilePresenterProtocol {
     func progress(is progress: Double) {
         view?.HUDProgress(progress: Float(progress), text: "Uploading\n\(Int(progress * 100))% Complete")
     }
+    
+    func refetchUserProfile() {
+        interactor.fetchProfile(with: "")
+    }
 }
 
 extension ProfilePresenter: ProfileHeaderDelegate {
-    func didFollow() {
+    func didFollowButtonTapped() {
         interactor.changeFollowState()
         delegate?.didChangeFollowState(for: interactor.user.id)
     }

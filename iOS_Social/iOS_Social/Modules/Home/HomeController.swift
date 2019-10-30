@@ -14,6 +14,9 @@ protocol HomeViewProtocol: class {
     func updateView()
     func showAlertSheet()
     func deleteRow(from indexPath: IndexPath)
+    func addResfreshControl()
+    func endRefreshing()
+    func fetchPosts()
 }
 
 class HomeController: UITableViewController, HomeViewProtocol {
@@ -59,6 +62,11 @@ class HomeController: UITableViewController, HomeViewProtocol {
         presenter.logInTapped()
     }
     
+    @objc
+    private func handleRefresh() {
+        presenter.refresh()
+    }
+    
     // MARK:- HomeViewProtocol
     
     func updateView() {
@@ -81,6 +89,20 @@ class HomeController: UITableViewController, HomeViewProtocol {
     
     func deleteRow(from indexPath: IndexPath) {
         tableView.deleteRows(at: [indexPath], with: .automatic)
+    }
+    
+    func addResfreshControl() {
+        let rc = UIRefreshControl()
+        rc.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+        tableView.refreshControl = rc
+    }
+    
+    func endRefreshing() {
+        tableView.refreshControl?.endRefreshing()
+    }
+    
+    func fetchPosts() {
+        presenter.refresh()
     }
 }
 
