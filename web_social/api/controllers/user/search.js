@@ -20,7 +20,8 @@ module.exports = async function(req, res) {
     const sanitizedUsers = users.map(u=> {
         return {id: u.id, fullName: u.fullName, 
             emailAddress: u.emailAddress,
-            isFollowing: u.isFollowing}
+            isFollowing: u.isFollowing, 
+            imageUrl: u.imageUrl}
     })
 
     // O(n x m)

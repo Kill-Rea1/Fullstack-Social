@@ -179,7 +179,7 @@
                         this.isDeletingPost = true
                         await axios.delete(`/post/${postId}`)
                         this.shouldShowDeleteConfirmation = false
-                        this.posts = this.posts.filter(p=> {
+                        this.user.posts = this.user.posts.filter(p=> {
                             return p.id != this.selectedPostToDelete.id
                         })
                         this.isDeletingPost = false

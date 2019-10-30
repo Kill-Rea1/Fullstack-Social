@@ -20,10 +20,7 @@ module.exports = {
 
 
   fn: async function (inputs, exits) {
-    console.log("Some text")
-
     const file = inputs.file
-
     const options = {
       adapter: require('skipper-better-s3'),
       key: '',

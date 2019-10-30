@@ -8,7 +8,7 @@ module.exports = async function(req, res) {
     const posts = await Post.find({user: id})
         .populate('user')
         .sort('createdAt DESC')
-
+    
     user.posts = posts
     user.followers.forEach(f => {
         if (f.id === req.session.userId) {

@@ -1,8 +1,8 @@
 module.exports = async function(req, res) {
     // console.log("Show the post creation form now")
-    sails.log.info("Show the post creation form now")
 
     // await Post.destroy({})
+    // await FeedItem.destroy({})
 
     const userId = req.session.userId
     // const allPosts = await Post.find({user: userId})
@@ -16,8 +16,10 @@ module.exports = async function(req, res) {
         .populate('postOwner')
         .sort('postCreatedAt DESC')
     feedItems.forEach(fi=> {
-        fi.post.user = fi.postOwner
-        allPosts.push(fi.post)
+        if (fi.post) {
+            fi.post.user = fi.postOwner
+            allPosts.push(fi.post)
+        }
     })
 
 

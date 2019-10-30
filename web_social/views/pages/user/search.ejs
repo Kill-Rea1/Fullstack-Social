@@ -14,6 +14,14 @@
         font-size: 12px;
         outline-style: none;
     }
+    .center-cropped {
+        object-position: center;
+        object-fit: cover;
+        width: 64px;
+        height: 64px;
+        border-radius: 100px;
+        border: solid 1px rgb(94, 94, 94);
+    }
 </style>
 <div>
     <%- partial('../../partials/navbar.ejs') %>
@@ -25,7 +33,8 @@
             <div v-for="u in users" style="background-color: white; margin-bottom: 16px; 
                 padding: 16px; display: flex; border-radius: 8px;"
                 v-bind:key="u.id">
-                <div style="display: flex; flex-direction: column;">
+                <img :src="u.imageUrl" class="center-cropped">
+                <div style="display: flex; flex-direction: column; justify-content: center; margin-left: 12px;">
                     <a :href="'/user/' + u.id">
                         {{u.fullName}}
                     </a>
