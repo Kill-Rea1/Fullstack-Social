@@ -4,6 +4,9 @@ module.exports = async function(req, res) {
 
     const posts = await Post.find({user: req.session.userId})
         .populate('user').sort('createdAt DESC')
+    posts.forEach(p => {
+        p.canDelete = true
+    })
     currentUser.posts = posts
     if (req.wantsJSON) {
         return res.send(currentUser)

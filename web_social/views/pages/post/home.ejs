@@ -37,6 +37,14 @@
             .gray {
                 background-color: darkgray;
             }
+            .center-cropped {
+                object-position: center;
+                object-fit: cover;
+                width: 64px;
+                height: 64px;
+                border-radius: 100px;
+                border: solid 1px rgb(94, 94, 94);
+            }
         </style>
         <div id="app" v-cloak>
             <div v-if="shouldShowDeleteConfirmation" class="modal-container">

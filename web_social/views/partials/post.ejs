@@ -1,18 +1,28 @@
 <div style="background-color: white; padding: 16px;
     margin-bottom: 12px; border-radius: 6px;
     display: flex; flex-direction: column; ">
-    <div style="font-weight: bold;">
-        {{p.user.fullName}}
-    </div>
-    <div style="color: rgb(186, 186, 186)">
-        {{new Date(p.createdAt).toLocaleTimeString() + " " + new Date(p.createdAt).toLocaleDateString()}}
+    <div style="display: flex; margin-bottom: 16px;">
+        <img class="center-cropped" :src="p.user.imageUrl">
+        <div style=" margin-left: 16px; display: flex; 
+            flex-direction: column; justify-content: center;">
+            <div style="font-weight: bold; font-size: 16px;">
+                {{p.user.fullName}}
+            </div>
+            <div style="color: rgb(186, 186, 186); font-size: 13px;">
+                Posted {{p.fromNow}}
+            </div>
+        </div>
     </div>
     <div style="margin-bottom: 12px">
         {{p.text}}
     </div>
-    <div>
-        <img style="max-width: 30%; margin-bottom: 12px;" :src="p.imageUrl">
+    <div style="display: flex;">
+        <div style="flex: 1"></div>
+        <div style="display: flex; flex-direction: column; justify-content: center;">
+            <img style="max-width: 400px; margin-bottom: 12px;" :src="p.imageUrl">
+            <button v-on:click="handleDeletePost(p)" v-if="p.canDelete" 
+                style="background-color: tomato; color: white; border-radius: 6px; max-width: 400px;"> Delete post</button>
+        </div>
+        <div style="flex: 1;"></div>
     </div>
-    <button v-on:click="handleDeletePost(p)" v-if="p.canDelete" 
-    style="background-color: tomato; color: white; border-radius: 6px; width: 30%;"> Delete post</button>
 </div>
