@@ -43,63 +43,74 @@
     <%- partial('../../partials/navbar.ejs') %>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
-    <div id="app">
-        <div style="margin-bottom: 8px; padding: 16px; 
-            background-color: white;">
-            <div style="font-weight: bold;">
-                Account Settings
-            </div>
-            <div style="background-color: white; padding: 16px;">
-                <div class="form-item">
-                    <div class="form-item-label">
-                        Email address:
-                    </div>
-                    <div style="font-size: 14px;">
-                        {{user.emailAddress}}
-                    </div>
+    <div id="app" style="padding: 24px; max-width: 100%; 
+        display: flex;" 
+        v-cloak>
+        <div style="flex: 1"></div>
+        <div style="justify-content: center; min-width: 650px;">
+            <div style="margin-bottom: 8px; padding: 16px; 
+                background-color: white; border-radius: 8px;">
+                <div style="font-weight: bold;">
+                    Account Settings
                 </div>
-                <div class="form-item">
-                    <div class="form-item-label">
-                        Full name:
-                    </div>
-                    <input type="text" v-model="user.fullName" class="fullname-input">
-                </div>
-                <div class="form-item"> 
-                    <div class="form-item-label">
-                        Bio:
-                    </div>
-                    <div style="font-size: 14px;">
-                        <textarea v-model="user.bio"
-                            style="font-size: 14px; padding: 8px; border-radius: 6px;
-                                width: 300px; border: solid 1px rgb(206, 206, 206)">
-                        </textarea>
-                    </div>
-                </div>
-                <div class="form-item">
-                    <div class="form-item-label">
-                        Avatar:
-                    </div>
-                    <div>
-                        <img :src="user.imageUrl ? user.imageUrl : '/images/startup.png'" 
-                        class="center-cropped">
-                        <div style="margin-top: 12px;">
-                            <input type="file" v-on:change="handleAvatarChange">
+                <div style="background-color: white; padding: 16px;">
+                    <div class="form-item">
+                        <div class="form-item-label">
+                            Email address:
+                        </div>
+                        <div style="font-size: 14px;">
+                            {{user.emailAddress}}
                         </div>
                     </div>
+                    <div class="form-item">
+                        <div class="form-item-label">
+                            Full name:
+                        </div>
+                        <input type="text" v-model="user.fullName" class="fullname-input">
+                    </div>
+                    <div class="form-item"> 
+                        <div class="form-item-label">
+                            Bio:
+                        </div>
+                        <div style="font-size: 14px;">
+                            <textarea v-model="user.bio"
+                                style="font-size: 14px; padding: 8px; border-radius: 6px;
+                                    width: 300px; border: solid 1px rgb(206, 206, 206)">
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="form-item">
+                        <div class="form-item-label">
+                            Avatar:
+                        </div>
+                        <div>
+                            <img :src="user.imageUrl ? user.imageUrl : '/images/startup.png'" 
+                            class="center-cropped">
+                            <div style="margin-top: 12px;">
+                                <input type="file" v-on:change="handleAvatarChange">
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex;">
+                        <div style="flex: 1;"></div>
+                        <button v-on:click="handleSave" :disabled="isSaving" 
+                            v-bind:class="isSaving ? 'disabled-button save-button' : 'blue-button save-button'"
+                            style="border-radius: 100px; min-width: 300px;">
+                            Save
+                        </button>
+                        <div style="flex: 1;"></div>
+                    </div>
                 </div>
-                <button v-on:click="handleSave" :disabled="isSaving" 
-                    v-bind:class="isSaving ? 'disabled-button save-button' : 'blue-button save-button'">
-                    Save
-                </button>
+            </div>
+            <!-- POSTS -->
+            <div class="title"> 
+                Posts
+            </div>
+            <div v-for="p in user.posts">
+                <%- partial('../../partials/post.ejs') %>
             </div>
         </div>
-        <!-- POSTS -->
-        <div class="title"> 
-            Posts
-        </div>
-        <div v-for="p in user.posts">
-            <%- partial('../../partials/post.ejs') %>
-        </div>
+        <div style="flex:1"></div>
     </div>
     <%- /* Expose locals as 'window.SAILS_LOCALS' :: */ exposeLocalsToBrowser({keys: ['user']}) %>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>

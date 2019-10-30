@@ -20,62 +20,68 @@
 <div>
     <%- partial('../../partials/navbar.ejs') %>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <div id="app" style="padding: 24px; max-width: 100%;" v-cloak>
-        <div style="font-weight: bold; margin-bottom: 16px; font-size: 20px;">
-            User Information
-        </div>
-        <div style="background-color: white; padding: 24px; border-radius: 6px;">
-            <div style="margin-bottom: 8px;">
-                {{user.fullName}}
-            </div>  
-            <div style="font-size: 12px;">
-                {{user.emailAddress}}
+    <div id="app" style="padding: 24px; max-width: 100%; 
+        display: flex;" 
+        v-cloak>
+        <div style="flex: 1"></div> 
+        <div style="justify-content: center; min-width: 650px;">
+            <div style="font-weight: bold; margin-bottom: 16px; font-size: 20px;">
+                User Information
             </div>
-        </div>
-        <div style="margin-top: 16px; display: flex; flex: 1;">
-            <div style="flex: 1; margin-right: 24px;">
-                <div class="title">
-                    Currently following
-                </div>
-                <div v-if="!user.following || user.following.length == 0"
-                    class="block">
-                    Not following anyone.
-                </div>
-                <div v-for="f in user.following" 
-                    class="block">
-                    <div style="margin-bottom: 8px;">
-                        {{f.fullName}}
-                    </div>
-                    <div style="font-size: 12px;">
-                        {{f.emailAddress}}
-                    </div>
+            <div style="background-color: white; padding: 24px; border-radius: 6px;">
+                <div style="margin-bottom: 8px;">
+                    {{user.fullName}}
+                </div>  
+                <div style="font-size: 12px;">
+                    {{user.emailAddress}}
                 </div>
             </div>
-            <div style="flex: 1;">
-                <div class="title"> 
-                    Followers
-                </div>
-                <div v-if="!user.following || user.followers.length == 0"
-                    class="block">
-                    No followers.
-                </div>
-                <div v-for="f in user.followers"
-                    class="block">
-                    <div style="margin-bottom: 8px;">
-                        {{f.fullName}}
+            <div style="margin-top: 16px; display: flex; flex: 1;">
+                <div style="flex: 1; margin-right: 24px;">
+                    <div class="title">
+                        Currently following
                     </div>
-                    <div style="font-size: 12px;">
-                        {{f.emailAddress}}
+                    <div v-if="!user.following || user.following.length == 0"
+                        class="block">
+                        Not following anyone.
+                    </div>
+                    <div v-for="f in user.following" 
+                        class="block">
+                        <div style="margin-bottom: 8px;">
+                            {{f.fullName}}
+                        </div>
+                        <div style="font-size: 12px;">
+                            {{f.emailAddress}}
+                        </div>
+                    </div>
+                </div>
+                <div style="flex: 1;">
+                    <div class="title"> 
+                        Followers
+                    </div>
+                    <div v-if="!user.following || user.followers.length == 0"
+                        class="block">
+                        No followers.
+                    </div>
+                    <div v-for="f in user.followers"
+                        class="block">
+                        <div style="margin-bottom: 8px;">
+                            {{f.fullName}}
+                        </div>
+                        <div style="font-size: 12px;">
+                            {{f.emailAddress}}
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="title"> 
+                Posts
+            </div>
+            <div v-for="p in user.posts">
+                <%- partial('../../partials/post.ejs') %>
+            </div>
         </div>
-        <div class="title"> 
-            Posts
-        </div>
-        <div v-for="p in user.posts">
-            <%- partial('../../partials/post.ejs') %>
-        </div>
+        <div style="flex: 1"></div>
     </div>
     <%- /* Expose locals as 'window.SAILS_LOCALS' :: */ exposeLocalsToBrowser({keys: ['user']}) %>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>

@@ -1,31 +1,46 @@
 <style>
+    [v-cloak] { display: none; }
     .following {
         background-color: black;
         color: white;
+        font-weight: bold;
+        font-size: 12px;
     }
     .not-following {
         background-color: white;
         color: black;
+        font-weight: bold;
+        font-size: 12px;
     }
 </style>
 <div>
     <%- partial('../../partials/navbar.ejs') %>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <div id="app" style="padding: 16px">
-        <div v-for="u in users" style="background-color: white; margin-bottom: 16px; padding: 16px;"
-            v-bind:key="u.id">
-            <a :href="'/user/' + u.id">
-                {{u.fullName}}
-            </a>
-            <div style="margin-top: 8px">
-                {{u.emailAddress}}
-            </div>
-            <div style="margin-top: 16px;">
-                <button v-on:click="follow(u)"
-                    v-bind:class="u.isFollowing ? 'following' : 'not-following'">
-                    {{u.isFollowing ? 'Unfollow' : 'Follow'}}</button>
+    <div id="app" style="padding: 16px; max-width: 100%; 
+        display: flex;" v-cloak>
+        <div style="flex: 1"></div>
+        <div style="justify-content: center; min-width: 650px;">
+            <div v-for="u in users" style="background-color: white; margin-bottom: 16px; 
+                padding: 16px; display: flex; border-radius: 8px;"
+                v-bind:key="u.id">
+                <div style="display: flex; flex-direction: column;">
+                    <a :href="'/user/' + u.id">
+                        {{u.fullName}}
+                    </a>
+                    <div style="margin-top: 8px">
+                        {{u.emailAddress}}
+                    </div>
+                </div>
+                <div style="flex: 1"></div>
+                <div style="display: flex; flex-direction: column; justify-content: center;">
+                    <button v-on:click="follow(u)"
+                        v-bind:class="u.isFollowing ? 'following' : 'not-following'"
+                        style="min-width: 90px; border-radius: 100px; min-height: 30px;">
+                        {{u.isFollowing ? 'Unfollow' : 'Follow'}}</button>
+                </div>
             </div>
         </div>
+        <div style="flex: 1"></div>
     </div>
     <%- /* Expose locals as 'window.SAILS_LOCALS' :: */ exposeLocalsToBrowser({keys: ['users']}) %>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>

@@ -12,6 +12,13 @@
                 Posted {{p.fromNow}}
             </div>
         </div>
+        <div style="flex: 1"></div>
+        <div style="display: flex; flex-direction: column; justify-content: center;">
+            <button v-on:click="handleDeletePost(p)" v-if="p.canDelete" 
+                    style="background-color: tomato; color: white; 
+                    border-radius: 100px; min-width: 110px; min-height: 30px; font-weight: bold; font-size: 12px;"> 
+                    Delete post</button>
+        </div>
     </div>
     <div style="margin-bottom: 12px">
         {{p.text}}
@@ -20,8 +27,8 @@
         <div style="flex: 1"></div>
         <div style="display: flex; flex-direction: column; justify-content: center;">
             <img style="max-width: 400px; margin-bottom: 12px;" :src="p.imageUrl">
-            <button v-on:click="handleDeletePost(p)" v-if="p.canDelete" 
-                style="background-color: tomato; color: white; border-radius: 6px; max-width: 400px;"> Delete post</button>
+            <!-- <button v-on:click="handleDeletePost(p)" v-if="p.canDelete" 
+                style="background-color: tomato; color: white; border-radius: 6px; max-width: 400px;"> Delete post</button> -->
         </div>
         <div style="flex: 1;"></div>
     </div>
