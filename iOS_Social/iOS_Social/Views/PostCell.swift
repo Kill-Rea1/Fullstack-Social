@@ -23,6 +23,9 @@ class PostCell: UITableViewCell, PostCellProtocol {
     weak var postCellType: PostCellType? {
         didSet {
             usernameLabel.attributedText = postCellType?.username
+            if let url = postCellType?.profileImageUrl {
+                profileImageView.sd_setImage(with: url)
+            }
             postImageView.sd_setImage(with: postCellType?.imageUrl)
             postTextLabel.attributedText = postCellType?.postText
             postId = postCellType?.postId
@@ -31,9 +34,21 @@ class PostCell: UITableViewCell, PostCellProtocol {
     
     var postId: String!
     
-    let usernameLabel = UILabel()
+    private let profileImageView: UIImageView = {
+        let iv = UIImageView(image: #imageLiteral(resourceName: "user"))
+        iv.clipsToBounds = true
+        iv.contentMode = .scaleAspectFill
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        iv.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        iv.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        iv.layer.cornerRadius = 20
+        iv.layer.borderWidth = 1
+        return iv
+    }()
     
-    let postImageView: UIImageView = {
+    private let usernameLabel = UILabel()
+    
+    private let postImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
         iv.clipsToBounds = true
@@ -42,13 +57,13 @@ class PostCell: UITableViewCell, PostCellProtocol {
         return iv
     }()
     
-    let postTextLabel: UILabel = {
+    private let postTextLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         return label
     }()
     
-    lazy var optionsButton: UIButton = {
+    private lazy var optionsButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(#imageLiteral(resourceName: "post_options"), for: .normal)
         button.tintColor = .black
@@ -71,9 +86,10 @@ class PostCell: UITableViewCell, PostCellProtocol {
     }
     
     fileprivate func setupViews() {
-        stack(hstack(usernameLabel,
+        stack(hstack(profileImageView,
+                     usernameLabel,
                      UIView(),
-                     optionsButton)
+                     optionsButton, spacing: 16)
                     .padLeft(16).padRight(16),
               postImageView,
               stack(postTextLabel).padLeft(16).padRight(16),

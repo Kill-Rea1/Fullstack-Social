@@ -34,6 +34,7 @@ class HomeController: UITableViewController, HomeViewProtocol {
         tableView.delaysContentTouches = false
         presenter.configureView()
         tableView.tableFooterView = UIView()
+        tableView.allowsSelection = false
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
