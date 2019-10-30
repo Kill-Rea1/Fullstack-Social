@@ -1,15 +1,23 @@
 module.exports = {
     attributes: {
         post: {
-            model: 'post'
+            model: 'post',
+            required: true
         },
 
         user: {
-            model: 'user'
+            model: 'user',
+            required: true
         },
         
         postOwner: {
-            model: 'user'
+            model: 'user',
+            required: true
+        },
+
+        postCreatedAt: {
+            type: 'number',
+            required: true
         }
     }
 }

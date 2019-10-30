@@ -14,6 +14,7 @@ module.exports = async function(req, res) {
     const feedItems = await FeedItem.find({user: userId})
         .populate('post')
         .populate('postOwner')
+        .sort('postCreatedAt DESC')
     feedItems.forEach(fi=> {
         fi.post.user = fi.postOwner
         allPosts.push(fi.post)
