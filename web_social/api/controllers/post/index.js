@@ -1,0 +1,15 @@
+module.exports = async function(req, res) {
+    console.log("Show post detail info")
+    const postId = req.param('id')
+    const post = await Post.findOne({id: postId}).populate('user')
+    const sanitizedPost = JSON.parse(JSON.stringify(post))
+
+    if (req.wantsJson) {
+        return res.send(sanitizedPost)
+    }
+
+    res.view('pages/post/index', {
+        post: sanitizedPost,
+        layout: 'layouts/nav-layout'
+    })
+}

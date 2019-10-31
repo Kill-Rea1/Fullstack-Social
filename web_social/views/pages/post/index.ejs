@@ -1,0 +1,51 @@
+<div>
+    <style>
+        [v-cloak] { display: none }
+        .center-cropped {
+            object-position: center;
+            object-fit: cover;
+            width: 64px;
+            height: 64px;
+            border-radius: 100px;
+            border: solid 1px rgb(94, 94, 94);
+        }
+    </style>
+    <%- partial('../../partials/navbar.ejs') %>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <div id="app" style="padding: 16px; max-width: 100%; 
+        display: flex;" v-cloak>
+        <div style="flex: 1"></div>
+        <div style="justify-content: center; width: 650px;">
+            <div v-for="p in [post]">
+                <%- partial('../../partials/post.ejs') %>
+            </div>
+            <form :action="'/comment/post/' + post.id" method="POST">
+                <textarea placeholder="Enter comment..." 
+                    style="width: 100%; margin-bottom: 12px; padding: 8px; font-size: 12px; 
+                    border-radius: 8px; border-color: rgb(156, 156, 156); outline-style: none;">
+                    </textarea>
+                <div style="display: flex;">
+                    <div style="flex:1"></div>
+                    <button style="background-color: dodgerblue; color: white;
+                        width: 130px; min-height: 30px; font-weight: bold; 
+                        border-radius: 100px; outline-style: none;">
+                        Submit Comment</button>
+                </div>
+            </form>
+            <div style="font-weight: bold; font-size: 16px;"> 
+                Comments (7)
+            </div>
+        </div>
+        <div style="flex: 1"></div>
+    </div>
+    <%- /* Expose locals as 'window.SAILS_LOCALS' :: */ exposeLocalsToBrowser({keys: ['post']}) %>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script> 
+        const App = new Vue({
+            el: '#app',
+            data: {
+                post: window.SAILS_LOCALS.post
+            }
+        })
+    </script>
+</div>

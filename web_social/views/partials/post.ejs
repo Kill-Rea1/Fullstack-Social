@@ -27,9 +27,8 @@
         <div style="flex: 1"></div>
         <div style="display: flex; flex-direction: column; justify-content: center;">
             <img style="max-width: 400px; margin-bottom: 12px;" :src="p.imageUrl">
-            <!-- <button v-on:click="handleDeletePost(p)" v-if="p.canDelete" 
-                style="background-color: tomato; color: white; border-radius: 6px; max-width: 400px;"> Delete post</button> -->
         </div>
         <div style="flex: 1;"></div>
     </div>
+    <a :href="'/post/' + p.id" style="margin-bottom: 12px;">Comment</a>
 </div>

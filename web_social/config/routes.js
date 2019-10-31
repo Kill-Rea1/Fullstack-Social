@@ -75,6 +75,8 @@ module.exports.routes = {
   'POST /profile': { action: 'user/update'},
   'GET /profile': { action: 'user/profile'},
   'GET /user/:id': { action: 'user/publicprofile'},
+  'GET /post/:id': { action: 'post/index'},
+  'POST /comment/post/:id': { action: 'comment/create'},
   'GET /customauth/login': {
     view: 'pages/customauth/custom-login',
     locals: {
