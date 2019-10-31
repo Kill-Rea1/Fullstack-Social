@@ -11,7 +11,6 @@ import UIKit
 protocol SearchCellType {
     var username: NSAttributedString! { get set }
     var userId: String! { get set }
-    var isFollowing: Bool! { get set }
     var buttonTitle: String! { get }
     var buttonTextColor: UIColor! { get }
     var buttonColor: UIColor! { get }
@@ -21,7 +20,7 @@ class SearchCellEntity: SearchCellType {
     
     var username: NSAttributedString!
     var userId: String!
-    var isFollowing: Bool! = false
+    var isFollowing = false
     
     var buttonTitle: String! {
         return isFollowing ? "Unfollow" : "Follow"
@@ -35,8 +34,10 @@ class SearchCellEntity: SearchCellType {
         return isFollowing ? UIColor.black : UIColor.white
     }
     
-    init(username: NSAttributedString, userId: String, isFollowing: Bool) {
-        self.username = username
+    init(username: String, userId: String, isFollowing: Bool) {
+        let _username = NSAttributedString(string: username, attributes: [.font: UIFont.boldSystemFont(ofSize: 17)])
+        
+        self.username = _username
         self.userId = userId
         self.isFollowing = isFollowing
     }

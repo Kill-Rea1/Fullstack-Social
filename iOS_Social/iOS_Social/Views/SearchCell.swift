@@ -35,11 +35,7 @@ class SearchCell: UICollectionViewCell, SearchCellProtocol {
     
     // MARK:- UI Elements
     
-    private let nameLabel: UILabel = {
-        let label = UILabel()
-        label.text = "UserName"
-        return label
-    }()
+    private let nameLabel = UILabel()
     
     private lazy var followButton: UIButton = {
         let button = UIButton(type: .system)

@@ -8,7 +8,7 @@ module.exports = async function(req, res) {
     post.isCommentButtonHide = true
     const sanitizedPost = JSON.parse(JSON.stringify(post))
 
-    if (req.wantsJson) {
+    if (req.wantsJSON) {
         return res.send(sanitizedPost)
     }
 

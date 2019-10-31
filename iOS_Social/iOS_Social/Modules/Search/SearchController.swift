@@ -23,6 +23,7 @@ class SearchController: BaseCollectionController, SearchViewProtocol, UICollecti
         configurator.configure(with: self)
         
         navigationItem.title = "Search"
+        navigationController?.navigationBar.tintColor = .black
         collectionView.backgroundColor = .white
         collectionView.register(SearchCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.delaysContentTouches = false

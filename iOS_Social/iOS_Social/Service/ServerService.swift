@@ -29,6 +29,7 @@ protocol ServerServiceProtocol: class {
     func deletePost(with id: String)
     func fetchUser(with id: String, completion: @escaping (Result<User>) -> ())
     func uploadNewAvatar(with info: Any, fullName: String, bio: String, completion: @escaping (Result<Data>) -> ())
+    func fetchPostComments(with id: String, completion: @escaping (Result<[Comment]>) -> ())
 }
 
 class ServerService: ServerServiceProtocol {
@@ -229,6 +230,28 @@ class ServerService: ServerServiceProtocol {
                     completion(.success(Data()))
                 }
             }
+        }
+    }
+    
+    func fetchPostComments(with id: String, completion: @escaping (Result<[Comment]>) -> ()) {
+        let url = "\(baseUrl)/post/\(id)"
+        Alamofire.request(url)
+            .validate(statusCode: 200..<300)
+            .responseData { (dataResp) in
+                if let err = dataResp.error {
+                    print("Failed to fetch comments: ", err)
+                    completion(.failure(err))
+                }
+                
+                guard let data = dataResp.data else { return }
+                do {
+                    let post = try JSONDecoder().decode(Post.self, from: data)
+                    let comments = post.comments ?? [Comment]()
+                    completion(.success(comments))
+                } catch let jsonErr {
+                    print("Failed to decode JSON comments: ", jsonErr)
+                    completion(.failure(jsonErr))
+                }
         }
     }
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 protocol HomePresenterProtocol: class {
-    func numberOfRows() -> Int
+    func numberOfItems() -> Int
     func searchTapped()
     func createPostsTapped()
     func logInTapped()
@@ -62,7 +62,7 @@ class HomePresenter: HomePresenterProtocol {
         router.showLoginScreen()
     }
     
-    func numberOfRows() -> Int {
+    func numberOfItems() -> Int {
         return interactor.posts.count
     }
     
@@ -86,13 +86,15 @@ class HomePresenter: HomePresenterProtocol {
 }
 
 extension HomePresenter: NewPostModuleDelegate, PostCellDelegate {
-    func didCreatePost() {
-        interactor.fetchPosts()
+    func didLikedPost() {
+        print("Liked/Unliked")
     }
     
-    func handleOptions(with id: String) {
-        selectedId = id
-        view?.showAlertSheet()
-        interactor.findPost(with: id)
+    func didCommentsTapped(postId: String) {
+        router.showComments(postId: postId)
+    }
+    
+    func didCreatePost() {
+        interactor.fetchPosts()
     }
 }

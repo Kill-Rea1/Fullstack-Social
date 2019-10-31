@@ -15,12 +15,10 @@ struct Post: Decodable {
     let imageUrl: String
     let createdAt: Int
     let user: User
+    let fromNow: String
+    var comments: [Comment]?
     
     func toPostCellType() -> PostCellType? {
-        let username = NSAttributedString(string: user.fullName, attributes: [.font: UIFont.boldSystemFont(ofSize: 17)])
-        guard let _imageUrl = URL(string: imageUrl),
-            let profileImageUrl = URL(string: user.imageUrl ?? "") else { return nil}
-        let postText = NSAttributedString(string: text, attributes: [.font: UIFont.systemFont(ofSize: 15)])
-        return PostCellEntity(username: username, profileImageUrl: profileImageUrl, imageUrl: _imageUrl, postText: postText, postId: self.id)
+        return PostCellEntity(username: user.fullName, profileImageUrl: user.imageUrl, fromNow: fromNow, imageUrl: imageUrl, postText: text, postId: self.id)
     }
 }

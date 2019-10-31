@@ -19,33 +19,43 @@ protocol HomeViewProtocol: class {
     func fetchPosts()
 }
 
-class HomeController: UITableViewController, HomeViewProtocol {
+class HomeController: BaseCollectionController, HomeViewProtocol, UICollectionViewDelegateFlowLayout {
     
     var presenter: HomePresenterProtocol!
     let configurator: HomeConfiguratorProtocol = HomeConfigurator()
+    private let cellId = "postCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configurator.configure(with: self)
-        view.backgroundColor = .init(white: 0.95, alpha: 1)
+        collectionView.backgroundColor = .white
         navigationController?.navigationBar.tintColor = .black
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "search"), style: .plain, target: self, action: #selector(handleSearch))
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Log in", style: .plain, target: self, action: #selector(handleLogIn))
-        tableView.delaysContentTouches = false
+        collectionView.delaysContentTouches = false
+        collectionView.register(PostCell.self, forCellWithReuseIdentifier: cellId)
         presenter.configureView()
-        tableView.tableFooterView = UIView()
-        tableView.allowsSelection = false
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.numberOfRows()
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return presenter.numberOfItems()
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = PostCell(style: .default, reuseIdentifier: "cellId")
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! PostCellProtocol
         cell.postCellType = presenter.cellType(for: indexPath)
         cell.delegate = presenter as? PostCellDelegate
-        return cell
+        return (cell as! UICollectionViewCell)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = view.frame.width
+        let dummyCell = PostCell(frame: .init(x: 0, y: 0, width: width, height: 1000))
+        dummyCell.postCellType = presenter.cellType(for: indexPath)
+        dummyCell.layoutIfNeeded()
+        let size = dummyCell.systemLayoutSizeFitting(.init(width: width, height: 1000))
+        let height = size.height
+        return .init(width: width, height: height)
     }
     
     @objc
@@ -71,7 +81,7 @@ class HomeController: UITableViewController, HomeViewProtocol {
     // MARK:- HomeViewProtocol
     
     func updateView() {
-        tableView.reloadData()
+        collectionView.reloadData()
     }
     
     func showAlertSheet() {
@@ -89,17 +99,18 @@ class HomeController: UITableViewController, HomeViewProtocol {
     }
     
     func deleteRow(from indexPath: IndexPath) {
-        tableView.deleteRows(at: [indexPath], with: .automatic)
+        collectionView.deleteItems(at: [indexPath])
+//        tableView.deleteRows(at: [indexPath], with: .automatic)
     }
     
     func addResfreshControl() {
         let rc = UIRefreshControl()
         rc.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
-        tableView.refreshControl = rc
+        collectionView.refreshControl = rc
     }
     
     func endRefreshing() {
-        tableView.refreshControl?.endRefreshing()
+        collectionView.refreshControl?.endRefreshing()
     }
     
     func fetchPosts() {

@@ -10,6 +10,14 @@
 		767D2A44DDED2FDA179E2BEF /* Pods_iOS_Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05E225C127CEA348A9838989 /* Pods_iOS_Social.framework */; };
 		ED69116B2369104A0054BFD3 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED69116A2369104A0054BFD3 /* MainTabBarController.swift */; };
 		ED69116D236911DD0054BFD3 /* BaseCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED69116C236911DD0054BFD3 /* BaseCollectionController.swift */; };
+		EDA95734236B945D001E3E74 /* PostInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA9572F236B945D001E3E74 /* PostInteractor.swift */; };
+		EDA95735236B945D001E3E74 /* PostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA95730236B945D001E3E74 /* PostController.swift */; };
+		EDA95736236B945D001E3E74 /* PostConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA95731236B945D001E3E74 /* PostConfigurator.swift */; };
+		EDA95737236B945D001E3E74 /* PostPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA95732236B945D001E3E74 /* PostPresenter.swift */; };
+		EDA95738236B945D001E3E74 /* PostRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA95733236B945D001E3E74 /* PostRouter.swift */; };
+		EDA9573A236B9485001E3E74 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA95739236B9485001E3E74 /* CommentCell.swift */; };
+		EDA9573C236B949E001E3E74 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA9573B236B949E001E3E74 /* Comment.swift */; };
+		EDA9573E236B94E4001E3E74 /* CommentCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA9573D236B94E4001E3E74 /* CommentCellType.swift */; };
 		EDBF7C372366185B00E8C809 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C362366185B00E8C809 /* AppDelegate.swift */; };
 		EDBF7C392366185B00E8C809 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C382366185B00E8C809 /* SceneDelegate.swift */; };
 		EDBF7C3E2366185B00E8C809 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDBF7C3C2366185B00E8C809 /* Main.storyboard */; };
@@ -35,7 +43,6 @@
 		EDBF7C762366598900E8C809 /* RegisterRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C752366598900E8C809 /* RegisterRouter.swift */; };
 		EDBF7C782366599900E8C809 /* RegisterConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C772366599900E8C809 /* RegisterConfigurator.swift */; };
 		EDBF7C7A2366861600E8C809 /* ServerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C792366861600E8C809 /* ServerService.swift */; };
-		EDBF7C7D23671FCF00E8C809 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C7C23671FCE00E8C809 /* PostCell.swift */; };
 		EDBF7C7F2367236600E8C809 /* PostCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C7E2367236600E8C809 /* PostCellType.swift */; };
 		EDBF7C8223672BC200E8C809 /* NewPostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C8123672BC200E8C809 /* NewPostController.swift */; };
 		EDBF7C8423672BD100E8C809 /* NewPostPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C8323672BD000E8C809 /* NewPostPresenter.swift */; };
@@ -54,7 +61,7 @@
 		EDBF7CA02368B4FD00E8C809 /* ProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C9F2368B4FD00E8C809 /* ProfileInteractor.swift */; };
 		EDBF7CA22368B50600E8C809 /* ProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7CA12368B50600E8C809 /* ProfileRouter.swift */; };
 		EDBF7CA42368B51200E8C809 /* ProfileConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7CA32368B51200E8C809 /* ProfileConfigurator.swift */; };
-		EDBF7CA62368BDBE00E8C809 /* UserPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7CA52368BDBE00E8C809 /* UserPostCell.swift */; };
+		EDBF7CA62368BDBE00E8C809 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7CA52368BDBE00E8C809 /* PostCell.swift */; };
 		EDBF7CA82368D5AE00E8C809 /* ProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7CA72368D5AE00E8C809 /* ProfileHeader.swift */; };
 		EDBF7CAA2368D86C00E8C809 /* ProfileHeaderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7CA92368D86C00E8C809 /* ProfileHeaderType.swift */; };
 /* End PBXBuildFile section */
@@ -65,6 +72,14 @@
 		964E087DDC800CE7AA50FA50 /* Pods-iOS_Social.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_Social.release.xcconfig"; path = "Target Support Files/Pods-iOS_Social/Pods-iOS_Social.release.xcconfig"; sourceTree = "<group>"; };
 		ED69116A2369104A0054BFD3 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		ED69116C236911DD0054BFD3 /* BaseCollectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionController.swift; sourceTree = "<group>"; };
+		EDA9572F236B945D001E3E74 /* PostInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostInteractor.swift; sourceTree = "<group>"; };
+		EDA95730236B945D001E3E74 /* PostController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostController.swift; sourceTree = "<group>"; };
+		EDA95731236B945D001E3E74 /* PostConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostConfigurator.swift; sourceTree = "<group>"; };
+		EDA95732236B945D001E3E74 /* PostPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostPresenter.swift; sourceTree = "<group>"; };
+		EDA95733236B945D001E3E74 /* PostRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostRouter.swift; sourceTree = "<group>"; };
+		EDA95739236B9485001E3E74 /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
+		EDA9573B236B949E001E3E74 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		EDA9573D236B94E4001E3E74 /* CommentCellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCellType.swift; sourceTree = "<group>"; };
 		EDBF7C332366185B00E8C809 /* iOS_Social.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOS_Social.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDBF7C362366185B00E8C809 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EDBF7C382366185B00E8C809 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -92,7 +107,6 @@
 		EDBF7C752366598900E8C809 /* RegisterRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRouter.swift; sourceTree = "<group>"; };
 		EDBF7C772366599900E8C809 /* RegisterConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterConfigurator.swift; sourceTree = "<group>"; };
 		EDBF7C792366861600E8C809 /* ServerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerService.swift; sourceTree = "<group>"; };
-		EDBF7C7C23671FCE00E8C809 /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		EDBF7C7E2367236600E8C809 /* PostCellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellType.swift; sourceTree = "<group>"; };
 		EDBF7C8123672BC200E8C809 /* NewPostController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostController.swift; sourceTree = "<group>"; };
 		EDBF7C8323672BD000E8C809 /* NewPostPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostPresenter.swift; sourceTree = "<group>"; };
@@ -111,7 +125,7 @@
 		EDBF7C9F2368B4FD00E8C809 /* ProfileInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInteractor.swift; sourceTree = "<group>"; };
 		EDBF7CA12368B50600E8C809 /* ProfileRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRouter.swift; sourceTree = "<group>"; };
 		EDBF7CA32368B51200E8C809 /* ProfileConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileConfigurator.swift; sourceTree = "<group>"; };
-		EDBF7CA52368BDBE00E8C809 /* UserPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPostCell.swift; sourceTree = "<group>"; };
+		EDBF7CA52368BDBE00E8C809 /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		EDBF7CA72368D5AE00E8C809 /* ProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeader.swift; sourceTree = "<group>"; };
 		EDBF7CA92368D86C00E8C809 /* ProfileHeaderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -143,6 +157,19 @@
 				964E087DDC800CE7AA50FA50 /* Pods-iOS_Social.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		EDA9572E236B945D001E3E74 /* Post */ = {
+			isa = PBXGroup;
+			children = (
+				EDA9572F236B945D001E3E74 /* PostInteractor.swift */,
+				EDA95730236B945D001E3E74 /* PostController.swift */,
+				EDA95731236B945D001E3E74 /* PostConfigurator.swift */,
+				EDA95732236B945D001E3E74 /* PostPresenter.swift */,
+				EDA95733236B945D001E3E74 /* PostRouter.swift */,
+			);
+			name = Post;
+			path = "../../../../../Downloads/VIPERA-master/Post";
 			sourceTree = "<group>";
 		};
 		EDBF7C2A2366185B00E8C809 = {
@@ -194,6 +221,7 @@
 		EDBF7C5523661C3800E8C809 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				EDA9572E236B945D001E3E74 /* Post */,
 				EDBF7C9A2368B4D000E8C809 /* Profile */,
 				EDBF7C8B236897C500E8C809 /* Search */,
 				EDBF7C8023672BAF00E8C809 /* NewPost */,
@@ -261,6 +289,8 @@
 				EDBF7C7E2367236600E8C809 /* PostCellType.swift */,
 				EDBF7C982368A37C00E8C809 /* SearchCellType.swift */,
 				EDBF7CA92368D86C00E8C809 /* ProfileHeaderType.swift */,
+				EDA9573B236B949E001E3E74 /* Comment.swift */,
+				EDA9573D236B94E4001E3E74 /* CommentCellType.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -280,10 +310,10 @@
 		EDBF7C7B23671F9B00E8C809 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				EDBF7C7C23671FCE00E8C809 /* PostCell.swift */,
 				EDBF7C9623689AFE00E8C809 /* SearchCell.swift */,
-				EDBF7CA52368BDBE00E8C809 /* UserPostCell.swift */,
+				EDBF7CA52368BDBE00E8C809 /* PostCell.swift */,
 				EDBF7CA72368D5AE00E8C809 /* ProfileHeader.swift */,
+				EDA95739236B9485001E3E74 /* CommentCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -443,6 +473,7 @@
 				EDBF7C4C23661B5900E8C809 /* HomeController.swift in Sources */,
 				ED69116B2369104A0054BFD3 /* MainTabBarController.swift in Sources */,
 				EDBF7C602366298100E8C809 /* LoginConfigurator.swift in Sources */,
+				EDA95738236B945D001E3E74 /* PostRouter.swift in Sources */,
 				EDBF7C992368A37C00E8C809 /* SearchCellType.swift in Sources */,
 				EDBF7C372366185B00E8C809 /* AppDelegate.swift in Sources */,
 				EDBF7C762366598900E8C809 /* RegisterRouter.swift in Sources */,
@@ -464,6 +495,7 @@
 				EDBF7C9C2368B4E400E8C809 /* ProfileController.swift in Sources */,
 				EDBF7CA02368B4FD00E8C809 /* ProfileInteractor.swift in Sources */,
 				EDBF7C91236897F300E8C809 /* SearchInteractor.swift in Sources */,
+				EDA9573A236B9485001E3E74 /* CommentCell.swift in Sources */,
 				EDBF7C8D236897DA00E8C809 /* SearchController.swift in Sources */,
 				EDBF7C742366597E00E8C809 /* RegisterInteractor.swift in Sources */,
 				EDBF7CA22368B50600E8C809 /* ProfileRouter.swift in Sources */,
@@ -477,12 +509,17 @@
 				EDBF7C6B2366500600E8C809 /* Post.swift in Sources */,
 				EDBF7C5223661C0A00E8C809 /* HomeInteractor.swift in Sources */,
 				EDBF7C6623662A6C00E8C809 /* LoginRouter.swift in Sources */,
+				EDA95734236B945D001E3E74 /* PostInteractor.swift in Sources */,
 				EDBF7C5E2366290200E8C809 /* LoginController.swift in Sources */,
 				EDBF7C8623672BDB00E8C809 /* NewPostInteractor.swift in Sources */,
+				EDA95737236B945D001E3E74 /* PostPresenter.swift in Sources */,
 				EDBF7C6823662D8600E8C809 /* CustomTextField.swift in Sources */,
+				EDA95736236B945D001E3E74 /* PostConfigurator.swift in Sources */,
+				EDA95735236B945D001E3E74 /* PostController.swift in Sources */,
+				EDA9573C236B949E001E3E74 /* Comment.swift in Sources */,
+				EDA9573E236B94E4001E3E74 /* CommentCellType.swift in Sources */,
 				EDBF7C8F236897E900E8C809 /* SearchPresenter.swift in Sources */,
-				EDBF7CA62368BDBE00E8C809 /* UserPostCell.swift in Sources */,
-				EDBF7C7D23671FCF00E8C809 /* PostCell.swift in Sources */,
+				EDBF7CA62368BDBE00E8C809 /* PostCell.swift in Sources */,
 				EDBF7CA42368B51200E8C809 /* ProfileConfigurator.swift in Sources */,
 				EDBF7C9E2368B4EF00E8C809 /* ProfilePresenter.swift in Sources */,
 			);

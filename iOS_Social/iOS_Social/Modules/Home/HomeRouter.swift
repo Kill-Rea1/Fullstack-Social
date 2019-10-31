@@ -14,6 +14,7 @@ protocol HomeRouterProtocol: class {
     func showNewPostScreen(with info: Any, delegate: NewPostModuleDelegate)
     func dismissImagePicker()
     func showSearch()
+    func showComments(postId: String)
 }
 
 class HomeRouter: HomeRouterProtocol {
@@ -53,5 +54,10 @@ class HomeRouter: HomeRouterProtocol {
     func showSearch() {
         let navController = UINavigationController(rootViewController: SearchController())
         viewController?.present(navController, animated: true)
+    }
+    
+    func showComments(postId: String) {
+        let postController = PostController(postId: postId)
+        viewController?.navigationController?.pushViewController(postController, animated: true)
     }
 }

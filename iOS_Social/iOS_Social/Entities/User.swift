@@ -21,15 +21,10 @@ struct User: Decodable {
     var isEditable: Bool? = false
     
     func toSearchType() -> SearchCellType {
-        let username = NSAttributedString(string: fullName, attributes: [.font: UIFont.boldSystemFont(ofSize: 17)])
-        return SearchCellEntity(username: username, userId: id, isFollowing: isFollowing ?? false)
+        return SearchCellEntity(username: fullName, userId: id, isFollowing: isFollowing ?? false)
     }
     
     func toProfileHeader() -> ProfileHeaderType? {
-        let style = NSMutableParagraphStyle()
-        style.alignment = .center
-        let username = NSAttributedString(string: fullName, attributes: [.font: UIFont.boldSystemFont(ofSize: 17), .paragraphStyle: style])
-        let url = URL(string: imageUrl ?? "")
-        return ProfileHeaderEntity(username: username, bio: bio ?? "", numberOfPosts: posts?.count ?? 0, numberOfFollowing: following?.count ?? 0, numberOfFollowers: followers?.count ?? 0, isFollowing: isFollowing ?? false, isEditable: isEditable!, profileImageUrl: url)
+        return ProfileHeaderEntity(username: fullName, bio: bio ?? "", numberOfPosts: posts?.count ?? 0, numberOfFollowing: following?.count ?? 0, numberOfFollowers: followers?.count ?? 0, isFollowing: isFollowing ?? false, isEditable: isEditable!, profileImageUrl: imageUrl)
     }
 }

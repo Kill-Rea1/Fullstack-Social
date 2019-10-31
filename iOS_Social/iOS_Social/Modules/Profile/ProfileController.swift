@@ -39,7 +39,7 @@ class ProfileController: BaseCollectionController, UICollectionViewDelegateFlowL
         presenter.delegate = delegate
         
         collectionView.backgroundColor = .white
-        collectionView.register(UserPostCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.register(PostCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.register(ProfileHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
         collectionView.delaysContentTouches = false
     }
@@ -61,20 +61,26 @@ class ProfileController: BaseCollectionController, UICollectionViewDelegateFlowL
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! UserPostCellProtocol
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! PostCellProtocol
         cell.postCellType = presenter.postCellType(for: indexPath)
         return (cell as! UICollectionViewCell)
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = view.frame.width
-        let dummyCell = UserPostCell(frame: .init(x: 0, y: 0, width: width, height: 1000))
+        let dummyCell = PostCell(frame: .init(x: 0, y: 0, width: width, height: 1000))
         dummyCell.postCellType = presenter.postCellType(for: indexPath)
         dummyCell.layoutIfNeeded()
         let size = dummyCell.systemLayoutSizeFitting(.init(width: width, height: 1000))
         let height = size.height
         return .init(width: width, height: height)
     }
+    
+    
     
     // MARK:- ProfileViewProtocol
     

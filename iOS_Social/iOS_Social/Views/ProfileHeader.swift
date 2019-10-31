@@ -25,7 +25,8 @@ class ProfileHeader: UICollectionReusableView, ProfileHeaderProtocol {
     weak var profileHeaderType: ProfileHeaderType? {
         didSet {
             usernameLabel.attributedText = profileHeaderType?.username
-            bioLabel.text = profileHeaderType?.bio
+            bioLabel.numberOfLines = 0
+            bioLabel.attributedText = profileHeaderType?.bio
             if profileHeaderType?.isEditable ?? false {
                 followButton.removeFromSuperview()
                 profileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleEditProfile)))
@@ -38,9 +39,9 @@ class ProfileHeader: UICollectionReusableView, ProfileHeaderProtocol {
             if profileHeaderType?.profileImageUrl != nil {
                 profileImageView.sd_setImage(with: profileHeaderType?.profileImageUrl)
             }
-            postsCountLabel.text = "\(profileHeaderType?.numberOfPosts ?? 0)"
-            followersCountLabel.text = "\(profileHeaderType?.numberOfFollowers ?? 0)"
-            followingCountLabel.text = "\(profileHeaderType?.numberOfFollowing ?? 0)"
+            postsCountLabel.attributedText = profileHeaderType?.numberOfPosts
+            followersCountLabel.attributedText = profileHeaderType?.numberOfFollowers
+            followingCountLabel.attributedText = profileHeaderType?.numberOfFollowing
         }
     }
     
@@ -131,21 +132,12 @@ class ProfileHeader: UICollectionReusableView, ProfileHeaderProtocol {
     }()
     
     private let usernameLabel = UILabel()
-    private let bioLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Here's an interesting piece of bio that will definitely capture your attention and all the fans around the world"
-        label.textColor = .darkGray
-        label.textAlignment = .center
-        label.font = .systemFont(ofSize: 13)
-        label.numberOfLines = 0
-        return label
-    }()
+    private let bioLabel = UILabel()
     
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
-        
         stack(
             profileImageView,
             followButton,
