@@ -8,6 +8,12 @@
         document.getElementById('selectedImage').style.display = 'block'
     }
 </script>
+<script type="text/javascript">
+    function image() { 
+        var buttons = document.getElementById("button")
+        buttons.innerHTML = '<img src="images\startup.png" />'
+    }
+</script>
 <div>
     <%- partial('../../partials/navbar.ejs') %>
     <div style="background-color: rgb(238, 238, 238); 
@@ -115,7 +121,14 @@
                             this.isCreatingPost = false
                             console.error(err)
                         }
+                    },
+                    image: function() {
+                        const buttons = document.getElementById('button')
+                        // buttons.innerHTML = '<img src="images/comment.png" style="height:32px">'
                     }
+                },
+                created: function() {
+                    this.image()
                 }
             })
         </script>

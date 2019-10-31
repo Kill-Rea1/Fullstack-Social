@@ -30,7 +30,12 @@
         </div>
         <div style="flex: 1;"></div>
     </div>
-    <div v-if="!p.isCommentButtonHide">
-        <a :href="'/post/' + p.id" style="margin-bottom: 12px;">Comment</a>
+    <div v-if="!p.isCommentButtonHide" style="display: flex;">
+        <div style="flex:1"></div>
+        <div style="display: flex; flex-direction: column; 
+            justify-content: center; margin-right: 8px; text-decoration: none; color: black;">
+            <a style="color: black;" :href="'/post/' + p.id">Comments</a>
+        </div>
+        <a :href="'/post/' + p.id"><img src="images/comment.png" style="height: 26px"></a>
     </div>
 </div>
