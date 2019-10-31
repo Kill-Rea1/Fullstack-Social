@@ -9,6 +9,14 @@
             border-radius: 100px;
             border: solid 1px rgb(94, 94, 94);
         }
+        .center-cropped-mini {
+            object-position: center;
+            object-fit: cover;
+            width: 48px;
+            height: 48px;
+            border-radius: 100px;
+            border: solid 1px rgb(94, 94, 94);
+        }
     </style>
     <%- partial('../../partials/navbar.ejs') %>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -19,21 +27,40 @@
             <div v-for="p in [post]">
                 <%- partial('../../partials/post.ejs') %>
             </div>
-            <form :action="'/comment/post/' + post.id" method="POST">
-                <textarea placeholder="Enter comment..." 
-                    style="width: 100%; margin-bottom: 12px; padding: 8px; font-size: 12px; 
-                    border-radius: 8px; border-color: rgb(156, 156, 156); outline-style: none;">
-                    </textarea>
-                <div style="display: flex;">
-                    <div style="flex:1"></div>
-                    <button style="background-color: dodgerblue; color: white;
-                        width: 130px; min-height: 30px; font-weight: bold; 
-                        border-radius: 100px; outline-style: none;">
-                        Submit Comment</button>
+            <textarea v-model="commentText" name="text" placeholder="Enter comment..." 
+                style="width: 100%; margin-bottom: 12px; padding: 8px; font-size: 12px; 
+                border-radius: 8px; border-color: rgb(156, 156, 156); outline-style: none;">
+                </textarea>
+            <div style="display: flex;">
+                <div style="flex:1"></div>
+                <button style="background-color: dodgerblue; color: white;
+                    width: 130px; min-height: 30px; font-weight: bold; 
+                    border-radius: 100px; outline-style: none;"
+                    v-on:click="handleSubmit()">
+                    Submit Comment</button>
+            </div>
+            <div style="font-weight: bold; font-size: 16px; margin-bottom: 16px;"> 
+                Comments ({{post.comments.length}})
+            </div>
+            <div v-for="c in post.comments"
+                style="background-color: white; padding: 16px; margin-bottom: 16px;
+                border-radius: 8px;"> 
+                <div style="display: flex; justify-content: center;">
+                    <img class="center-cropped-mini" :src="c.user.imageUrl">
+                    <div style="display: flex; flex-direction: column; 
+                        justify-content: center; margin-left: 16px;">
+                        <div style="font-weight: bold; font-size: 16px;">
+                            {{c.user.fullName}}
+                        </div>
+                        <div style="color: rgb(186, 186, 186); font-size: 13px;">
+                            Posted {{c.fromNow}}
+                        </div>
+                    </div>
+                    <div style="flex: 1"></div>
                 </div>
-            </form>
-            <div style="font-weight: bold; font-size: 16px;"> 
-                Comments (7)
+                <div style="margin-top: 16px;">
+                    {{c.text}}
+                </div>
             </div>
         </div>
         <div style="flex: 1"></div>
@@ -44,7 +71,16 @@
         const App = new Vue({
             el: '#app',
             data: {
-                post: window.SAILS_LOCALS.post
+                post: window.SAILS_LOCALS.post,
+                commentText: null
+            },
+            methods: {
+                handleSubmit: async function() {
+                    const formData = new FormData()
+                    formData.append('text', this.commentText)
+                    const response = await axios.post('/comment/post/' + this.post.id, formData)
+                    location.reload()
+                }
             }
         })
     </script>

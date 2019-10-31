@@ -26,7 +26,7 @@ module.exports = async function(req, res) {
             })
         })
 
-        res.end()
+        res.redirect('/post')
     } catch (err) {
         res.serverError(err)
     }

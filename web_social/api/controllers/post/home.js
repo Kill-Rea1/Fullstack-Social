@@ -18,6 +18,7 @@ module.exports = async function(req, res) {
     feedItems.forEach(fi=> {
         if (fi.post) {
             fi.post.user = fi.postOwner
+            // fi.post.isCommentButtonShow = true
             allPosts.push(fi.post)
         }
     })
