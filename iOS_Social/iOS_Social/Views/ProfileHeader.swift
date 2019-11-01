@@ -51,7 +51,6 @@ class ProfileHeader: UICollectionReusableView, ProfileHeaderProtocol {
         let iv = UIImageView(image: #imageLiteral(resourceName: "user"))
         iv.clipsToBounds = true
         iv.contentMode = .scaleAspectFill
-        iv.translatesAutoresizingMaskIntoConstraints = false
         iv.widthAnchor.constraint(equalToConstant: 80).isActive = true
         iv.heightAnchor.constraint(equalTo: iv.widthAnchor).isActive = true
         iv.layer.cornerRadius = 40

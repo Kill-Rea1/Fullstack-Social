@@ -44,7 +44,6 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         let iv = UIImageView(image: #imageLiteral(resourceName: "user"))
         iv.clipsToBounds = true
         iv.contentMode = .scaleAspectFill
-        iv.translatesAutoresizingMaskIntoConstraints = false
         iv.widthAnchor.constraint(equalToConstant: 40).isActive = true
         iv.heightAnchor.constraint(equalToConstant: 40).isActive = true
         iv.layer.cornerRadius = 20
@@ -57,7 +56,6 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         let iv = UIImageView()
         iv.clipsToBounds = true
         iv.contentMode = .scaleAspectFill
-        iv.translatesAutoresizingMaskIntoConstraints = false
         iv.heightAnchor.constraint(equalToConstant: frame.width).isActive = true
         return iv
     }()
@@ -66,7 +64,6 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         let button = UIButton(type: .system)
         button.setImage(#imageLiteral(resourceName: "post_options"), for: .normal)
         button.tintColor = .black
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.widthAnchor.constraint(equalToConstant: 34).isActive = true
         button.addTarget(self, action: #selector(handleOptions), for: .touchUpInside)
         return button

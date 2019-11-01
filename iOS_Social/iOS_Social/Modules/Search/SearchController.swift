@@ -9,11 +9,12 @@
 import UIKit
 
 protocol SearchViewProtocol: class {
+    func setup()
     func update()
     func updateItem(at indexPath: IndexPath)
 }
 
-class SearchController: BaseCollectionController, SearchViewProtocol, UICollectionViewDelegateFlowLayout {
+class SearchController: BaseCollectionController, SearchViewProtocol {
     private let cellId = "cellId"
     let configurator: SearchConfiguratorProtocol = SearchConfigurator()
     var presenter: SearchPresenterProtocol!
@@ -21,16 +22,31 @@ class SearchController: BaseCollectionController, SearchViewProtocol, UICollecti
     override func viewDidLoad() {
         super.viewDidLoad()
         configurator.configure(with: self)
-        
+        presenter.configureView()
+    }
+    
+    // MARK:- SearchViewProtocol
+    
+    func setup() {
         navigationItem.title = "Search"
         navigationController?.navigationBar.tintColor = .black
         collectionView.backgroundColor = .white
         collectionView.register(SearchCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.delaysContentTouches = false
-        
-        presenter.configureView()
     }
     
+    func update() {
+        collectionView.reloadData()
+    }
+    
+    func updateItem(at indexPath: IndexPath) {
+        collectionView.reloadItems(at: [indexPath])
+    }
+}
+
+// MARK:- UICollectionController settings
+
+extension SearchController: UICollectionViewDelegateFlowLayout {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return presenter.numberOfItems()
     }
@@ -52,15 +68,5 @@ class SearchController: BaseCollectionController, SearchViewProtocol, UICollecti
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         presenter.didSelect(at: indexPath)
-    }
-    
-    // MARK:- SearchViewProtocol
-    
-    func update() {
-        collectionView.reloadData()
-    }
-    
-    func updateItem(at indexPath: IndexPath) {
-        collectionView.reloadItems(at: [indexPath])
     }
 }

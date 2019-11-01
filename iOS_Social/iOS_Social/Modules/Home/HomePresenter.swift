@@ -29,6 +29,7 @@ class HomePresenter: HomePresenterProtocol {
     
     required init(view: HomeViewProtocol) {
         self.view = view
+        self.view?.setup()
     }
     
     // MARK:- HomePresenterProtocol

@@ -11,6 +11,7 @@ import WebKit
 import SDWebImage
 
 protocol HomeViewProtocol: class {
+    func setup()
     func updateView()
     func showAlertSheet()
     func deleteRow(from indexPath: IndexPath)
@@ -19,7 +20,7 @@ protocol HomeViewProtocol: class {
     func fetchPosts()
 }
 
-class HomeController: BaseCollectionController, HomeViewProtocol, UICollectionViewDelegateFlowLayout {
+class HomeController: BaseCollectionController, HomeViewProtocol {
     
     var presenter: HomePresenterProtocol!
     let configurator: HomeConfiguratorProtocol = HomeConfigurator()
@@ -28,34 +29,7 @@ class HomeController: BaseCollectionController, HomeViewProtocol, UICollectionVi
     override func viewDidLoad() {
         super.viewDidLoad()
         configurator.configure(with: self)
-        collectionView.backgroundColor = .white
-        navigationController?.navigationBar.tintColor = .black
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "search"), style: .plain, target: self, action: #selector(handleSearch))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Log in", style: .plain, target: self, action: #selector(handleLogIn))
-        collectionView.delaysContentTouches = false
-        collectionView.register(PostCell.self, forCellWithReuseIdentifier: cellId)
         presenter.configureView()
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return presenter.numberOfItems()
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! PostCellProtocol
-        cell.postCellType = presenter.cellType(for: indexPath)
-        cell.delegate = presenter as? PostCellDelegate
-        return (cell as! UICollectionViewCell)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = view.frame.width
-        let dummyCell = PostCell(frame: .init(x: 0, y: 0, width: width, height: 1000))
-        dummyCell.postCellType = presenter.cellType(for: indexPath)
-        dummyCell.layoutIfNeeded()
-        let size = dummyCell.systemLayoutSizeFitting(.init(width: width, height: 1000))
-        let height = size.height
-        return .init(width: width, height: height)
     }
     
     @objc
@@ -79,6 +53,16 @@ class HomeController: BaseCollectionController, HomeViewProtocol, UICollectionVi
     }
     
     // MARK:- HomeViewProtocol
+    
+    func setup() {
+        collectionView.backgroundColor = .white
+        collectionView.delaysContentTouches = false
+        collectionView.register(PostCell.self, forCellWithReuseIdentifier: cellId)
+        navigationController?.navigationBar.tintColor = .black
+        navigationItem.title = "Feed"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "search"), style: .plain, target: self, action: #selector(handleSearch))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Log in", style: .plain, target: self, action: #selector(handleLogIn))
+    }
     
     func updateView() {
         collectionView.reloadData()
@@ -118,9 +102,38 @@ class HomeController: BaseCollectionController, HomeViewProtocol, UICollectionVi
     }
 }
 
+// MARK:- UICollectionViewController settings
+
+extension HomeController: UICollectionViewDelegateFlowLayout {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return presenter.numberOfItems()
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! PostCellProtocol
+        cell.postCellType = presenter.cellType(for: indexPath)
+        cell.delegate = presenter as? PostCellDelegate
+        return (cell as! UICollectionViewCell)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = view.frame.width
+        let dummyCell = PostCell(frame: .init(x: 0, y: 0, width: width, height: 1000))
+        dummyCell.postCellType = presenter.cellType(for: indexPath)
+        dummyCell.layoutIfNeeded()
+        let size = dummyCell.systemLayoutSizeFitting(.init(width: width, height: 1000))
+        let height = size.height
+        return .init(width: width, height: height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+}
+
 extension HomeController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
-    // MARK:- ImagePickerDelegate
+    // MARK:- UIImagePickerDelegate
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         presenter.imagePickerDidCancel()

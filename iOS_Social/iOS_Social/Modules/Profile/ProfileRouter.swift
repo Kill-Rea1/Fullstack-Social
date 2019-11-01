@@ -11,6 +11,7 @@ import UIKit
 protocol ProfileRouterProtocol: class {
     func showImagePicker()
     func dismissImagePicker()
+    func showComments(with postId: String)
 }
 
 class ProfileRouter: ProfileRouterProtocol {
@@ -31,5 +32,10 @@ class ProfileRouter: ProfileRouterProtocol {
     
     func dismissImagePicker() {
         imagePicker?.dismiss(animated: true)
+    }
+    
+    func showComments(with postId: String) {
+        let postController = PostController(postId: postId)
+        viewController?.navigationController?.pushViewController(postController, animated: true)
     }
 }

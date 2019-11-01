@@ -30,6 +30,7 @@ protocol ServerServiceProtocol: class {
     func fetchUser(with id: String, completion: @escaping (Result<User>) -> ())
     func uploadNewAvatar(with info: Any, fullName: String, bio: String, completion: @escaping (Result<Data>) -> ())
     func fetchPostComments(with id: String, completion: @escaping (Result<[Comment]>) -> ())
+    func uploadComment(with text: String, postId: String, completion: @escaping (Result<Data>) -> ())
 }
 
 class ServerService: ServerServiceProtocol {
@@ -252,6 +253,20 @@ class ServerService: ServerServiceProtocol {
                     print("Failed to decode JSON comments: ", jsonErr)
                     completion(.failure(jsonErr))
                 }
+        }
+    }
+    
+    func uploadComment(with text: String, postId: String, completion: @escaping (Result<Data>) -> ()) {
+        let url = "\(baseUrl)/comment/post/\(postId)"
+        let params = ["text": text]
+        Alamofire.request(url, method: .post, parameters: params)
+            .validate(statusCode: 200..<300)
+            .responseData { (dataResp) in
+                if let err = dataResp.error {
+                    print("Failed to upload comment: ", err)
+                    completion(.failure(err))
+                }
+                completion(.success(Data()))
         }
     }
 }

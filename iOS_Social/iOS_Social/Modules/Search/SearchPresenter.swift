@@ -27,6 +27,7 @@ class SearchPresenter: SearchPresenterProtocol {
     
     required init(view: SearchViewProtocol) {
         self.view = view
+        self.view?.setup()
     }
     
     // MARK:- SearchPresenterProtocol

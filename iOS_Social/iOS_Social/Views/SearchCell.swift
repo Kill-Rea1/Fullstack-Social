@@ -45,7 +45,7 @@ class SearchCell: UICollectionViewCell, SearchCellProtocol {
         button.titleLabel?.font = .boldSystemFont(ofSize: 14)
         button.layer.cornerRadius = 17
         button.layer.borderWidth = 1
-        button.translatesAutoresizingMaskIntoConstraints = false
+//        button.translatesAutoresizingMaskIntoConstraints = false
         button.heightAnchor.constraint(equalToConstant: 34).isActive = true
         button.widthAnchor.constraint(equalToConstant: 100).isActive = true
         button.addTarget(self, action: #selector(handleFollow), for: .touchUpInside)

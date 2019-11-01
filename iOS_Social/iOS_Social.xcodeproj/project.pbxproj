@@ -18,6 +18,7 @@
 		EDA9573A236B9485001E3E74 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA95739236B9485001E3E74 /* CommentCell.swift */; };
 		EDA9573C236B949E001E3E74 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA9573B236B949E001E3E74 /* Comment.swift */; };
 		EDA9573E236B94E4001E3E74 /* CommentCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA9573D236B94E4001E3E74 /* CommentCellType.swift */; };
+		EDA95740236C9B93001E3E74 /* CustomInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA9573F236C9B93001E3E74 /* CustomInputAccessoryView.swift */; };
 		EDBF7C372366185B00E8C809 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C362366185B00E8C809 /* AppDelegate.swift */; };
 		EDBF7C392366185B00E8C809 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C382366185B00E8C809 /* SceneDelegate.swift */; };
 		EDBF7C3E2366185B00E8C809 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDBF7C3C2366185B00E8C809 /* Main.storyboard */; };
@@ -80,6 +81,7 @@
 		EDA95739236B9485001E3E74 /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		EDA9573B236B949E001E3E74 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		EDA9573D236B94E4001E3E74 /* CommentCellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCellType.swift; sourceTree = "<group>"; };
+		EDA9573F236C9B93001E3E74 /* CustomInputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInputAccessoryView.swift; sourceTree = "<group>"; };
 		EDBF7C332366185B00E8C809 /* iOS_Social.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOS_Social.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDBF7C362366185B00E8C809 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EDBF7C382366185B00E8C809 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -162,11 +164,11 @@
 		EDA9572E236B945D001E3E74 /* Post */ = {
 			isa = PBXGroup;
 			children = (
-				EDA9572F236B945D001E3E74 /* PostInteractor.swift */,
 				EDA95730236B945D001E3E74 /* PostController.swift */,
-				EDA95731236B945D001E3E74 /* PostConfigurator.swift */,
 				EDA95732236B945D001E3E74 /* PostPresenter.swift */,
+				EDA9572F236B945D001E3E74 /* PostInteractor.swift */,
 				EDA95733236B945D001E3E74 /* PostRouter.swift */,
+				EDA95731236B945D001E3E74 /* PostConfigurator.swift */,
 			);
 			name = Post;
 			path = "../../../../../Downloads/VIPERA-master/Post";
@@ -314,6 +316,7 @@
 				EDBF7CA52368BDBE00E8C809 /* PostCell.swift */,
 				EDBF7CA72368D5AE00E8C809 /* ProfileHeader.swift */,
 				EDA95739236B9485001E3E74 /* CommentCell.swift */,
+				EDA9573F236C9B93001E3E74 /* CustomInputAccessoryView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -522,6 +525,7 @@
 				EDBF7CA62368BDBE00E8C809 /* PostCell.swift in Sources */,
 				EDBF7CA42368B51200E8C809 /* ProfileConfigurator.swift in Sources */,
 				EDBF7C9E2368B4EF00E8C809 /* ProfilePresenter.swift in Sources */,
+				EDA95740236C9B93001E3E74 /* CustomInputAccessoryView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

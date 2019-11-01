@@ -29,6 +29,7 @@ class ProfilePresenter: ProfilePresenterProtocol {
     
     required init(view: ProfileViewProtocol) {
         self.view = view
+        self.view?.setup()
     }
     
     // MARK:- ProfilePresenterProtocol
@@ -82,6 +83,20 @@ class ProfilePresenter: ProfilePresenterProtocol {
         interactor.fetchProfile(with: "")
     }
 }
+
+// MARK:- PostCellDelegate
+
+extension ProfilePresenter: PostCellDelegate {
+    func didLikedPost() {
+        print("Liked/Unliked")
+    }
+    
+    func didCommentsTapped(postId: String) {
+        router.showComments(with: postId)
+    }
+}
+
+// MARK:- ProfileHeaderDelegate
 
 extension ProfilePresenter: ProfileHeaderDelegate {
     func didFollowButtonTapped() {
