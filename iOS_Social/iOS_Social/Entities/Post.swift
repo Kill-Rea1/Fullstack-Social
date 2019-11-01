@@ -17,8 +17,9 @@ struct Post: Decodable {
     let user: User
     let fromNow: String
     var comments: [Comment]?
+    var hasLiked: Bool?
     
     func toPostCellType() -> PostCellType? {
-        return PostCellEntity(username: user.fullName, profileImageUrl: user.imageUrl, fromNow: fromNow, imageUrl: imageUrl, postText: text, postId: self.id)
+        return PostCellEntity(username: user.fullName, profileImageUrl: user.imageUrl, fromNow: fromNow, imageUrl: imageUrl, postText: text, postId: self.id, hasLiked: hasLiked ?? false)
     }
 }

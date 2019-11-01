@@ -9,7 +9,7 @@
 import UIKit
 
 protocol PostCellDelegate: class {
-    func didLikedPost()
+    func didLikedPost(postId: String)
     func didCommentsTapped(postId: String)
     func didOptionsTapped(postId: String)
 }
@@ -32,6 +32,13 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
             postImageView.sd_setImage(with: postCellType?.imageUrl)
             postTextLabel.attributedText = postCellType?.postText
             postId = postCellType?.postId
+            if (postCellType?.hasLiked)! {
+                likeButton.setImage(#imageLiteral(resourceName: "like-filled").withRenderingMode(.alwaysTemplate), for: .normal)
+                likeButton.tintColor = .red
+            } else {
+                likeButton.setImage(#imageLiteral(resourceName: "like-outline"), for: .normal)
+                likeButton.tintColor = .black
+            }
         }
     }
     
@@ -69,13 +76,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         button.addTarget(self, action: #selector(handleOptions), for: .touchUpInside)
         return button
     }()
-    private lazy var likeButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(#imageLiteral(resourceName: "like-outline"), for: .normal)
-        button.tintColor = .black
-        button.addTarget(self, action: #selector(handleLike), for: .touchUpInside)
-        return button
-    }()
+    private lazy var likeButton = UIButton()
     private lazy var commentsButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(#imageLiteral(resourceName: "comment-bubble"), for: .normal)
@@ -86,6 +87,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        likeButton.addTarget(self, action: #selector(handleLike), for: .touchUpInside)
         stack(hstack(profileImageView,
                      stack(usernameLabel,
                            postedLabel),
@@ -112,7 +114,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     
     @objc
     private func handleLike() {
-        delegate?.didLikedPost()
+        delegate?.didLikedPost(postId: postId)
     }
     
     @objc

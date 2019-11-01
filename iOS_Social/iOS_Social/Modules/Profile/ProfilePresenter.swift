@@ -99,7 +99,7 @@ class ProfilePresenter: ProfilePresenterProtocol {
 // MARK:- PostCellDelegate
 
 extension ProfilePresenter: PostCellDelegate {
-    func didLikedPost() {
+    func didLikedPost(postId: String) {
         print("Liked/Unliked")
     }
     

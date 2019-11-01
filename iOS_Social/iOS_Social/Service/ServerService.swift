@@ -32,6 +32,7 @@ protocol ServerServiceProtocol: class {
     func fetchPostComments(with id: String, completion: @escaping (Result<[Comment]>) -> ())
     func uploadComment(with text: String, postId: String, completion: @escaping (Result<Data>) -> ())
     func deleteFeedItem(with id: String, completion: @escaping (Result<Data>) -> ())
+    func didLikedPost(with id: String, likeState: Bool, completion: @escaping (Result<Data>) -> ())
 }
 
 class ServerService: ServerServiceProtocol {
@@ -290,6 +291,20 @@ class ServerService: ServerServiceProtocol {
             .responseData { (dataResp) in
                 if let err = dataResp.error {
                     print("Failed to upload comment: ", err)
+                    completion(.failure(err))
+                    return
+                }
+                completion(.success(Data()))
+        }
+    }
+    
+    func didLikedPost(with id: String, likeState: Bool, completion: @escaping (Result<Data>) -> ()) {
+        let url = "\(baseUrl)/\(likeState ? "dislike" : "like")/\(id)"
+        Alamofire.request(url, method: .post)
+            .validate(statusCode: 200..<300)
+            .responseData { (dataResp) in
+                if let err = dataResp.error {
+                    print("Failed to like post: ", err)
                     completion(.failure(err))
                     return
                 }

@@ -14,6 +14,7 @@ protocol HomeInteractorProtocol: class {
     var posts: [Post]! { get }
     func fetchPosts()
     func deleteFeedItem(with id: String)
+    func didLikedPost(with id: String)
 }
 
 class HomeInteractor: HomeInteractorProtocol {
@@ -51,6 +52,20 @@ class HomeInteractor: HomeInteractorProtocol {
                 guard let item = self.posts.firstIndex(where: {$0.id == id}) else { return }
                 self.posts.remove(at: item)
                 self.presenter?.successfullyDeleted(at: item)
+            }
+        }
+    }
+    
+    func didLikedPost(with id: String) {
+        guard let item = posts.firstIndex(where: {$0.id == id}) else { return }
+        let likeState = posts[item].hasLiked == true
+        serverService.didLikedPost(with: id, likeState: likeState) { (res) in
+            switch res {
+            case .failure(_):
+                return
+            case .success(_):
+                self.posts[item].hasLiked?.toggle()
+                self.presenter?.updatePost(at: item)
             }
         }
     }

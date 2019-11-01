@@ -50,7 +50,7 @@ class SearchInteractor: SearchInteractorProtocol {
             case .failure(_):
                 return
             case .success(_):
-                self.users[index].isFollowing = !isFollowing
+                self.users[index].isFollowing?.toggle()
                 self.presenter?.updateItem(at: index)
             }
         }

@@ -21,6 +21,7 @@ protocol HomePresenterProtocol: class {
     func deleteFeedItem()
     func successfullyDeleted(at item: Int)
     func refresh()
+    func updatePost(at item: Int)
 }
 
 class HomePresenter: HomePresenterProtocol {
@@ -89,13 +90,18 @@ class HomePresenter: HomePresenterProtocol {
     func refresh() {
         interactor.fetchPosts()
     }
+    
+    func updatePost(at item: Int) {
+        let indexPath = IndexPath(item: item, section: 0)
+        view?.reloadItem(at: indexPath)
+    }
 }
 
 // MARK:- Delegates
 
 extension HomePresenter: NewPostModuleDelegate, PostCellDelegate {
-    func didLikedPost() {
-        print("Liked/Unliked")
+    func didLikedPost(postId: String) {
+        interactor.didLikedPost(with: postId)
     }
     
     func didCommentsTapped(postId: String) {

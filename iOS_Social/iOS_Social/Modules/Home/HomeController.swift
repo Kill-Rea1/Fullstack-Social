@@ -18,6 +18,7 @@ protocol HomeViewProtocol: class {
     func addResfreshControl()
     func endRefreshing()
     func fetchPosts()
+    func reloadItem(at indexPath: IndexPath)
 }
 
 class HomeController: BaseCollectionController, HomeViewProtocol {
@@ -98,6 +99,10 @@ class HomeController: BaseCollectionController, HomeViewProtocol {
     
     func fetchPosts() {
         presenter.refresh()
+    }
+    
+    func reloadItem(at indexPath: IndexPath) {
+        collectionView.reloadItems(at: [indexPath])
     }
 }
 

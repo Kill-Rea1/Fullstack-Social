@@ -18,7 +18,7 @@ struct User: Decodable {
     var following: [User]?
     var followers: [User]?
     var isFollowing: Bool?
-    var isEditable: Bool? = false
+    var isEditable: Bool?
     
     func toSearchType() -> SearchCellType {
         return SearchCellEntity(username: fullName, userId: id, isFollowing: isFollowing ?? false)

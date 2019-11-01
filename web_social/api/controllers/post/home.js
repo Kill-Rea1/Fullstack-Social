@@ -18,7 +18,7 @@ module.exports = async function(req, res) {
     feedItems.forEach(fi=> {
         if (fi.post) {
             fi.post.user = fi.postOwner
-            // fi.post.isCommentButtonShow = true
+            fi.post.hasLiked = fi.hasLiked
             allPosts.push(fi.post)
         }
     })
