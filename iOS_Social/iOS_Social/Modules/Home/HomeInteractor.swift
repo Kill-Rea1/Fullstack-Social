@@ -65,6 +65,7 @@ class HomeInteractor: HomeInteractorProtocol {
                 return
             case .success(_):
                 self.posts[item].hasLiked?.toggle()
+                self.posts[item].numLikes += likeState ? -1 : 1
                 self.presenter?.updatePost(at: item)
             }
         }

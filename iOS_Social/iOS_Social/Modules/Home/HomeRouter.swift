@@ -15,6 +15,7 @@ protocol HomeRouterProtocol: class {
     func dismissImagePicker()
     func showSearch()
     func showComments(postId: String)
+    func showLikes(postId: String)
 }
 
 class HomeRouter: HomeRouterProtocol {
@@ -59,5 +60,10 @@ class HomeRouter: HomeRouterProtocol {
     func showComments(postId: String) {
         let postController = PostController(postId: postId)
         viewController?.navigationController?.pushViewController(postController, animated: true)
+    }
+    
+    func showLikes(postId: String) {
+        let likesController = LikesController(postId: postId)
+        viewController?.navigationController?.pushViewController(likesController, animated: true)
     }
 }

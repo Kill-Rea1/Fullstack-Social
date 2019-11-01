@@ -102,7 +102,9 @@ class HomeController: BaseCollectionController, HomeViewProtocol {
     }
     
     func reloadItem(at indexPath: IndexPath) {
-        collectionView.reloadItems(at: [indexPath])
+        UIView.performWithoutAnimation {
+            self.collectionView.reloadItems(at: [indexPath])
+        }
     }
 }
 

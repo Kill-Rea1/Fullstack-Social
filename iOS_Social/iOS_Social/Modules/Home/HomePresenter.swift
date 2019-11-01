@@ -98,8 +98,13 @@ class HomePresenter: HomePresenterProtocol {
 }
 
 // MARK:- Delegates
+import Alamofire
 
 extension HomePresenter: NewPostModuleDelegate, PostCellDelegate {
+    func showLikesButtonTapped(postId: String) {
+        router.showLikes(postId: postId)
+    }
+    
     func didLikedPost(postId: String) {
         interactor.didLikedPost(with: postId)
     }

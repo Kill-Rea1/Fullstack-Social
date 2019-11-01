@@ -33,6 +33,7 @@ protocol ServerServiceProtocol: class {
     func uploadComment(with text: String, postId: String, completion: @escaping (Result<Data>) -> ())
     func deleteFeedItem(with id: String, completion: @escaping (Result<Data>) -> ())
     func didLikedPost(with id: String, likeState: Bool, completion: @escaping (Result<Data>) -> ())
+    func fetchPostsLikes(with id: String, completion: @escaping (Result<[User]>) -> ())
 }
 
 class ServerService: ServerServiceProtocol {
@@ -119,6 +120,8 @@ class ServerService: ServerServiceProtocol {
                     print("Failed to log in: ", err)
                     completion(.failure(err))
                 } else {
+                    guard let data = dataResponse.data else { return }
+                    print(String(data: data, encoding: .utf8) ?? "")
                     completion(.success(dataResponse.data ?? Data()))
                 }
         }
@@ -309,6 +312,28 @@ class ServerService: ServerServiceProtocol {
                     return
                 }
                 completion(.success(Data()))
+        }
+    }
+    
+    func fetchPostsLikes(with id: String, completion: @escaping (Result<[User]>) -> ()) {
+        let url = "\(baseUrl)/likes/\(id)"
+        Alamofire.request(url)
+            .validate(statusCode: 200..<300)
+            .responseData { (dataResp) in
+                if let err = dataResp.error {
+                    print("Failed to fetch users: ", err)
+                    completion(.failure(err))
+                    return
+                }
+                guard let data = dataResp.data else { return }
+//                print(String(data: data, encoding: .utf8) ?? "")
+                do {
+                    let users = try JSONDecoder().decode([User].self, from: data)
+                    completion(.success(users))
+                } catch let jsonErr {
+                    print("Failed to decode JSON users: ", jsonErr)
+                    completion(.failure(jsonErr))
+                }
         }
     }
 }

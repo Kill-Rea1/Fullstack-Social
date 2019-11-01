@@ -27,4 +27,8 @@ struct User: Decodable {
     func toProfileHeader() -> ProfileHeaderType? {
         return ProfileHeaderEntity(username: fullName, bio: bio ?? "", numberOfPosts: posts?.count ?? 0, numberOfFollowing: following?.count ?? 0, numberOfFollowers: followers?.count ?? 0, isFollowing: isFollowing ?? false, isEditable: isEditable!, profileImageUrl: imageUrl)
     }
+    
+    func toUserCellType() -> UserCellType {
+        return UserCellEntity(username: fullName, profileImageUrl: imageUrl ?? "")
+    }
 }

@@ -18,6 +18,8 @@ protocol ProfileViewProtocol: class {
     func fetchUserProfile()
     func showAlertSheet()
     func deleteItem(from indexPath: IndexPath)
+    func addRefreshControl()
+    func endRefreshing()
 }
 
 class ProfileController: BaseCollectionController, ProfileViewProtocol {
@@ -98,6 +100,21 @@ class ProfileController: BaseCollectionController, ProfileViewProtocol {
         
     func deleteItem(from indexPath: IndexPath) {
         collectionView.deleteItems(at: [indexPath])
+    }
+    
+    func addRefreshControl() {
+        let rc = UIRefreshControl()
+        rc.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+        collectionView.refreshControl = rc
+    }
+    
+    @objc
+    private func handleRefresh() {
+        presenter.refetchUserProfile()
+    }
+    
+    func endRefreshing() {
+        collectionView.refreshControl?.endRefreshing()
     }
 }
 

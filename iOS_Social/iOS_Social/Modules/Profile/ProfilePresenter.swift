@@ -53,6 +53,7 @@ class ProfilePresenter: ProfilePresenterProtocol {
     func updateView() {
         view?.updateView()
         view?.hideHUD()
+        view?.endRefreshing()
     }
     
     func postCellType(for indexPath: IndexPath) -> PostCellType? {
@@ -99,6 +100,10 @@ class ProfilePresenter: ProfilePresenterProtocol {
 // MARK:- PostCellDelegate
 
 extension ProfilePresenter: PostCellDelegate {
+    func showLikesButtonTapped(postId: String) {
+        print("Tapped")
+    }
+    
     func didLikedPost(postId: String) {
         print("Liked/Unliked")
     }

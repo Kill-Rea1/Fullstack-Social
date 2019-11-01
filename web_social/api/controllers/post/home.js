@@ -19,6 +19,7 @@ module.exports = async function(req, res) {
         if (fi.post) {
             fi.post.user = fi.postOwner
             fi.post.hasLiked = fi.hasLiked
+            // fi.post.numLikes = 5
             allPosts.push(fi.post)
         }
     })

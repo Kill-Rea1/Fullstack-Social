@@ -16,6 +16,7 @@ protocol PostCellType: class {
     var postText: NSAttributedString! { get set }
     var postId: String! { get set }
     var hasLiked: Bool! { get set }
+    var numLikes: Int! { get set }
 }
 
 class PostCellEntity: PostCellType {
@@ -33,7 +34,9 @@ class PostCellEntity: PostCellType {
     
     var hasLiked: Bool!
     
-    init(username: String, profileImageUrl: String?, fromNow: String, imageUrl: String, postText: String, postId: String, hasLiked: Bool) {
+    var numLikes: Int!
+    
+    init(username: String, profileImageUrl: String?, fromNow: String, imageUrl: String, postText: String, postId: String, hasLiked: Bool, numLikes: Int) {
         let _username = NSAttributedString(string: username, attributes: [.font: UIFont.boldSystemFont(ofSize: 17)])
         let _postText = NSAttributedString(string: postText, attributes: [.font: UIFont.systemFont(ofSize: 15)])
         let _profileImageUrl = URL(string: profileImageUrl ?? "")
@@ -47,5 +50,6 @@ class PostCellEntity: PostCellType {
         self.postText = _postText
         self.postId = postId
         self.hasLiked = hasLiked
+        self.numLikes = numLikes
     }
 }

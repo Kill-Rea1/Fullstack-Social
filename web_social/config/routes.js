@@ -76,6 +76,7 @@ module.exports.routes = {
   'POST /like/:id': { action: 'feeditem/like'},
   'POST /dislike/:id': {action: 'feeditem/dislike'},
   'POST /profile': { action: 'user/update'},
+  'GET /likes/:id': { action: 'post/likes'},
   'GET /profile': { action: 'user/profile'},
   'GET /user/:id': { action: 'user/publicprofile'},
   'GET /post/:id': { action: 'post/index'},

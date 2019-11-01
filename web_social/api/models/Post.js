@@ -18,6 +18,11 @@ module.exports = {
         user: {
             model: 'user', 
             required: true
+        },
+
+        numLikes: {
+            type: 'number',
+            defaultsTo: 0
         }
     }
 }

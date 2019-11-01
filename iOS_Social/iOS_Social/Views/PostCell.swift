@@ -12,6 +12,7 @@ protocol PostCellDelegate: class {
     func didLikedPost(postId: String)
     func didCommentsTapped(postId: String)
     func didOptionsTapped(postId: String)
+    func showLikesButtonTapped(postId: String)
 }
 
 protocol PostCellProtocol: class {
@@ -39,6 +40,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
                 likeButton.setImage(#imageLiteral(resourceName: "like-outline"), for: .normal)
                 likeButton.tintColor = .black
             }
+            numLikesButton.setTitle("\(postCellType?.numLikes ?? 0) likes", for: .normal)
         }
     }
     
@@ -84,6 +86,14 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
         button.addTarget(self, action: #selector(handleComments), for: .touchUpInside)
         return button
     }()
+    private lazy var numLikesButton: UIButton = {
+        let button = UIButton(type: .system)
+//        button.setTitle("0 likes", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = .boldSystemFont(ofSize: 14)
+        button.addTarget(self, action: #selector(handleShowLikes), for: .touchUpInside)
+        return button
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -96,6 +106,7 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
               postImageView,
               stack(postTextLabel).padLeft(16).padRight(16),
               hstack(likeButton, commentsButton, UIView(), spacing: 16).padLeft(16),
+              hstack(numLikesButton, UIView()).padLeft(16),
               spacing: 16).withMargins(.init(top: 16, left: 0, bottom: 16, right: 0))
         separatorView()
     }
@@ -120,6 +131,11 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     @objc
     private func handleComments() {
         delegate?.didCommentsTapped(postId: postId)
+    }
+    
+    @objc
+    private func handleShowLikes() {
+        delegate?.showLikesButtonTapped(postId: postId)
     }
     
     required init?(coder: NSCoder) {

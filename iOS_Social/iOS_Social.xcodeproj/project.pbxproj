@@ -19,6 +19,13 @@
 		EDA9573C236B949E001E3E74 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA9573B236B949E001E3E74 /* Comment.swift */; };
 		EDA9573E236B94E4001E3E74 /* CommentCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA9573D236B94E4001E3E74 /* CommentCellType.swift */; };
 		EDA95740236C9B93001E3E74 /* CustomInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA9573F236C9B93001E3E74 /* CustomInputAccessoryView.swift */; };
+		EDA95747236CDDC4001E3E74 /* LikesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA95742236CDDC4001E3E74 /* LikesInteractor.swift */; };
+		EDA95748236CDDC4001E3E74 /* LikesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA95743236CDDC4001E3E74 /* LikesPresenter.swift */; };
+		EDA95749236CDDC4001E3E74 /* LikesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA95744236CDDC4001E3E74 /* LikesController.swift */; };
+		EDA9574A236CDDC4001E3E74 /* LikesConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA95745236CDDC4001E3E74 /* LikesConfigurator.swift */; };
+		EDA9574B236CDDC4001E3E74 /* LikesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA95746236CDDC4001E3E74 /* LikesRouter.swift */; };
+		EDA9574D236CDF08001E3E74 /* UserCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA9574C236CDF08001E3E74 /* UserCellType.swift */; };
+		EDA9574F236CE103001E3E74 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA9574E236CE103001E3E74 /* UserCell.swift */; };
 		EDBF7C372366185B00E8C809 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C362366185B00E8C809 /* AppDelegate.swift */; };
 		EDBF7C392366185B00E8C809 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBF7C382366185B00E8C809 /* SceneDelegate.swift */; };
 		EDBF7C3E2366185B00E8C809 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDBF7C3C2366185B00E8C809 /* Main.storyboard */; };
@@ -82,6 +89,13 @@
 		EDA9573B236B949E001E3E74 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		EDA9573D236B94E4001E3E74 /* CommentCellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCellType.swift; sourceTree = "<group>"; };
 		EDA9573F236C9B93001E3E74 /* CustomInputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInputAccessoryView.swift; sourceTree = "<group>"; };
+		EDA95742236CDDC4001E3E74 /* LikesInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikesInteractor.swift; sourceTree = "<group>"; };
+		EDA95743236CDDC4001E3E74 /* LikesPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikesPresenter.swift; sourceTree = "<group>"; };
+		EDA95744236CDDC4001E3E74 /* LikesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikesController.swift; sourceTree = "<group>"; };
+		EDA95745236CDDC4001E3E74 /* LikesConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikesConfigurator.swift; sourceTree = "<group>"; };
+		EDA95746236CDDC4001E3E74 /* LikesRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikesRouter.swift; sourceTree = "<group>"; };
+		EDA9574C236CDF08001E3E74 /* UserCellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCellType.swift; sourceTree = "<group>"; };
+		EDA9574E236CE103001E3E74 /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		EDBF7C332366185B00E8C809 /* iOS_Social.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOS_Social.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDBF7C362366185B00E8C809 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EDBF7C382366185B00E8C809 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -174,6 +188,18 @@
 			path = "../../../../../Downloads/VIPERA-master/Post";
 			sourceTree = "<group>";
 		};
+		EDA95741236CDDC4001E3E74 /* Likes */ = {
+			isa = PBXGroup;
+			children = (
+				EDA95742236CDDC4001E3E74 /* LikesInteractor.swift */,
+				EDA95743236CDDC4001E3E74 /* LikesPresenter.swift */,
+				EDA95744236CDDC4001E3E74 /* LikesController.swift */,
+				EDA95745236CDDC4001E3E74 /* LikesConfigurator.swift */,
+				EDA95746236CDDC4001E3E74 /* LikesRouter.swift */,
+			);
+			path = Likes;
+			sourceTree = "<group>";
+		};
 		EDBF7C2A2366185B00E8C809 = {
 			isa = PBXGroup;
 			children = (
@@ -223,6 +249,7 @@
 		EDBF7C5523661C3800E8C809 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				EDA95741236CDDC4001E3E74 /* Likes */,
 				EDA9572E236B945D001E3E74 /* Post */,
 				EDBF7C9A2368B4D000E8C809 /* Profile */,
 				EDBF7C8B236897C500E8C809 /* Search */,
@@ -293,6 +320,7 @@
 				EDBF7CA92368D86C00E8C809 /* ProfileHeaderType.swift */,
 				EDA9573B236B949E001E3E74 /* Comment.swift */,
 				EDA9573D236B94E4001E3E74 /* CommentCellType.swift */,
+				EDA9574C236CDF08001E3E74 /* UserCellType.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -317,6 +345,7 @@
 				EDBF7CA72368D5AE00E8C809 /* ProfileHeader.swift */,
 				EDA95739236B9485001E3E74 /* CommentCell.swift */,
 				EDA9573F236C9B93001E3E74 /* CustomInputAccessoryView.swift */,
+				EDA9574E236CE103001E3E74 /* UserCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -473,12 +502,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				EDBF7C62236629C500E8C809 /* LoginPresenter.swift in Sources */,
+				EDA95749236CDDC4001E3E74 /* LikesController.swift in Sources */,
 				EDBF7C4C23661B5900E8C809 /* HomeController.swift in Sources */,
 				ED69116B2369104A0054BFD3 /* MainTabBarController.swift in Sources */,
 				EDBF7C602366298100E8C809 /* LoginConfigurator.swift in Sources */,
 				EDA95738236B945D001E3E74 /* PostRouter.swift in Sources */,
+				EDA9574D236CDF08001E3E74 /* UserCellType.swift in Sources */,
 				EDBF7C992368A37C00E8C809 /* SearchCellType.swift in Sources */,
 				EDBF7C372366185B00E8C809 /* AppDelegate.swift in Sources */,
+				EDA95748236CDDC4001E3E74 /* LikesPresenter.swift in Sources */,
 				EDBF7C762366598900E8C809 /* RegisterRouter.swift in Sources */,
 				EDBF7C5023661BFE00E8C809 /* HomePresenter.swift in Sources */,
 				EDBF7CAA2368D86C00E8C809 /* ProfileHeaderType.swift in Sources */,
@@ -487,6 +519,7 @@
 				EDBF7C8A23672BF600E8C809 /* NewPostConfigurator.swift in Sources */,
 				EDBF7C8823672BEB00E8C809 /* NewPostRouter.swift in Sources */,
 				EDBF7C782366599900E8C809 /* RegisterConfigurator.swift in Sources */,
+				EDA95747236CDDC4001E3E74 /* LikesInteractor.swift in Sources */,
 				EDBF7C7A2366861600E8C809 /* ServerService.swift in Sources */,
 				EDBF7C9723689AFE00E8C809 /* SearchCell.swift in Sources */,
 				EDBF7C702366596900E8C809 /* RegisterController.swift in Sources */,
@@ -509,6 +542,7 @@
 				ED69116D236911DD0054BFD3 /* BaseCollectionController.swift in Sources */,
 				EDBF7C6423662A2900E8C809 /* LoginInteractor.swift in Sources */,
 				EDBF7CA82368D5AE00E8C809 /* ProfileHeader.swift in Sources */,
+				EDA9574B236CDDC4001E3E74 /* LikesRouter.swift in Sources */,
 				EDBF7C6B2366500600E8C809 /* Post.swift in Sources */,
 				EDBF7C5223661C0A00E8C809 /* HomeInteractor.swift in Sources */,
 				EDBF7C6623662A6C00E8C809 /* LoginRouter.swift in Sources */,
@@ -522,7 +556,9 @@
 				EDA9573C236B949E001E3E74 /* Comment.swift in Sources */,
 				EDA9573E236B94E4001E3E74 /* CommentCellType.swift in Sources */,
 				EDBF7C8F236897E900E8C809 /* SearchPresenter.swift in Sources */,
+				EDA9574A236CDDC4001E3E74 /* LikesConfigurator.swift in Sources */,
 				EDBF7CA62368BDBE00E8C809 /* PostCell.swift in Sources */,
+				EDA9574F236CE103001E3E74 /* UserCell.swift in Sources */,
 				EDBF7CA42368B51200E8C809 /* ProfileConfigurator.swift in Sources */,
 				EDBF7C9E2368B4EF00E8C809 /* ProfilePresenter.swift in Sources */,
 				EDA95740236C9B93001E3E74 /* CustomInputAccessoryView.swift in Sources */,
