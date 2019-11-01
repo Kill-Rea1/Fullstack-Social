@@ -14,7 +14,7 @@ protocol HomeViewProtocol: class {
     func setup()
     func updateView()
     func showAlertSheet()
-    func deleteRow(from indexPath: IndexPath)
+    func deleteItem(from indexPath: IndexPath)
     func addResfreshControl()
     func endRefreshing()
     func fetchPosts()
@@ -70,21 +70,20 @@ class HomeController: BaseCollectionController, HomeViewProtocol {
     
     func showAlertSheet() {
         let alertController = UIAlertController(title: "Options", message: nil, preferredStyle: .actionSheet)
-        alertController.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (_) in
-            self.deletePost()
+        alertController.addAction(UIAlertAction(title: "Remove from feed", style: .destructive, handler: { (_) in
+            self.deleteFeedItem()
         }))
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         
         present(alertController, animated: true)
     }
     
-    fileprivate func deletePost() {
-        presenter.deletePost()
+    fileprivate func deleteFeedItem() {
+        presenter.deleteFeedItem()
     }
     
-    func deleteRow(from indexPath: IndexPath) {
+    func deleteItem(from indexPath: IndexPath) {
         collectionView.deleteItems(at: [indexPath])
-//        tableView.deleteRows(at: [indexPath], with: .automatic)
     }
     
     func addResfreshControl() {

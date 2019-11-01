@@ -14,6 +14,7 @@ protocol ProfileInteractorProtocol: class {
     func fetchProfile(with id: String)
     func changeFollowState()
     func didSelectImage(with info: Any)
+    func deletePost(with id: String)
 }
 
 class ProfileInteractor: ProfileInteractorProtocol {
@@ -63,6 +64,19 @@ class ProfileInteractor: ProfileInteractorProtocol {
                 return
             case .success(_):
                 self.fetchProfile(with: "")
+            }
+        }
+    }
+    
+    func deletePost(with id: String) {
+        serverService.deletePost(with: id) { (res) in
+            switch res {
+            case .failure(_):
+                return
+            case .success(_):
+                guard let item = self.posts.firstIndex(where: {$0.id == id}) else { return }
+                self.posts.remove(at: item)
+                self.presenter?.successfullyDeleted(at: item)
             }
         }
     }

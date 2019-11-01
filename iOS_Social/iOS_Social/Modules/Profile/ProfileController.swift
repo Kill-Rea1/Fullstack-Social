@@ -16,6 +16,8 @@ protocol ProfileViewProtocol: class {
     func hideHUD()
     func HUDProgress(progress: Float, text: String)
     func fetchUserProfile()
+    func showAlertSheet()
+    func deleteItem(from indexPath: IndexPath)
 }
 
 class ProfileController: BaseCollectionController, ProfileViewProtocol {
@@ -78,6 +80,24 @@ class ProfileController: BaseCollectionController, ProfileViewProtocol {
     
     required init?(coder: NSCoder) {
         fatalError()
+    }
+    
+    func showAlertSheet() {
+            let alertController = UIAlertController(title: "Options", message: nil, preferredStyle: .actionSheet)
+            alertController.addAction(UIAlertAction(title: "Remove from feed", style: .destructive, handler: { (_) in
+                self.deletePost()
+            }))
+            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            
+            present(alertController, animated: true)
+        }
+        
+    fileprivate func deletePost() {
+        presenter.deletePost()
+    }
+        
+    func deleteItem(from indexPath: IndexPath) {
+        collectionView.deleteItems(at: [indexPath])
     }
 }
 

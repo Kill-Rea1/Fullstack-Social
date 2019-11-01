@@ -18,7 +18,8 @@ protocol HomePresenterProtocol: class {
     func cellType(for indexPath: IndexPath) -> PostCellType?
     func updateDataSource()
     func configureView()
-    func deletePost()
+    func deleteFeedItem()
+    func successfullyDeleted(at item: Int)
     func refresh()
 }
 
@@ -76,15 +77,21 @@ class HomePresenter: HomePresenterProtocol {
         view?.endRefreshing()
     }
     
-    func deletePost() {
-        let row = interactor.deletePost()
-        view?.deleteRow(from: IndexPath(row: row, section: 0))
+    func successfullyDeleted(at item: Int) {
+        let indexPath = IndexPath(item: item, section: 0)
+        view?.deleteItem(from: indexPath)
+    }
+    
+    func deleteFeedItem() {
+        interactor.deleteFeedItem(with: selectedId)
     }
     
     func refresh() {
         interactor.fetchPosts()
     }
 }
+
+// MARK:- Delegates
 
 extension HomePresenter: NewPostModuleDelegate, PostCellDelegate {
     func didLikedPost() {
@@ -97,5 +104,10 @@ extension HomePresenter: NewPostModuleDelegate, PostCellDelegate {
     
     func didCreatePost() {
         interactor.fetchPosts()
+    }
+    
+    func didOptionsTapped(postId: String) {
+        selectedId = postId
+        view?.showAlertSheet()
     }
 }

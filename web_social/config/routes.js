@@ -69,6 +69,7 @@ module.exports.routes = {
   'GET /post': { action: 'post/home' },
   'POST /post': { action: 'post/create' },
   'DELETE /post/:postId' : { action: 'post/delete'},
+  'DELETE /feeditem/:id': { action: 'feeditem/delete'},
   'GET /search': { action: 'user/search' },
   'POST /follow/:id': { action: 'user/follow'},
   'POST /unfollow/:id': { action: 'user/unfollow'},

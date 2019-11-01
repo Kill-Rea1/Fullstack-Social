@@ -20,12 +20,15 @@ protocol ProfilePresenterProtocol: class {
     func didSelectImage(with info: Any)
     func progress(is progress: Double)
     func refetchUserProfile()
+    func deletePost()
+    func successfullyDeleted(at item: Int)
 }
 
 class ProfilePresenter: ProfilePresenterProtocol {
     weak var view: ProfileViewProtocol?
     var router: ProfileRouterProtocol!
     var interactor: ProfileInteractorProtocol!
+    var selectedId: String!
     
     required init(view: ProfileViewProtocol) {
         self.view = view
@@ -82,6 +85,15 @@ class ProfilePresenter: ProfilePresenterProtocol {
     func refetchUserProfile() {
         interactor.fetchProfile(with: "")
     }
+    
+    func deletePost() {
+        interactor.deletePost(with: selectedId)
+    }
+    
+    func successfullyDeleted(at item: Int) {
+        let indexPath = IndexPath(item: item, section: 0)
+        view?.deleteItem(from: indexPath)
+    }
 }
 
 // MARK:- PostCellDelegate
@@ -93,6 +105,11 @@ extension ProfilePresenter: PostCellDelegate {
     
     func didCommentsTapped(postId: String) {
         router.showComments(with: postId)
+    }
+    
+    func didOptionsTapped(postId: String) {
+        selectedId = postId
+        view?.showAlertSheet()
     }
 }
 

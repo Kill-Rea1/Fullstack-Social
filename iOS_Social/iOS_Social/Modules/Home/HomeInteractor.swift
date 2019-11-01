@@ -13,15 +13,12 @@ protocol HomeInteractorProtocol: class {
     var serverService: ServerServiceProtocol { get set }
     var posts: [Post]! { get }
     func fetchPosts()
-    func findPost(with id: String)
-    func deletePost() -> Int
+    func deleteFeedItem(with id: String)
 }
 
 class HomeInteractor: HomeInteractorProtocol {
     
     weak var presenter: HomePresenterProtocol?
-    
-    var selectedPost: Post?
     
     required init(presenter: HomePresenterProtocol) {
         self.presenter = presenter
@@ -45,19 +42,16 @@ class HomeInteractor: HomeInteractorProtocol {
         }
     }
     
-    func findPost(with id: String) {
-        selectedPost = posts?.first(where: { (post) -> Bool in
-            return post.id == id
-        })
-    }
-    
-    func deletePost() -> Int {
-        guard let id = selectedPost?.id else { return 0}
-        guard let row = posts.firstIndex(where: { (post) -> Bool in
-            return post.id == id
-        }) else { return 0}
-        posts?.remove(at: row)
-        serverService.deletePost(with: id)
-        return row
+    func deleteFeedItem(with id: String) {
+        serverService.deleteFeedItem(with: id) { (res) in
+            switch res {
+            case .failure(_):
+                return
+            case .success(_):
+                guard let item = self.posts.firstIndex(where: {$0.id == id}) else { return }
+                self.posts.remove(at: item)
+                self.presenter?.successfullyDeleted(at: item)
+            }
+        }
     }
 }

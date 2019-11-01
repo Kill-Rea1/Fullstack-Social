@@ -26,11 +26,12 @@ protocol ServerServiceProtocol: class {
     func register(fullName: String, email: String, password: String, completion: @escaping (Result<Data>) -> ())
     func fetchPosts(completion: @escaping (Result<[Post]>) -> ())
     func uploadPost(postText: String, imageData: Data, completion: @escaping (Result<Data>) -> ())
-    func deletePost(with id: String)
+    func deletePost(with id: String, completion: @escaping (Result<Data>) -> ())
     func fetchUser(with id: String, completion: @escaping (Result<User>) -> ())
     func uploadNewAvatar(with info: Any, fullName: String, bio: String, completion: @escaping (Result<Data>) -> ())
     func fetchPostComments(with id: String, completion: @escaping (Result<[Comment]>) -> ())
     func uploadComment(with text: String, postId: String, completion: @escaping (Result<Data>) -> ())
+    func deleteFeedItem(with id: String, completion: @escaping (Result<Data>) -> ())
 }
 
 class ServerService: ServerServiceProtocol {
@@ -53,6 +54,7 @@ class ServerService: ServerServiceProtocol {
                 if let err = dataResp.error {
                     print("Failed to fetch user profile: ", err)
                     completion(.failure(err))
+                    return
                 }
                 
                 guard let data = dataResp.data else { return }
@@ -76,6 +78,7 @@ class ServerService: ServerServiceProtocol {
                 if let err = dataResp.error {
                     print("Failed to fetch users: ", err)
                     completion(.failure(err))
+                    return
                 }
                 
                 do {
@@ -97,6 +100,7 @@ class ServerService: ServerServiceProtocol {
                 if let err = dataResp.error {
                     print("Failed to change follow state: ", err)
                     completion(.failure(err))
+                    return
                 }
                 completion(.success(dataResp.data ?? Data()))
         }
@@ -143,6 +147,7 @@ class ServerService: ServerServiceProtocol {
                 if let err = dataResponse.error {
                     print("Failed to fetch posts: ", err)
                     completion(.failure(err))
+                    return
                 }
                 
                 guard let data = dataResponse.data else { return }
@@ -176,11 +181,13 @@ class ServerService: ServerServiceProtocol {
                     if let err = dataResp.error {
                         print("Failed to hit server: ", err)
                         completion(.failure(err))
+                        return
                     }
                     
                     if let code = dataResp.response?.statusCode, code >= 300 {
                         print("Failed upload with status: ", code)
                         completion(.failure(Err.BadCode))
+                        return
                     }
                     completion(.success(Data()))
                 }
@@ -188,15 +195,31 @@ class ServerService: ServerServiceProtocol {
         }
     }
     
-    func deletePost(with id: String) {
+    func deletePost(with id: String, completion: @escaping (Result<Data>) -> ()) {
         let url = "\(baseUrl)/post/\(id)"
         Alamofire.request(url, method: .delete)
             .validate(statusCode: 200..<300)
             .responseData { (dataResp) in
                 if let err = dataResp.error {
                     print("Failed to delete: ", err)
+                    completion(.failure(err))
                     return
                 }
+                completion(.success(Data()))
+        }
+    }
+    
+    func deleteFeedItem(with id: String, completion: @escaping (Result<Data>) -> ()) {
+        let url = "\(baseUrl)/feeditem/\(id)"
+        Alamofire.request(url, method: .delete)
+            .validate(statusCode: 200..<300)
+            .responseData { (dataResp) in
+                if let err = dataResp.error {
+                    print("Failed to delete feed item: ", err)
+                    completion(.failure(err))
+                    return
+                }
+                completion(.success(Data()))
         }
     }
     
@@ -222,11 +245,13 @@ class ServerService: ServerServiceProtocol {
                     if let err = dataResp.error {
                         print("Failed to hit server: ", err)
                         completion(.failure(err))
+                        return
                     }
                     
                     if let code = dataResp.response?.statusCode, code >= 300 {
                         print("Failed to upload with status: ", code)
                         completion(.failure(Err.BadCode))
+                        return
                     }
                     completion(.success(Data()))
                 }
@@ -242,6 +267,7 @@ class ServerService: ServerServiceProtocol {
                 if let err = dataResp.error {
                     print("Failed to fetch comments: ", err)
                     completion(.failure(err))
+                    return
                 }
                 
                 guard let data = dataResp.data else { return }
@@ -265,6 +291,7 @@ class ServerService: ServerServiceProtocol {
                 if let err = dataResp.error {
                     print("Failed to upload comment: ", err)
                     completion(.failure(err))
+                    return
                 }
                 completion(.success(Data()))
         }

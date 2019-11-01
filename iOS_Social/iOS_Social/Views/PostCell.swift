@@ -11,6 +11,7 @@ import UIKit
 protocol PostCellDelegate: class {
     func didLikedPost()
     func didCommentsTapped(postId: String)
+    func didOptionsTapped(postId: String)
 }
 
 protocol PostCellProtocol: class {
@@ -105,7 +106,9 @@ class PostCell: UICollectionViewCell, PostCellProtocol {
     }
     
     @objc
-    private func handleOptions() {}
+    private func handleOptions() {
+        delegate?.didOptionsTapped(postId: postId)
+    }
     
     @objc
     private func handleLike() {
