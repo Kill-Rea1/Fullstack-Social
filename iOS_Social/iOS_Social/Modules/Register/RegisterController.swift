@@ -100,6 +100,7 @@ class RegisterController: UIViewController, RegisterViewProtocol {
         label.isHidden = true
         return label
     }()
+    private var overralStackView = UIStackView()
     
     let configurator: RegisterConfiguratorProtocol = RegisterConfigurator()
     var presenter: RegisterPresenterProtocol!
@@ -109,6 +110,28 @@ class RegisterController: UIViewController, RegisterViewProtocol {
         view.backgroundColor = .init(white: 0.95, alpha: 1)
         configurator.configure(with: self)
         setupViews()
+        addNotifications()
+    }
+    
+    private func addNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleShowKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleHideKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+        
+    @objc fileprivate func handleShowKeyboard(notification: Notification) {
+        
+        guard let userInfo = notification.userInfo else { return }
+        guard let value = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        let keyboardFrame = value.cgRectValue
+        let bottomSpace = view.frame.height - overralStackView.frame.origin.y - overralStackView.frame.height + 80
+        let difference = keyboardFrame.height - bottomSpace
+        if difference > 0 {
+            view.transform = CGAffineTransform(translationX: 0, y: -difference - 8)
+        }
+    }
+    
+    @objc fileprivate func handleHideKeyboard() {
+        view.transform = .identity
     }
     
     fileprivate func setupViews() {
@@ -124,7 +147,7 @@ class RegisterController: UIViewController, RegisterViewProtocol {
         stackView.layoutMargins.left = 16
         stackView.layoutMargins.right = 16
         
-        let overrallStackView = UIStackView(arrangedSubviews: [
+        overralStackView = UIStackView(arrangedSubviews: [
             stackView,
             SpacerView(size: 12),
             fullNameTextField,
@@ -135,15 +158,22 @@ class RegisterController: UIViewController, RegisterViewProtocol {
             goToLoginButton,
             SpacerView(size: 80)
         ])
-        overrallStackView.spacing = 16
-        overrallStackView.axis = .vertical
-        overrallStackView.isLayoutMarginsRelativeArrangement = true
-        overrallStackView.layoutMargins = .init(top: 48, left: 32, bottom: 0, right: 32)
-        overrallStackView.translatesAutoresizingMaskIntoConstraints = false
+        overralStackView.spacing = 16
+        overralStackView.axis = .vertical
+        overralStackView.isLayoutMarginsRelativeArrangement = true
+        overralStackView.layoutMargins = .init(top: 48, left: 32, bottom: 0, right: 32)
+        overralStackView.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(overrallStackView)
-        overrallStackView.centerInSuperview()
-        overrallStackView.addConstraints(leading: view.leadingAnchor, top: nil, trailing: view.trailingAnchor, bottom: nil)
+        view.addSubview(overralStackView)
+        overralStackView.centerInSuperview()
+        overralStackView.addConstraints(leading: view.leadingAnchor, top: nil, trailing: view.trailingAnchor, bottom: nil)
+        
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
+    }
+    
+    @objc
+    private func handleTap() {
+        view.endEditing(true)
     }
     
     @objc
