@@ -82,6 +82,27 @@ class NewPostController: UIViewController, NewPostViewProtocol {
         view.backgroundColor = .white
         configurator.configure(with: self)
         setupViews()
+        addNotifications()
+    }
+    
+    private func addNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleShowKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleHideKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+        
+    @objc fileprivate func handleShowKeyboard(notification: Notification) {
+        guard let userInfo = notification.userInfo else { return }
+        guard let value = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        let keyboardFrame = value.cgRectValue
+        let bottomSpace = view.frame.height - postBodyTextView.frame.origin.y - 125
+        let difference = keyboardFrame.height - bottomSpace
+        if difference > 0 {
+            view.transform = CGAffineTransform(translationX: 0, y: -difference)
+        }
+    }
+    
+    @objc fileprivate func handleHideKeyboard() {
+        view.transform = .identity
     }
     
     fileprivate func setupViews() {
@@ -97,6 +118,12 @@ class NewPostController: UIViewController, NewPostViewProtocol {
         postBodyTextView.backgroundColor = .clear
         postBodyTextView.delegate = self
         postBodyTextView.addConstraints(leading: placeholderLabel.leadingAnchor, top: placeholderLabel.bottomAnchor, trailing: view.trailingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, padding: .init(top: -25, left: -6, bottom: 0, right: 16))
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
+    }
+    
+    @objc
+    private func handleTap() {
+        view.endEditing(true)
     }
     
     
