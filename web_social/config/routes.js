@@ -66,7 +66,7 @@ module.exports.routes = {
   'POST  /api/v1/deliver-contact-form-message':          { action: 'deliver-contact-form-message' },
 
   'GET /listusers': { action: 'user/listusers' },
-  'GET /post': { action: 'post/home' },
+  'GET /post': { action: 'post/home', csrf: false},
   'POST /post': { action: 'post/create' },
   'DELETE /post/:postId' : { action: 'post/delete'},
   'DELETE /feeditem/:id': { action: 'feeditem/delete'},

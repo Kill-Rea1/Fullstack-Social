@@ -50,9 +50,8 @@ module.exports.datastores = {
     ***************************************************************************/
     // adapter: 'sails-mysql',
     // url: 'mysql://user:password@host:port/database',
-
     adapter: 'sails-mongo',
-    url: 'mongodb://admin:admin@cluster0-shard-00-00-auw4a.mongodb.net:27017,cluster0-shard-00-01-auw4a.mongodb.net:27017,cluster0-shard-00-02-auw4a.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority',
+    url: process.env.MONGO_DB,
 
   },
 

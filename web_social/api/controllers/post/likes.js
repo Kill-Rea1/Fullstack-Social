@@ -8,5 +8,5 @@ module.exports = async function(req, res) {
     if (req.wantsJSON) {
         res.send(users)
     }
-    res.send(users)
+    res.end()
 }

@@ -38,11 +38,12 @@ protocol ServerServiceProtocol: class {
 
 class ServerService: ServerServiceProtocol {
     
-    #if targetEnvironment(simulator)
-        let baseUrl = "http://localhost:1337"
-    #else
-        let baseUrl = "http://192.168.0.103:1337"
-    #endif
+//    #if targetEnvironment(simulator)
+//        let baseUrl = "http://localhost:1337"
+//    #else
+//        let baseUrl = "http://192.168.0.103:1337"
+//    #endif
+    private let baseUrl = "https://fullstack-social-ivanoff.herokuapp.com"
     
     weak var delegate: UploadProgressProtocol?
     

@@ -371,8 +371,9 @@ module.exports = {
   *                                                                         *
   ***************************************************************************/
   custom: {
-    baseUrl: 'https://example.com',
+    baseUrl: 'https://fullstack-social-ivanoff.herokuapp.com',
     internalEmailAddress: 'support@example.com',
+    
 
     // mailgunDomain: 'mg.example.com',
     // mailgunSecret: 'key-prod_fake_bd32301385130a0bafe030c',

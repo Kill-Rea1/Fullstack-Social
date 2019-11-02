@@ -33,6 +33,7 @@ class ProfilePresenter: ProfilePresenterProtocol {
     required init(view: ProfileViewProtocol) {
         self.view = view
         self.view?.setup()
+        self.view?.addRefreshControl()
     }
     
     // MARK:- ProfilePresenterProtocol
