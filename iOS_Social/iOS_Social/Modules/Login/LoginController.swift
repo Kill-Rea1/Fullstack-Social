@@ -104,6 +104,7 @@ class LoginController: UIViewController, LoginViewProtocol {
         configurator.configure(with: self)
         setupViews()
         addNotifications()
+        createToolBar()
     }
     
     private func addNotifications() {
@@ -168,6 +169,18 @@ class LoginController: UIViewController, LoginViewProtocol {
         view.endEditing(true)
     }
     
+    fileprivate func createToolBar() {
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(handleTap))
+        let flex = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        doneButton.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        toolbar.setItems([flex, doneButton], animated: true)
+        toolbar.isUserInteractionEnabled = true
+        toolbar.backgroundColor = #colorLiteral(red: 0.8138477206, green: 0.8237602115, blue: 0.8536676764, alpha: 1)
+        emailTextField.inputAccessoryView = toolbar
+        passwordTextField.inputAccessoryView = toolbar
+    }
     
     @objc
     fileprivate func handleLogIn() {

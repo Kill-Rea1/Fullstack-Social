@@ -83,6 +83,7 @@ class NewPostController: UIViewController, NewPostViewProtocol {
         configurator.configure(with: self)
         setupViews()
         addNotifications()
+        createToolBar()
     }
     
     private func addNotifications() {
@@ -130,6 +131,18 @@ class NewPostController: UIViewController, NewPostViewProtocol {
     @objc
     fileprivate func handlePost() {
         presenter.createPost()
+    }
+    
+    fileprivate func createToolBar() {
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        let flex = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(handleTap))
+        doneButton.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        toolbar.setItems([flex, doneButton], animated: true)
+        toolbar.isUserInteractionEnabled = true
+        toolbar.backgroundColor = #colorLiteral(red: 0.8138477206, green: 0.8237602115, blue: 0.8536676764, alpha: 1)
+        postBodyTextView.inputAccessoryView = toolbar
     }
     
     // MARK:- NewPostViewProtocol
