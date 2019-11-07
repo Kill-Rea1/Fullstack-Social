@@ -22,11 +22,11 @@ module.exports.routes = {
   'GET /legal/privacy':      { action:   'legal/view-privacy' },
   'GET /contact':            { action:   'view-contact' },
 
-  'GET /signup':             { action: 'entrance/view-signup' },
+  // 'GET /signup':             { action: 'entrance/view-signup' },
   'GET /email/confirm':      { action: 'entrance/confirm-email' },
   'GET /email/confirmed':    { action: 'entrance/view-confirmed-email' },
 
-  'GET /login':              { action: 'entrance/view-login' },
+  // 'GET /login':              { action: 'entrance/view-login' },
   'GET /password/forgot':    { action: 'entrance/view-forgot-password' },
   'GET /password/new':       { action: 'entrance/view-new-password' },
 
@@ -81,11 +81,23 @@ module.exports.routes = {
   'GET /user/:id': { action: 'user/publicprofile'},
   'GET /post/:id': { action: 'post/index'},
   'POST /comment/post/:id': { action: 'comment/create'},
-  'GET /customauth/login': {
+  // 'GET /customauth/login': {
+  'GET /login': {
     view: 'pages/customauth/custom-login',
+    locals: {
+      layout: 'layouts/auth-layout'
+    }
+  },
+  'GET /signup': {
+    view: 'pages/customauth/custom-signup',
     locals: {
       layout: 'layouts/auth-layout'
     }
   }
 
+  // 'GET /login': {
+  //   view: 'pages/customauth/custom-login',
+  //   locals: {
+  //     layout: 'layouts/auth-layout'
+  //   }
 };
