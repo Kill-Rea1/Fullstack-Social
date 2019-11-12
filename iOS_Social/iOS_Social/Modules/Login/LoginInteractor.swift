@@ -32,11 +32,10 @@ class LoginInteractor: LoginInteractorProtocol {
     var serverService: ServerServiceProtocol = ServerService()
     
     func login(email: String, password: String) {
-        serverService.login(email: email, password: password) { (res) in
-            switch res {
-            case .failure(_):
+        serverService.login(email: email, password: password) { (_, err) in
+            if err != nil {
                 self.loginResponse = false
-            case .success:
+            } else {
                 self.loginResponse = true
             }
         }

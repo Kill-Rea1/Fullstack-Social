@@ -31,11 +31,10 @@ class RegisterInteractor: RegisterInteractorProtocol {
     var serverService: ServerServiceProtocol = ServerService()
     
     func register(fullName: String, email: String, password: String) {
-        serverService.register(fullName: fullName, email: email, password: password) { (res) in
-            switch res {
-            case .failure(_):
+        serverService.register(fullName: fullName, email: email, password: password) { (_, err) in
+            if err != nil {
                 self.registerResponse = false
-            case .success:
+            } else {
                 self.registerResponse = true
             }
         }

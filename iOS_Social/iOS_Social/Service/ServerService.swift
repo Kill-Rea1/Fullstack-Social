@@ -10,6 +10,8 @@ import Foundation
 import Alamofire
 import UIKit
 
+struct Success: Decodable {}
+
 enum Err: Error {
     case BadCode
 }
@@ -20,20 +22,20 @@ protocol UploadProgressProtocol: class {
 
 protocol ServerServiceProtocol: class {
     var delegate: UploadProgressProtocol? { get set }
-    func searchForUsers(completion: @escaping (Result<[User]>) -> ())
-    func changeFollowState(of userId: String, state isFollow: Bool, completion: @escaping (Result<Data>) -> ())
-    func login(email: String, password: String, completion: @escaping (Result<Data>) -> ())
-    func register(fullName: String, email: String, password: String, completion: @escaping (Result<Data>) -> ())
-    func fetchPosts(completion: @escaping (Result<[Post]>) -> ())
+    func searchForUsers(completion: @escaping ([User]?, Error?) -> ())
+    func changeFollowState(of userId: String, state isFollow: Bool, completion: @escaping (Success?, Error?) -> ())
+    func login(email: String, password: String, completion: @escaping (Success?, Error?) -> ())
+    func register(fullName: String, email: String, password: String, completion: @escaping (Success?, Error?) -> ())
+    func fetchPosts(completion: @escaping ([Post]?, Error?) -> ())
     func uploadPost(postText: String, imageData: Data, completion: @escaping (Result<Data>) -> ())
-    func deletePost(with id: String, completion: @escaping (Result<Data>) -> ())
-    func fetchUser(with id: String, completion: @escaping (Result<User>) -> ())
+    func deletePost(with id: String, completion: @escaping (Success?, Error?) -> ())
+    func fetchUser(with id: String, completion: @escaping (User?, Error?) -> ())
     func uploadNewAvatar(with info: Any, fullName: String, bio: String, completion: @escaping (Result<Data>) -> ())
-    func fetchPostComments(with id: String, completion: @escaping (Result<[Comment]>) -> ())
-    func uploadComment(with text: String, postId: String, completion: @escaping (Result<Data>) -> ())
-    func deleteFeedItem(with id: String, completion: @escaping (Result<Data>) -> ())
-    func didLikedPost(with id: String, likeState: Bool, completion: @escaping (Result<Data>) -> ())
-    func fetchPostsLikes(with id: String, completion: @escaping (Result<[User]>) -> ())
+    func fetchPostComments(with id: String, completion: @escaping ([Comment]?, Error?) -> ())
+    func uploadComment(with text: String, postId: String, completion: @escaping (Success?, Error?) -> ())
+    func deleteFeedItem(with id: String, completion: @escaping (Success?, Error?) -> ())
+    func didLikedPost(with id: String, likeState: Bool, completion: @escaping (Success?, Error?) -> ())
+    func fetchPostsLikes(with id: String, completion: @escaping ([User]?, Error?) -> ())
 }
 
 class ServerService: ServerServiceProtocol {
@@ -45,125 +47,97 @@ class ServerService: ServerServiceProtocol {
 //    #endif
     private let baseUrl = "https://fullstack-social-ivanoff.herokuapp.com"
     
+    private func fetchGenericJSONData<T: Decodable>(url: String, method: HTTPMethod = .get, params: Parameters? = nil, completion: @escaping (T?, Error?)->()) {
+        Alamofire.request(url, method: method, parameters: params)
+            .validate(statusCode: 200..<300)
+            .responseData { (dataResp) in
+                if let err = dataResp.error {
+                    completion(nil, err)
+                    return
+                }
+                guard let data = dataResp.data else { return }
+                let dataStr = String(data: data, encoding: .utf8) ?? ""
+                if data == Data() || dataStr == "OK" {
+                    completion(nil, nil)
+                    return
+                }
+                do {
+                    let object = try JSONDecoder().decode(T.self, from: data)
+                    completion(object, nil)
+                } catch let jsonErr {
+                    completion(nil, jsonErr)
+                }
+        }
+    }
+    
+    // MARK:- ServerServiceProtocol
+    
     weak var delegate: UploadProgressProtocol?
     
-    func fetchUser(with id: String, completion: @escaping (Result<User>) -> ()) {
-        let currentUserProfileUrl = "\(baseUrl)/profile"
-        let publicProfileUrl = "\(baseUrl)/user/\(id)"
-        let url = id.isEmpty ? currentUserProfileUrl : publicProfileUrl
-        Alamofire.request(url)
-            .validate(statusCode: 200..<300)
-            .responseData { (dataResp) in
-                if let err = dataResp.error {
-                    print("Failed to fetch user profile: ", err)
-                    completion(.failure(err))
-                    return
-                }
-                
-                guard let data = dataResp.data else { return }
-                do {
-                    var user = try JSONDecoder().decode(User.self, from: data)
-                    user.isEditable = id.isEmpty
-                    completion(.success(user))
-                } catch let jsonErr {
-                    print("Failed to decode JSON user: ", jsonErr)
-                    completion(.failure(jsonErr))
-                }
-                
-        }
-    }
-    
-    func searchForUsers(completion: @escaping (Result<[User]>) -> ()) {
-        let url = "\(baseUrl)/search"
-        Alamofire.request(url)
-            .validate(statusCode: 200..<300)
-            .responseData { (dataResp) in
-                if let err = dataResp.error {
-                    print("Failed to fetch users: ", err)
-                    completion(.failure(err))
-                    return
-                }
-                
-                do {
-                    guard let data = dataResp.data else { return }
-                    let users = try JSONDecoder().decode([User].self, from: data)
-                    completion(.success(users))
-                } catch let jsonErr {
-                    print("Failed to decode JSON users: ", jsonErr)
-                    completion(.failure(jsonErr))
-                }
-        }
-    }
-    
-    func changeFollowState(of userId: String, state isFollow: Bool, completion: @escaping (Result<Data>) -> ()) {
-        let url = "\(baseUrl)/\(isFollow ? "unfollow" : "follow")/\(userId)"
-        Alamofire.request(url, method: .post)
-            .validate(statusCode: 200..<300)
-            .responseData { (dataResp) in
-                if let err = dataResp.error {
-                    print("Failed to change follow state: ", err)
-                    completion(.failure(err))
-                    return
-                }
-                completion(.success(dataResp.data ?? Data()))
-        }
-    }
-
-    
-    func login(email: String, password: String, completion: @escaping (Result<Data>) -> ()) {
+    func login(email: String, password: String, completion: @escaping (Success?, Error?) -> ()) {
         print("Performing login")
         let params = ["emailAddress": email, "password": password]
         let url = "\(baseUrl)/api/v1/entrance/login"
-        Alamofire.request(url, method: .put, parameters: params)
-            .validate(statusCode: 200..<300)
-            .responseData { (dataResponse) in
-                if let err = dataResponse.error {
-                    print("Failed to log in: ", err)
-                    completion(.failure(err))
-                } else {
-                    guard let data = dataResponse.data else { return }
-                    print(String(data: data, encoding: .utf8) ?? "")
-                    completion(.success(dataResponse.data ?? Data()))
-                }
-        }
+        fetchGenericJSONData(url: url, method: .put, params: params, completion: completion)
     }
     
-    func register(fullName: String, email: String, password: String, completion: @escaping (Result<Data>) -> ()) {
-        print("Performing register")
+    func register(fullName: String, email: String, password: String, completion: @escaping (Success?, Error?) -> ()) {
         let params = ["fullName": fullName, "emailAddress": email, "password": password]
         let url = "\(baseUrl)/api/v1/entrance/signup"
-        Alamofire.request(url, method: .post, parameters: params)
-            .validate(statusCode: 200..<300)
-            .responseData { (dataResponse) in
-                if let err = dataResponse.error {
-                    print("Failed to sign up: ", err)
-                    completion(.failure(err))
-                } else {
-                    completion(.success(dataResponse.data ?? Data()))
-                }
-        }
+        fetchGenericJSONData(url: url, method: .post, params: params, completion: completion)
     }
     
-    func fetchPosts(completion: @escaping (Result<[Post]>) -> ()) {
+    func fetchPosts(completion: @escaping ([Post]?, Error?) -> ()) {
         let url = "\(baseUrl)/post"
-        Alamofire.request(url)
-            .validate(statusCode: 200..<300)
-            .responseData { (dataResponse) in
-                if let err = dataResponse.error {
-                    print("Failed to fetch posts: ", err)
-                    completion(.failure(err))
-                    return
-                }
-                
-                guard let data = dataResponse.data else { return }
-                do {
-                    let posts = try JSONDecoder().decode([Post].self, from: data)
-                    completion(.success(posts))
-                } catch let jsonErr {
-                    print("Failed to decode JSON posts: ", jsonErr)
-                    completion(.failure(jsonErr))
-                }
-        }
+        fetchGenericJSONData(url: url, completion: completion)
+    }
+    
+    func deletePost(with id: String, completion: @escaping (Success?, Error?) -> ()) {
+        let url = "\(baseUrl)/post/\(id)"
+        fetchGenericJSONData(url: url, method: .delete, completion: completion)
+    }
+    
+    func searchForUsers(completion: @escaping ([User]?, Error?) -> ()) {
+        let url = "\(baseUrl)/search"
+        fetchGenericJSONData(url: url, completion: completion)
+    }
+    
+    func changeFollowState(of userId: String, state isFollow: Bool, completion: @escaping (Success?, Error?) -> ()) {
+        let url = "\(baseUrl)/\(isFollow ? "unfollow" : "follow")/\(userId)"
+        fetchGenericJSONData(url: url, method: .post, completion: completion)
+    }
+    
+    func fetchUser(with id: String, completion: @escaping (User?, Error?) -> ()) {
+        let currentUserProfileUrl = "\(baseUrl)/profile"
+        let publicProfileUrl = "\(baseUrl)/user/\(id)"
+        let url = id.isEmpty ? currentUserProfileUrl : publicProfileUrl
+        fetchGenericJSONData(url: url, completion: completion)
+    }
+    
+    func fetchPostComments(with id: String, completion: @escaping ([Comment]?, Error?) -> ()) {
+        let url = "\(baseUrl)/post/\(id)"
+        fetchGenericJSONData(url: url, completion: completion)
+    }
+    
+    func uploadComment(with text: String, postId: String, completion: @escaping (Success?, Error?) -> ()) {
+        let url = "\(baseUrl)/comment/post/\(postId)"
+        let params = ["text": text]
+        fetchGenericJSONData(url: url, method: .post, params: params, completion: completion)
+    }
+    
+    func deleteFeedItem(with id: String, completion: @escaping (Success?, Error?) -> ()) {
+        let url = "\(baseUrl)/feeditem/\(id)"
+        fetchGenericJSONData(url: url, method: .delete, completion: completion)
+    }
+    
+    func didLikedPost(with id: String, likeState: Bool, completion: @escaping (Success?, Error?) -> ()) {
+        let url = "\(baseUrl)/\(likeState ? "dislike" : "like")/\(id)"
+        fetchGenericJSONData(url: url, method: .post, completion: completion)
+    }
+    
+    func fetchPostsLikes(with id: String, completion: @escaping ([User]?, Error?) -> ()) {
+        let url = "\(baseUrl)/likes/\(id)"
+        fetchGenericJSONData(url: url, completion: completion)
     }
     
     func uploadPost(postText: String, imageData: Data, completion: @escaping (Result<Data>) -> ()) {
@@ -200,34 +174,6 @@ class ServerService: ServerServiceProtocol {
         }
     }
     
-    func deletePost(with id: String, completion: @escaping (Result<Data>) -> ()) {
-        let url = "\(baseUrl)/post/\(id)"
-        Alamofire.request(url, method: .delete)
-            .validate(statusCode: 200..<300)
-            .responseData { (dataResp) in
-                if let err = dataResp.error {
-                    print("Failed to delete: ", err)
-                    completion(.failure(err))
-                    return
-                }
-                completion(.success(Data()))
-        }
-    }
-    
-    func deleteFeedItem(with id: String, completion: @escaping (Result<Data>) -> ()) {
-        let url = "\(baseUrl)/feeditem/\(id)"
-        Alamofire.request(url, method: .delete)
-            .validate(statusCode: 200..<300)
-            .responseData { (dataResp) in
-                if let err = dataResp.error {
-                    print("Failed to delete feed item: ", err)
-                    completion(.failure(err))
-                    return
-                }
-                completion(.success(Data()))
-        }
-    }
-    
     func uploadNewAvatar(with info: Any, fullName: String, bio: String, completion: @escaping (Result<Data>) -> ()) {
         guard let infoDict = info as? [UIImagePickerController.InfoKey: Any],
             let image = infoDict[.originalImage] as? UIImage,
@@ -261,80 +207,6 @@ class ServerService: ServerServiceProtocol {
                     completion(.success(Data()))
                 }
             }
-        }
-    }
-    
-    func fetchPostComments(with id: String, completion: @escaping (Result<[Comment]>) -> ()) {
-        let url = "\(baseUrl)/post/\(id)"
-        Alamofire.request(url)
-            .validate(statusCode: 200..<300)
-            .responseData { (dataResp) in
-                if let err = dataResp.error {
-                    print("Failed to fetch comments: ", err)
-                    completion(.failure(err))
-                    return
-                }
-                
-                guard let data = dataResp.data else { return }
-                do {
-                    let post = try JSONDecoder().decode(Post.self, from: data)
-                    let comments = post.comments ?? [Comment]()
-                    completion(.success(comments))
-                } catch let jsonErr {
-                    print("Failed to decode JSON comments: ", jsonErr)
-                    completion(.failure(jsonErr))
-                }
-        }
-    }
-    
-    func uploadComment(with text: String, postId: String, completion: @escaping (Result<Data>) -> ()) {
-        let url = "\(baseUrl)/comment/post/\(postId)"
-        let params = ["text": text]
-        Alamofire.request(url, method: .post, parameters: params)
-            .validate(statusCode: 200..<300)
-            .responseData { (dataResp) in
-                if let err = dataResp.error {
-                    print("Failed to upload comment: ", err)
-                    completion(.failure(err))
-                    return
-                }
-                completion(.success(Data()))
-        }
-    }
-    
-    func didLikedPost(with id: String, likeState: Bool, completion: @escaping (Result<Data>) -> ()) {
-        let url = "\(baseUrl)/\(likeState ? "dislike" : "like")/\(id)"
-        Alamofire.request(url, method: .post)
-            .validate(statusCode: 200..<300)
-            .responseData { (dataResp) in
-                if let err = dataResp.error {
-                    print("Failed to like post: ", err)
-                    completion(.failure(err))
-                    return
-                }
-                completion(.success(Data()))
-        }
-    }
-    
-    func fetchPostsLikes(with id: String, completion: @escaping (Result<[User]>) -> ()) {
-        let url = "\(baseUrl)/likes/\(id)"
-        Alamofire.request(url)
-            .validate(statusCode: 200..<300)
-            .responseData { (dataResp) in
-                if let err = dataResp.error {
-                    print("Failed to fetch users: ", err)
-                    completion(.failure(err))
-                    return
-                }
-                guard let data = dataResp.data else { return }
-//                print(String(data: data, encoding: .utf8) ?? "")
-                do {
-                    let users = try JSONDecoder().decode([User].self, from: data)
-                    completion(.success(users))
-                } catch let jsonErr {
-                    print("Failed to decode JSON users: ", jsonErr)
-                    completion(.failure(jsonErr))
-                }
         }
     }
 }

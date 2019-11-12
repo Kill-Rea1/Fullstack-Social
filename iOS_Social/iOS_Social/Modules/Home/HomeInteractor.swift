@@ -32,42 +32,37 @@ class HomeInteractor: HomeInteractorProtocol {
     var posts: [Post]! = []
     
     func fetchPosts() {
-        serverService.fetchPosts { (res) in
-            switch res {
-            case .failure(_):
+        serverService.fetchPosts { (posts, err) in
+            if err != nil {
                 return
-            case .success(let posts):
-                self.posts = posts
-                self.presenter?.updateDataSource()
             }
+            guard let posts = posts else { return }
+            self.posts = posts
+            self.presenter?.updateDataSource()
         }
     }
     
     func deleteFeedItem(with id: String) {
-        serverService.deleteFeedItem(with: id) { (res) in
-            switch res {
-            case .failure(_):
+        serverService.deleteFeedItem(with: id) { (_, err) in
+            if err != nil {
                 return
-            case .success(_):
-                guard let item = self.posts.firstIndex(where: {$0.id == id}) else { return }
-                self.posts.remove(at: item)
-                self.presenter?.successfullyDeleted(at: item)
             }
+            guard let item = self.posts.firstIndex(where: {$0.id == id}) else { return }
+            self.posts.remove(at: item)
+            self.presenter?.successfullyDeleted(at: item)
         }
     }
     
     func didLikedPost(with id: String) {
         guard let item = posts.firstIndex(where: {$0.id == id}) else { return }
         let likeState = posts[item].hasLiked == true
-        serverService.didLikedPost(with: id, likeState: likeState) { (res) in
-            switch res {
-            case .failure(_):
+        serverService.didLikedPost(with: id, likeState: likeState) { (_, err) in
+            if err != nil {
                 return
-            case .success(_):
-                self.posts[item].hasLiked?.toggle()
-                self.posts[item].numLikes += likeState ? -1 : 1
-                self.presenter?.updatePost(at: item)
             }
+            self.posts[item].hasLiked?.toggle()
+            self.posts[item].numLikes += likeState ? -1 : 1
+            self.presenter?.updatePost(at: item)
         }
     }
 }

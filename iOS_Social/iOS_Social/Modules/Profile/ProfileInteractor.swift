@@ -33,26 +33,23 @@ class ProfileInteractor: ProfileInteractorProtocol {
     var posts: [Post]! = []
     
     func fetchProfile(with id: String) {
-        serverService.fetchUser(with: id) { (res) in
-            switch res {
-            case .failure(_):
+        serverService.fetchUser(with: id) { (user, err) in
+            if err != nil {
                 return
-            case .success(let user):
-                self.user = user
-                self.presenter?.updateView()
             }
+            guard let user = user else { return }
+            self.user = user
+            self.presenter?.updateView()
         }
     }
     
     func changeFollowState() {
         user.isFollowing = !(user.isFollowing ?? false)
-        serverService.changeFollowState(of: user.id, state: !(user.isFollowing ?? true)) { (res) in
-            switch res {
-            case .failure(_):
+        serverService.changeFollowState(of: user.id, state: !(user.isFollowing ?? true)) { (_, err) in
+            if err != nil {
                 return
-            case .success(_):
-                self.presenter?.updateView()
             }
+            self.presenter?.updateView()
         }
     }
     
@@ -69,15 +66,13 @@ class ProfileInteractor: ProfileInteractorProtocol {
     }
     
     func deletePost(with id: String) {
-        serverService.deletePost(with: id) { (res) in
-            switch res {
-            case .failure(_):
+        serverService.deletePost(with: id) { (_, err) in
+            if err != nil {
                 return
-            case .success(_):
-                guard let item = self.posts.firstIndex(where: {$0.id == id}) else { return }
-                self.posts.remove(at: item)
-                self.presenter?.successfullyDeleted(at: item)
             }
+            guard let item = self.posts.firstIndex(where: {$0.id == id}) else { return }
+            self.posts.remove(at: item)
+            self.presenter?.successfullyDeleted(at: item)
         }
     }
 }

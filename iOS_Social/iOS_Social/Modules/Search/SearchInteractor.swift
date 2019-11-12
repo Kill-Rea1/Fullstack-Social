@@ -29,14 +29,12 @@ class SearchInteractor: SearchInteractorProtocol {
     var users: [User]! = []
     
     func fetchUsers() {
-        serverService.searchForUsers { (res) in
-            switch res {
-            case .failure(_):
+        serverService.searchForUsers { (users, err) in
+            if err != nil {
                 return
-            case .success(let users):
-                self.users = users
-                self.presenter?.updateView()
             }
+            guard let users = users else { return }
+            self.users = users
         }
     }
     
@@ -45,14 +43,12 @@ class SearchInteractor: SearchInteractorProtocol {
             return user.id == userId
         }) else { return }
         let isFollowing = users[index].isFollowing == true
-        serverService.changeFollowState(of: userId, state: isFollowing) { (res) in
-            switch res {
-            case .failure(_):
+        serverService.changeFollowState(of: userId, state: isFollowing) { (success, err) in
+            if err != nil {
                 return
-            case .success(_):
-                self.users[index].isFollowing?.toggle()
-                self.presenter?.updateItem(at: index)
             }
+            self.users[index].isFollowing?.toggle()
+            self.presenter?.updateItem(at: index)
         }
     }
     

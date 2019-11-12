@@ -25,14 +25,13 @@ class LikesInteractor: LikesInteractorProtocol {
     }
     
     func fetchUsers(with id: String) {
-        serverService.fetchPostsLikes(with: id) { (res) in
-            switch res {
-            case .failure(_):
+        serverService.fetchPostsLikes(with: id) { (users, err) in
+            if err != nil {
                 return
-            case .success(let users):
-                self.users = users
-                self.presenter?.updateView()
             }
+            guard let users = users else { return }
+            self.users = users
+            self.presenter?.updateView()
         }
     }
     
